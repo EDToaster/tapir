@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f7f6f1" />
+    <title>Tapir · Assembly workbench</title>
+  </head>
+  <body>
+    <header class="head">
+      <div class="brand">tapir<span>.</span></div>
+      <span class="brandline"></span><span class="studio">HARDWARE STUDIO</span>
+      <nav>
+        <button class="nav on" data-action="assembly">
+          <i data-i="box"></i>Workbench</button
+        ><button class="nav" data-action="sources">
+          <i data-i="book"></i>Parts &amp; sources
+        </button>
+      </nav>
+      <span class="version"><b></b>Concept / 01</span>
+    </header>
+    <main>
+      <div class="intro">
+        <div>
+          <div class="eyebrow">
+            <span class="accent-line"></span> TAPIR &nbsp;/&nbsp; DESIGN STUDY
+            001
+          </div>
+          <h1>Assembly workbench</h1>
+          <p>A low-profile split keyboard, shaped around a pointing stick.</p>
+        </div>
+        <button class="secondary export" data-action="export">
+          <i data-i="download"></i>Export 1:1 layout
+        </button>
+      </div>
+      <div class="workbench">
+        <section class="maincol">
+          <div class="viewport">
+            <div class="stagebar">
+              <div class="stage-meta">
+                <span class="live-dot"></span>MODEL VIEW
+              </div>
+              <div id="views" class="view-select"></div>
+            </div>
+            <div
+              id="scene"
+              tabindex="0"
+              aria-label="Interactive 3D Tapir keyboard. Drag to orbit, scroll to zoom, select a part to inspect."
+            ></div>
+            <div class="viewbottom">
+              <div id="modes" class="mode-select"></div>
+              <div class="view-actions">
+                <button
+                  data-action="layers"
+                  aria-label="Toggle component visibility"
+                  title="Show or hide parts"
+                >
+                  <i data-i="layers"></i></button
+                ><button
+                  data-action="home"
+                  aria-label="Recenter view"
+                  title="Recenter view"
+                >
+                  <i data-i="focus"></i>
+                </button>
+              </div>
+            </div>
+            <div id="layerpop" hidden></div>
+          </div>
+          <div class="view-caption">
+            <span
+              ><i data-i="orbit"></i
+              ><span id="gesture"
+                >Drag to orbit · Scroll to zoom · Click to inspect</span
+              ></span
+            ><span>UNITS: MM</span>
+          </div>
+          <div class="measure-head">
+            <span class="eyebrow">LIVE DIMENSIONS</span
+            ><button class="textbtn" data-action="fit">
+              Fit report <i data-i="diagonal"></i>
+            </button>
+          </div>
+          <div id="metrics" class="metrics"></div>
+        </section>
+        <aside>
+          <div class="panelheading">
+            <div class="eyebrow"><i data-i="sliders"></i>CONFIGURATION</div>
+            <button
+              class="reset"
+              data-action="reset"
+              title="Reset all parameters"
+            >
+              <i data-i="reset"></i>Reset
+            </button>
+          </div>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Geometry</h2>
+              <span>01</span>
+            </div>
+            <label class="select-label" for="preset">Layout preset</label>
+            <div class="selwrap">
+              <select id="preset">
+                <option value="balanced">Balanced splay</option>
+                <option value="fan">Pipar-style fan</option>
+                <option value="wide">Gentle, wide gap</option>
+                <option value="custom" disabled>Custom layout</option></select
+              ><i data-i="chev"></i>
+            </div>
+            <div id="geometry-sliders"></div>
+          </section>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Switch profile</h2>
+              <span>02</span>
+            </div>
+            <div id="profiles" class="profile-picker"></div>
+            <div id="switch-note" class="smallnote"></div>
+            <label class="toggleline"
+              ><span>Simulate full keypress</span
+              ><input type="checkbox" id="pressed" /><span class="toggle"></span
+            ></label>
+          </section>
+          <details class="parameterblock extra">
+            <summary>
+              <span>Assembly settings</span><i data-i="chev"></i>
+            </summary>
+            <div id="extra-sliders"></div>
+          </details>
+          <button class="reportbtn" data-action="fit">
+            <i data-i="ruler"></i>Inspect fit &amp; clearances<i
+              data-i="arrow"
+            ></i>
+          </button>
+        </aside>
+      </div>
+      <footer>
+        <span>TAPIR &nbsp; / &nbsp; MECHANICAL CONCEPT</span
+        ><span>Nominal envelopes. Not fabrication CAD.</span>
+      </footer>
+    </main>
+    <dialog id="dialog">
+      <div class="dialoghead">
+        <div class="eyebrow" id="dkicker"></div>
+        <button data-action="close" class="iconbtn" aria-label="Close">
+          <i data-i="x"></i>
+        </button>
+      </div>
+      <h2 id="dtitle"></h2>
+      <div id="dbody"></div>
+    </dialog>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

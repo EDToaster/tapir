@@ -1,0 +1,10 @@
+node_modules/
+dist/
+build/
+__pycache__/
+.DS_Store
+*.kicad_prl
+*.kicad_sch-bak
+*.kicad_pcb-bak
+*-backups/
+fp-info-cache
