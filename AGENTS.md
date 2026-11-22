@@ -9,7 +9,7 @@ paid fabrication and purchases require explicit approval.**
 
 ## What exists today
 
-- `workbench/layout.js` owns the nominal layout, dimensions, and plan-clearance calculations;
+- `workbench/layout.js` owns the nominal layout, dimensions, plan clearances, and 3D underside-envelope checks;
   `workbench/parts.js` gives their provenance and limitations. The interactive workbench,
   vector fallback, and printable reach template consume the same layout. Keep them in sync.
 - Work in mm. Layout X is across the halves, Y increases toward the thumbs, and height

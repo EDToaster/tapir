@@ -13,7 +13,12 @@ export const PARTS = {
     name: 'Kailh Choc v1 + MBK 1U',
     tag: 'Drawing + CAD',
     desc:
-      '15 × 15 mm flange, 8 mm from PCB top to bare stem at rest, 3 mm nominal travel. The 17.5 × 16.5 mm MBK cap seats around the stem: its highest corner is ≈10.6 mm above the PCB in the assembled reference CAD, not 8 mm plus the whole cap height. ' +
+      '15 × 15 mm flange, 8 mm bare stem at rest and 3 mm travel. A seated 17.5 × 16.5 mm MBK cap peaks at ≈10.6 mm in the reference CAD. On the 1.6 mm carrier, allow 1.05 mm below for molded pegs and 1.4 mm for terminals. The model adds 0.4 mm for solder, uses 2.4 mm square fillet bounds, and places the LED side toward the rear before column rotation. Hot-swap sockets are not modeled. ' +
+      a(
+        'https://raw.githubusercontent.com/daprice/keyswitches.pretty/master/SW_PG1350.kicad_mod',
+        'direct-solder hole centers',
+      ) +
+      ' · ' +
       a(
         'https://cdn-shop.adafruit.com/product-files/5113/CHOC+keyswitch_Kailh-CPG135001D01_C400229.pdf',
         'Kailh drawing',
@@ -31,7 +36,7 @@ export const PARTS = {
     name: 'Kailh PG1316S + 1U cap',
     tag: 'Drawing + build',
     desc:
-      'The switch body is 13.50 × 13.00 mm; the PCB solder lands extend outside it. The catalog cap is 16 × 16 mm; the Mikefive designer measured 16.05 × 16.25 mm. The seated cap stands 4.2 mm above the PCB at rest, with 1.8 mm nominal travel. Pitch stays 18 × 17 mm for reach comparison, not footprint compatibility. ' +
+      'The switch body is 13.50 × 13.00 mm; its top-side solder lands extend outside it. The 0.6 mm locating pins do not emerge through a 1.6 mm PCB. The 0.6 mm space reserved below the PCB is a process allowance, not a protruding part. Catalog cap 16 × 16 mm; Mikefive measured 16.05 × 16.25 mm and a 4.2 mm seated height. Nominal travel 1.8 mm. Pitch stays 18 × 17 mm for reach comparison, not footprint compatibility. ' +
       a(
         'https://keycapsss.com/media/82/f2/46/1758970302/CPG1316S01D02-data-sheet.pdf?ts=1758970677',
         'Kailh drawing, p. 1',
@@ -61,6 +66,12 @@ export const PARTS = {
         'https://holykeebs.com/products/sk8707-01-trackpoint-sensor',
         'detached sensor, driver and dome',
       ) +
+      ' · ' +
+      a(
+        'https://docs.holykeebs.com/guides/trackpoint-module/',
+        'attachment reference',
+      ) +
+      '. Under-mount is a custom concept: proposed 4 mm square opening, ≤2.4 mm shaft through it, 0.5 mm front and 0.8 mm rear hardware allowances plus 0.4 mm to the cover. Bracket, interconnect and extension are unverified' +
       '.',
   },
   driver: {
@@ -135,6 +146,6 @@ export const PARTS = {
   back: {
     name: 'Protective back cover',
     tag: 'Allowance',
-    desc: 'Nominal 1 mm back sheet, with 2.2 mm between its top and the PCB underside. Mounts, fasteners and case-edge protection remain open. Explode or hide the cover to inspect the proposed stack.',
+    desc: 'Nominal 1 mm back sheet. The original top mount reserves 2.2 mm to the carrier underside. For an under-mounted sensor the cover plane on both halves lowers if needed to leave 0.4 mm below the rear hardware allowance. A local right-hand pocket would be a different design. Mounts, fasteners and edge protection remain open.',
   },
 };

@@ -1,4 +1,4 @@
-import { layout, SPECS } from './layout.js';
+import { layout, rect as footprint, SPECS } from './layout.js';
 
 const RAD = Math.PI / 180;
 const round = (n) => Number(n.toFixed(2));
@@ -128,6 +128,7 @@ export function createFallback(host, onPick) {
       sw: 12 * explode,
       key: 27 * explode,
       parts: 9 * explode,
+      underSensor: -6 * explode,
     };
     const cy = Math.cos(yaw),
       sy = Math.sin(yaw),
@@ -139,6 +140,7 @@ export function createFallback(host, onPick) {
     ];
     const coords = (ps) => ps.map((p) => p.map(round).join(',')).join(' ');
     let fragments = [],
+      extraDefs = '',
       bounds = [],
       shadows = '',
       offset = 0;
@@ -155,7 +157,17 @@ export function createFallback(host, onPick) {
       '" stroke-width="' +
       width +
       '" stroke-linejoin="round"/>';
-    const solid = (lower, upper, z0, z1, palette, stroke = palette[2]) => {
+    const contour = (pts) =>
+      'M' + pts.map((p) => p.map(round).join(',')).join('L') + 'Z';
+    const solid = (
+      lower,
+      upper,
+      z0,
+      z1,
+      palette,
+      stroke = palette[2],
+      aperture = null,
+    ) => {
       const a = lower.map((p) => plane(p, z0)),
         b = upper.map((p) => plane(p, z1)),
         faces = [];
@@ -180,12 +192,36 @@ export function createFallback(host, onPick) {
           ),
         ]);
       }
+      let face = polygon(
+        under ? a : b,
+        under ? palette[1] : palette[0],
+        stroke,
+      );
+      if (aperture) {
+        const lo = aperture.map((p) => plane(p, z0)),
+          hi = aperture.map((p) => plane(p, z1));
+        const walls = lo
+          .map((pt, i) => {
+            const j = (i + 1) % lo.length;
+            return polygon([pt, lo[j], hi[j], hi[i]], palette[i % 2 ? 1 : 2]);
+          })
+          .join('');
+        face =
+          walls +
+          '<path fill-rule="evenodd" d="' +
+          contour(under ? a : b) +
+          contour(under ? lo : hi) +
+          '" fill="' +
+          (under ? palette[1] : palette[0]) +
+          '" stroke="' +
+          stroke +
+          '" stroke-width=".16"/>';
+      }
       return (
         faces
           .sort((a, b) => a[0] - b[0])
           .map((f) => f[1])
-          .join('') +
-        polygon(under ? a : b, under ? palette[1] : palette[0], stroke)
+          .join('') + face
       );
     };
     const prism = (p, w, h, z, t, c, r = 0.6) => {
@@ -208,10 +244,23 @@ export function createFallback(host, onPick) {
       let a = pos(p, x, y);
       return { x: a[0], y: a[1], a: p.a };
     };
-    const text = (p, z, str, size, ink) => {
+    const wireCage = (ps, lo, hi, ink) => {
+      let lines =
+        path([...ps, ps[0]], lo, ink, 0.16) +
+        path([...ps, ps[0]], hi, ink, 0.13);
+      for (const p of ps)
+        lines +=
+          '<polyline points="' +
+          coords([plane(p, lo), plane(p, hi)]) +
+          '" fill="none" stroke="' +
+          ink +
+          '" stroke-width=".14"/>';
+      return lines;
+    };
+    const text = (p, z, str, size, ink, undersideInk = false) => {
       let o = plane([p.x, p.y], z),
         u = plane(pos(p, 1, 0), z),
-        v = plane(pos(p, 0, 1), z);
+        v = plane(pos(p, 0, undersideInk ? -1 : 1), z);
       let matrix = [u[0] - o[0], u[1] - o[1], v[0] - o[0], v[1] - o[1], ...o];
       return (
         '<text transform="matrix(' +
@@ -246,24 +295,52 @@ export function createFallback(host, onPick) {
       offset = h.origin.x;
       const part = (type, label) => ({ type, hand: h.hand, label }),
         zero = { x: 0, y: 0 };
+      const backZ = (model.backBottom ?? -SPECS.pcbT - 3.2) + ex.back;
+      const aperture =
+        h.pointer?.under && h.pointer.opening > 0
+          ? footprint(
+              { ...h.pointer, a: h.pointer.apertureA ?? h.pointer.a },
+              h.pointer.opening,
+              h.pointer.opening,
+            )
+          : null;
       for (const xy of h.outline)
-        for (const z of [-5 + ex.back, cap.top + ex.key + 1])
+        for (const z of [backZ, cap.top + ex.key + 1])
           bounds.push(plane(xy, z));
       if (!under && Object.values(L).some(Boolean)) {
         let ps = h.outline.map((p) => {
-          let [x, y] = plane(p, -5 + ex.back);
+          let [x, y] = plane(p, backZ);
           return [x + 1.2, y + 2];
         });
         shadows += polygon(ps, '#604e39');
       }
       if (L.back !== false) {
-        const backZ = -SPECS.pcbT - 3.2 + ex.back;
         let back = solid(h.outline, h.outline, backZ, backZ + 1, colors.back);
         emit(0, zero, part('back', 'Backplate'), back);
       }
       if (L.pcb !== false) {
-        let pcb = solid(h.outline, h.outline, -SPECS.pcbT, 0, colors.pcb);
+        let pcb = solid(
+          h.outline,
+          h.outline,
+          -SPECS.pcbT,
+          0,
+          colors.pcb,
+          colors.pcb[2],
+          aperture,
+        );
         const z = under ? -SPECS.pcbT - 0.04 : 0.04;
+        if (aperture) {
+          const inkClip = uid + 'ink' + h.hand,
+            faceZ = under ? -SPECS.pcbT : 0;
+          extraDefs +=
+            '<clipPath id="' +
+            inkClip +
+            '"><path clip-rule="evenodd" d="' +
+            contour(h.outline.map((p) => plane(p, faceZ))) +
+            contour(aperture.map((p) => plane(p, faceZ))) +
+            '"/></clipPath>';
+          pcb += '<g clip-path="url(#' + inkClip + ')">';
+        }
         for (const k of h.keys) {
           let p = pos(k, 0, 0),
             q = pos(k, 2.7, 4.5),
@@ -275,8 +352,34 @@ export function createFallback(host, onPick) {
               '#ae975c',
             );
         }
+        if (aperture) {
+          const p = h.pointer,
+            mark = footprint(
+              { ...p, a: p.apertureA ?? p.a },
+              p.opening + 0.9,
+              p.opening + 0.9,
+            );
+          pcb += path([...mark, mark[0]], z, '#cfb889', 0.24) + '</g>';
+        }
         emit(1, zero, part('pcb', 'PCB'), pcb);
       }
+      if (L.switches !== false)
+        for (const body of h.underbody || []) {
+          const ps = body.polygon;
+          if (!ps?.length || !(body.top > body.bottom)) continue;
+          const cage = wireCage(
+            ps,
+            body.bottom + ex.sw,
+            body.top + ex.sw,
+            '#a38351',
+          );
+          emit(
+            explode ? 2.8 : 0.73,
+            { x: ps[0][0], y: ps[0][1] },
+            part('switch', body.label + ' · underside keep-out envelope'),
+            cage,
+          );
+        }
       for (const k of h.keys) {
         if (L.switches !== false) {
           const z = ex.sw,
@@ -430,19 +533,72 @@ export function createFallback(host, onPick) {
           let p = h.pointer,
             ps = SPECS.pointer,
             sensor = center(p, 0, ps.axisToBoardCenter),
-            top = p.capTop + ex.parts;
-          body =
-            prism(sensor, ps.w, ps.h, z, ps.t, colors.pcb, 0.75) +
-            prism(p, ps.stem, ps.stem, z + ps.t, ps.stem, colors.metal, 0.18);
-          emit(2, p, part('pointer', 'TrackPoint sensor'), body);
-          body =
-            disk(
+            top = p.capTop + ex.parts,
+            sensorOffset = p.under ? ex.underSensor : ex.parts,
+            boardBottom = (p.boardBottom ?? 0) + sensorOffset,
+            boardTop = (p.boardTop ?? ps.t) + sensorOffset;
+          body = prism(
+            sensor,
+            ps.w,
+            ps.h,
+            boardBottom,
+            boardTop - boardBottom,
+            colors.pcb,
+            0.48,
+          );
+          if (under && p.under)
+            body += text(sensor, boardBottom, 'SENSOR', 1.6, '#ccd9c6', true);
+          if (p.under)
+            emit(
+              under ? 0.43 : 0.46,
               p,
-              1.2,
-              z + p.stemTop,
-              Math.max(0.15, top - z - p.stemTop - 1.75),
-              colors.chip,
-            ) + disk(p, ps.cap / 2, top - 1.75, 1.75, colors.orange);
+              part('pointer', 'Sensor face / rear clearance allowance'),
+              wireCage(
+                footprint(sensor, ps.w, ps.h),
+                boardBottom - (ps.rearReserve ?? 0),
+                boardTop + (ps.frontReserve ?? 0),
+                '#839e91',
+              ),
+            );
+          emit(
+            p.under ? 0.45 : 2,
+            p,
+            part(
+              'pointer',
+              p.under
+                ? 'TrackPoint underside sensor card'
+                : 'TrackPoint sensor card',
+            ),
+            body,
+          );
+          // Split at both carrier faces. The portion inside the board is seen only through its aperture.
+          const shaft = (label, from, to, draw, aboveRank) => {
+            for (const [low, high, rank] of [
+              [-Infinity, -SPECS.pcbT, 0.74],
+              [-SPECS.pcbT, 0, under ? 1.02 : 0.98],
+              [0, Infinity, aboveRank],
+            ]) {
+              const a = Math.max(low, from),
+                b = Math.min(high, to);
+              if (b - a > 0.0001)
+                emit(rank, p, part('pointer', label), draw(a, b - a));
+            }
+          };
+          shaft(
+            'TrackPoint stock stem',
+            boardTop,
+            p.stemTop + sensorOffset,
+            (lo, t) => prism(p, ps.stem, ps.stem, lo, t, colors.metal, 0.18),
+            2.15,
+          );
+          shaft(
+            'TrackPoint extension',
+            p.stemTop + ex.parts,
+            top - 1.75,
+            (lo, t) => disk(p, 1.12, lo, t, colors.chip),
+            4.75,
+          );
+          body = disk(p, ps.cap / 2, top - 1.75, 1.75, colors.orange);
           if (!under)
             for (let i = -1; i <= 1; i++)
               for (let j = -1; j <= 1; j++)
@@ -472,7 +628,9 @@ export function createFallback(host, onPick) {
       [(x0 + x1 - vw) / 2, (y0 + y1 - vh) / 2, vw, vh].map(round).join(' '),
     );
     svg.innerHTML =
-      '<defs><filter id="' +
+      '<defs>' +
+      extraDefs +
+      '<filter id="' +
       uid +
       '" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="2.3"/></filter></defs><g pointer-events="none" opacity=".22" filter="url(#' +
       uid +

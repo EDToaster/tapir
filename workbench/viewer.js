@@ -1,7 +1,7 @@
 import * as T from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { layout, SPECS } from './layout.js';
+import { layout, rect as footprint, SPECS } from './layout.js';
 
 // Local CAD frame: +X right, +Z toward the typist, +Y above PCB. All values in mm.
 const RAD = Math.PI / 180;
@@ -163,6 +163,31 @@ function outlineShape(points, rounding = 0.9) {
   }
   sh.closePath();
   return sh;
+}
+function aperture(pointer, grow = 0) {
+  if (!pointer?.under || !(pointer.opening > 0)) return null;
+  const width = pointer.opening + grow;
+  return footprint(
+    { ...pointer, a: pointer.apertureA ?? pointer.a },
+    width,
+    width,
+  );
+}
+function carrierShape(half) {
+  const shape = outlineShape(half.outline),
+    ring = aperture(half.pointer);
+  if (ring) {
+    // The same through hole is triangulated in the physical laminate and both printed faces.
+    const hole = new T.Path(
+      ring
+        .slice()
+        .reverse()
+        .map(([x, z]) => new T.Vector2(x, -z)),
+    );
+    hole.closePath();
+    shape.holes.push(hole);
+  }
+  return shape;
 }
 function plate(shape, thick) {
   const g = new T.ExtrudeGeometry(shape, {
@@ -367,6 +392,8 @@ function pcbPrint(half, b, under, cap) {
       spot(px, pz, 0.14, C.mask);
     }
   });
+  const openingRim = aperture(half.pointer, 0.9);
+  if (openingRim) drawPath([...openingRim, openingRim[0]], '#d3bd88', 0.27);
   return textureFrom(c);
 }
 
@@ -469,7 +496,16 @@ function makeAssembly(state) {
     ulp = state.switchType === 'ulp';
   const capH = ulp ? 1.3 : 4.0;
   const contents = {};
-  for (const name of ['pcb', 'keycaps', 'switches', 'electronics', 'back']) {
+  const backBottom = finite(data.backBottom, -pT - 3.2),
+    backTop = backBottom + 1;
+  for (const name of [
+    'pcb',
+    'keycaps',
+    'switches',
+    'electronics',
+    'underSensor',
+    'back',
+  ]) {
     groups[name] = new T.Group();
     root.add(groups[name]);
     contents[name] = [];
@@ -492,7 +528,28 @@ function makeAssembly(state) {
         tag,
       });
     };
-    const bowl = outlineShape(half.outline),
+    // Cages leave the volume hollow, so one can see and inspect the actual parts inside them.
+    function cage(layer, poly, bottom, top, mat, thickness = 0.12) {
+      if (!poly?.length || !(top > bottom)) return;
+      for (let i = 0; i < poly.length; i++) {
+        const [x, z] = poly[i],
+          [nx, nz] = poly[(i + 1) % poly.length],
+          w = Math.hypot(nx - x, nz - z);
+        if (w < 0.01) continue;
+        for (const y of [bottom, top - thickness])
+          add(
+            layer,
+            rect(w, thickness, thickness),
+            mat,
+            (x + nx) / 2,
+            y,
+            (z + nz) / 2,
+            Math.atan2(nz - z, nx - x) / RAD,
+          );
+        add(layer, rect(thickness, thickness, top - bottom), mat, x, bottom, z);
+      }
+    }
+    const bowl = carrierShape(half),
       bounds = bounds2(half.outline);
     const covering = plate(bowl, pT),
       bottom = -pT;
@@ -506,7 +563,13 @@ function makeAssembly(state) {
         under ? bottom : 0,
       );
     part(null, 'back', 'Optional back cover');
-    add('back', plate(bowl, 1), std(C.back, 0.67, 0.14), 0, -pT - 3.2);
+    add(
+      'back',
+      plate(outlineShape(half.outline), 1),
+      std(C.back, 0.67, 0.14),
+      0,
+      backBottom,
+    );
 
     // Physical standoffs and screws follow known holes if supplied; no invented mounting drill spec.
     const holes = half.mounts || half.holes || [];
@@ -520,13 +583,14 @@ function makeAssembly(state) {
               (k.row === 2 && k.c === 4)),
         )
         .concat(half.keys.filter((k) => k.thumb && k.c === 0));
-      for (const k of support)
+      // The mock support positions aren't validated against the new right-side solder-tail volumes.
+      for (const k of half.pointer?.under ? [] : support)
         add(
           'back',
-          cyl(2.05, 2.18, 2.2),
+          cyl(2.05, 2.18, -pT - backTop),
           std('#4b5048', 0.88),
           k.x,
-          -pT - 2.2,
+          backTop,
           k.y,
         );
       const cw = 24,
@@ -543,7 +607,7 @@ function makeAssembly(state) {
       const mark =
         half.keys.find((k) => !k.thumb && k.c === 2 && k.row === 1) ||
         half.keys[0];
-      add('back', basePrint.g, basePrint.mat, mark.x, -pT - 3.2, mark.y);
+      add('back', basePrint.g, basePrint.mat, mark.x, backBottom, mark.y);
     }
     for (const h of holes) {
       const x = Array.isArray(h) ? h[0] : h.x,
@@ -552,10 +616,10 @@ function makeAssembly(state) {
       part(null, 'back', 'Back cover standoff');
       add(
         'back',
-        cyl(1.55, 1.55, 2.2, 6),
+        cyl(1.55, 1.55, -pT - backTop, 6),
         std(C.pad, 0.54, 0.42),
         x,
-        -pT - 2.2,
+        backTop,
         z,
       );
       add(
@@ -563,7 +627,7 @@ function makeAssembly(state) {
         cyl(1.65, 1.45, 0.27),
         std(C.steel, 0.5, 0.48),
         x,
-        -pT - 3.46,
+        backBottom - 0.26,
         z,
       );
       part(null, 'pcb', 'PCB fastener');
@@ -571,6 +635,17 @@ function makeAssembly(state) {
       add('pcb', rect(1.7, 0.31, 0.03), std(C.black), x, 0.412, z, 22);
     }
 
+    // Outline-only volumes: these are conservative keep-outs, not a claim about pin geometry.
+    for (const body of half.underbody || []) {
+      part(null, 'switch', `${body.label} · underside keep-out envelope`);
+      cage(
+        'switches',
+        body.polygon,
+        body.bottom,
+        body.top,
+        std('#b99358', 0.83, 0.08),
+      );
+    }
     for (const k of half.keys) {
       part(k, 'switch', `${k.label} switch`);
       const sw = 'switches',
@@ -849,27 +924,74 @@ function makeAssembly(state) {
       const pointer = half.pointer,
         ps = SPECS.pointer,
         { w, h: d, t } = ps;
-      part(pointer, 'pointer', 'TrackPoint');
+      part(
+        pointer,
+        'pointer',
+        pointer.under
+          ? 'TrackPoint underside sensor card'
+          : 'TrackPoint sensor card',
+      );
       const stemTop = pointer.stemTop,
         rubberTop = pointer.capTop,
         rad = ps.cap / 2,
         offset = ps.axisToBoardCenter;
-      E(box(w, d, t, 0.48), std('#60856c', 0.67), 0, 0, offset);
-      E(
-        box(Math.min(4.4, w * 0.65), Math.min(4.15, d * 0.6), 0.55, 0.3),
+      const boardBottom = finite(pointer.boardBottom, 0),
+        boardTop = finite(pointer.boardTop, boardBottom + t);
+      const card = (...args) =>
+        add(pointer.under ? 'underSensor' : 'electronics', ...args);
+      card(
+        box(w, d, boardTop - boardBottom, 0.48),
+        std('#60856c', 0.67),
+        0,
+        boardBottom,
+        offset,
+      );
+      if (pointer.under) {
+        const print = chipText(
+          w * 0.78,
+          d * 0.42,
+          ['TRACKPOINT', 'SENSOR'],
+          '#60856c',
+          '#d3dfc9',
+          1.0,
+          true,
+        );
+        card(print.g, print.mat, 0, boardBottom, offset);
+        part(pointer, 'pointer', 'Sensor face / rear clearance allowance');
+        cage(
+          'underSensor',
+          footprint({ x: 0, y: offset }, w, d),
+          boardBottom - (ps.rearReserve ?? 0),
+          boardTop + (ps.frontReserve ?? 0),
+          std('#8ba59a', 0.84, 0.05),
+          0.1,
+        );
+        part(pointer, 'pointer', 'TrackPoint underside sensor card');
+      }
+      const collar = pointer.under
+        ? Math.min(pointer.opening * 0.72, 3.25)
+        : 4.4;
+      card(
+        box(
+          Math.min(collar, w * 0.65),
+          Math.min(collar, 4.15, d * 0.6),
+          0.55,
+          0.3,
+        ),
         std('#c2b799', 0.6, 0.3),
         0,
-        t + 0.04,
-        0.12,
+        boardTop,
+        0,
       );
       // Bare sensor package, stock stem, and a separate length-compensating hub.
-      E(
-        box(ps.stem, ps.stem, ps.stem, 0.18),
+      card(
+        box(ps.stem, ps.stem, stemTop - boardTop, 0.18),
         std('#b3a78c', 0.6, 0.18),
         0,
-        t,
+        boardTop,
         0,
       );
+      part(pointer, 'pointer', 'TrackPoint extension and rubber cap');
       const rubberH = Math.min(1.9, Math.max(1.1, rubberTop - stemTop - 0.12));
       const hubT = Math.max(0.12, rubberTop - rubberH - stemTop);
       E(cyl(0.99, 1.12, hubT, 16), std('#9d7964', 0.45, 0.38), 0, stemTop);
@@ -1034,8 +1156,22 @@ function makeAssembly(state) {
 }
 
 const OFFSETS = {
-  assembled: { keycaps: 0, switches: 0, pcb: 0, electronics: 0, back: 0 },
-  exploded: { keycaps: 35, switches: 16, pcb: 0, electronics: 12, back: -14 },
+  assembled: {
+    keycaps: 0,
+    switches: 0,
+    pcb: 0,
+    electronics: 0,
+    underSensor: 0,
+    back: 0,
+  },
+  exploded: {
+    keycaps: 35,
+    switches: 16,
+    pcb: 0,
+    electronics: 12,
+    underSensor: -7,
+    back: -14,
+  },
 };
 const asV = (v) => new T.Vector3(...v);
 const dirFor = (view, mode) => {
@@ -1179,11 +1315,12 @@ export function createViewer(host, onPick) {
     const coords = model.data.halves.flatMap((h) =>
       h.outline.map(([x, z]) => [x + h.origin.x, z + h.origin.y]),
     );
+    const floor = finite(model.data.backBottom, -SPECS.pcbT - 3.2);
     const heights =
       currentMode === 'exploded'
-        ? [-19, 48]
+        ? [floor + OFFSETS.exploded.back, 48]
         : [
-            -5,
+            floor,
             Math.max(model.data.cap.top + 1.2, finite(state?.batteryT, 3.3)),
           ];
     let minX = Infinity,
@@ -1269,16 +1406,13 @@ export function createViewer(host, onPick) {
     const first = !model,
       oldMode = currentMode,
       oldView = state?.view;
-    const geom = JSON.stringify([
-      next.switchType,
-      next.splay,
-      next.gap,
-      next.nubY,
-      next.separation,
-      next.batteryT,
-      next.pressed,
-      next.mouseButtons,
-    ]);
+    const geom = JSON.stringify(
+      Object.fromEntries(
+        Object.entries(next).filter(
+          ([k]) => !['mode', 'view', 'layers'].includes(k),
+        ),
+      ),
+    );
     if (geom !== signature || !model) {
       const nextAssembly = makeAssembly(next);
       if (model) {
@@ -1293,15 +1427,26 @@ export function createViewer(host, onPick) {
     currentMode = next.mode || 'assembled';
     const offs = OFFSETS[currentMode] || OFFSETS.assembled;
     for (const [name, g] of Object.entries(model.groups)) {
-      g.visible = next.layers?.[name] !== false;
+      g.visible =
+        next.layers?.[name === 'underSensor' ? 'electronics' : name] !== false;
       g.position.y = offs[name] || 0;
     }
-    ground.position.y =
-      (next.layers?.back === false
-        ? -finite(SPECS.pcbT, 1.6)
-        : -(finite(SPECS.pcbT, 1.6) + 3.2)) +
-      (next.layers?.back === false ? 0 : offs.back) -
-      0.13;
+    const underside = model.data.halves.find((h) => h.pointer?.under);
+    const floorLevels = [-SPECS.pcbT];
+    if (next.layers?.back !== false)
+      floorLevels.push(
+        finite(model.data.backBottom, -SPECS.pcbT - 3.2) + offs.back,
+      );
+    if (underside && next.layers?.electronics !== false)
+      floorLevels.push(
+        underside.pointer.boardBottom -
+          (SPECS.pointer.rearReserve ?? 0) +
+          offs.underSensor,
+      );
+    if (underside && next.layers?.switches !== false)
+      for (const b of underside.underbody || [])
+        floorLevels.push(b.bottom + offs.switches);
+    ground.position.y = Math.min(...floorLevels) - 0.13;
     if (
       first ||
       next.view !== oldView ||

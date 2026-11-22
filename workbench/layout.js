@@ -10,16 +10,23 @@ export const SPECS = {
     stem: 2.4,
     axisToBoardCenter: 1.695,
     cap: 5,
+    opening: 4, // proposed square aperture for the 2.4 mm post/coupler envelope
+    frontReserve: 0.5, // unmapped sensor face hardware outside the post, provisional
+    rearReserve: 0.8, // fastening/wiring reserve below the daughterboard
+    coverGap: 0.4,
   },
   mouse: { w: 4.2, h: 3.2, t: 2.5 },
+};
+export const PRESETS = {
+  straight: { mount: 'under', splay: 0, gap: 6.5, nubY: -6, standoff: 2.8 },
+  gentle: { mount: 'under', splay: 4, gap: 4.5, nubY: -6, standoff: 2.8 },
+  balanced: { mount: 'top', splay: 16, gap: 8, nubY: -6, standoff: 2.8 },
 };
 export const INITIAL = {
   mode: 'assembled',
   view: 'iso',
   switchType: 'choc',
-  splay: 16,
-  gap: 8,
-  nubY: -6,
+  ...PRESETS.straight,
   separation: 24,
   batteryT: 3.3,
   pressed: false,
@@ -133,7 +140,51 @@ const legends = {
   ],
 };
 const capsuleOutline = (pts) => hull(pts);
+
+// Signed distance between extruded convex envelopes. When their footprints
+// overlap, an actual vertical separation still counts as clearance (not a clash).
+export function prismGap(a, b) {
+  const xy = clearance(a.polygon, b.polygon);
+  const z = Math.max(b.bottom - a.top, a.bottom - b.top);
+  return xy > 0 || z > 0
+    ? Math.hypot(Math.max(xy, 0), Math.max(z, 0))
+    : Math.max(xy, z);
+}
+// Square bounding boxes enclose the round pegs, pad/fillet regions, etc.
+// This is a direct-solder concept with a chosen footprint rotation, not hotswap.
+function undersideEnvelopes(keys, switchType) {
+  const underside = -SPECS.pcbT;
+  const features =
+    switchType === 'choc'
+      ? [
+          [0, 0, 3.4, 3.4, 1.05, 'center boss'],
+          [-5.5, 0, 1.9, 1.9, 1.05, 'locator'],
+          [5.5, 0, 1.9, 1.9, 1.05, 'locator'],
+          [-5, 3.8, 2.4, 2.4, 1.8, 'terminal / solder'],
+          [0, 5.9, 2.4, 2.4, 1.8, 'terminal / solder'],
+        ]
+      : [[0, 0, 13.5, 13, 0.6, 'ULP backside reserve (assumed)']];
+  return keys.flatMap((k) =>
+    features.map(([x, y, w, h, depth, name]) => {
+      const [dx, dy] = rotate([x, y], k.a);
+      return {
+        polygon: rect({ x: k.x + dx, y: k.y + dy, a: k.a }, w, h),
+        top: underside,
+        bottom: underside - depth,
+        label: k.label + ' / ' + name,
+      };
+    }),
+  );
+}
 export function layout(s) {
+  const under = s.mount === 'under',
+    ps = SPECS.pointer,
+    baseBottom = -SPECS.pcbT - 3.2;
+  const boardTop = under ? -SPECS.pcbT - s.standoff : ps.t;
+  const boardBottom = boardTop - ps.t;
+  const backBottom = under
+    ? Math.min(baseBottom, boardBottom - ps.rearReserve - ps.coverGap - 1)
+    : baseBottom;
   const cap = profile(s.switchType),
     pitch = { x: 18, y: 17 },
     halves = [];
@@ -188,7 +239,11 @@ export function layout(s) {
         ? {
             ...put((54 + xbank) / 2, y, s.splay * 0.5),
             capTop: cap.top + 0.6,
-            stemTop: SPECS.pointer.t + SPECS.pointer.stem,
+            stemTop: boardTop + ps.stem,
+            boardTop,
+            boardBottom,
+            under,
+            opening: ps.opening,
           }
         : null;
     const driver =
@@ -224,22 +279,34 @@ export function layout(s) {
       battery,
       driver,
       pointer,
+      underbody: pointer && under ? undersideEnvelopes(keys, s.switchType) : [],
       outline,
       origin,
     });
   }
   const right = halves[1],
     p = right.pointer;
-  const ps = SPECS.pointer,
-    [dx, dy] = rotate([0, ps.axisToBoardCenter], p.a),
+  const [dx, dy] = rotate([0, ps.axisToBoardCenter], p.a),
     sensor = rect({ x: p.x + dx, y: p.y + dy, a: p.a }, ps.w, ps.h);
   let mins = { cap: Infinity, sensor: Infinity, keys: Infinity, bay: Infinity },
     nearest = {};
   function hit(n, val, label) {
-    if (val < mins[n]) {
+    if (val < (mins[n] ?? Infinity)) {
       mins[n] = val;
       nearest[n] = label;
     }
+  }
+  if (under) {
+    const envelope = {
+      polygon: sensor,
+      top: boardTop + ps.frontReserve,
+      bottom: boardBottom - ps.rearReserve,
+    };
+    for (const tail of right.underbody)
+      hit('sensor', prismGap(envelope, tail), tail.label);
+    hit('cover', envelope.bottom - (backBottom + 1), 'inside of back cover');
+    hit('face', -SPECS.pcbT - envelope.top, 'carrier underside');
+    hit('shaft', (ps.opening - ps.stem) / 2, 'one side, centered');
   }
   for (let h of halves) {
     for (let i = 0; i < h.keys.length; i++) {
@@ -252,7 +319,17 @@ export function layout(s) {
         );
       if (h.pointer) {
         hit('cap', circleRect(p, ps.cap / 2, k, cap.w, cap.h), k.label);
-        hit('sensor', clearance(sensor, rect(k, cap.swW, cap.swH)), k.label);
+        if (!under)
+          hit('sensor', clearance(sensor, rect(k, cap.swW, cap.swH)), k.label);
+        else
+          hit(
+            'aperture',
+            clearance(
+              rect(p, ps.opening, ps.opening),
+              rect(k, cap.swW, cap.swH),
+            ),
+            k.label,
+          );
       }
     }
     let components = [
@@ -284,6 +361,7 @@ export function layout(s) {
     pitch,
     mins,
     nearest,
+    backBottom,
     width: Math.max(...xs) - Math.min(...xs),
     depth: Math.max(...ys) - Math.min(...ys),
     height:
@@ -292,7 +370,6 @@ export function layout(s) {
         s.pressed ? cap.top - cap.travel : cap.top,
         s.batteryT,
         SPECS.controller.t,
-      ) +
-      (SPECS.pcbT + 3.2),
+      ) - backBottom,
   };
 }

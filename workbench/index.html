@@ -17,14 +17,14 @@
           <i data-i="book"></i>Parts &amp; sources
         </button>
       </nav>
-      <span class="version"><b></b>Concept / 01</span>
+      <span class="version"><b></b>Concept / 02</span>
     </header>
     <main>
       <div class="intro">
         <div>
           <div class="eyebrow">
             <span class="accent-line"></span> TAPIR &nbsp;/&nbsp; DESIGN STUDY
-            001
+            002
           </div>
           <h1>Assembly workbench</h1>
           <p>A low-profile split keyboard, shaped around a pointing stick.</p>
@@ -82,6 +82,13 @@
             </button>
           </div>
           <div id="metrics" class="metrics"></div>
+          <div class="measure-head">
+            <span class="eyebrow">POINTING STICK / SECTION</span
+            ><button class="textbtn" data-action="reveal">
+              Inspect underside <i data-i="diagonal"></i>
+            </button>
+          </div>
+          <div id="section-panel" class="section-panel"></div>
         </section>
         <aside>
           <div class="panelheading">
@@ -102,9 +109,9 @@
             <label class="select-label" for="preset">Layout preset</label>
             <div class="selwrap">
               <select id="preset">
-                <option value="balanced">Balanced splay</option>
-                <option value="fan">Pipar-style fan</option>
-                <option value="wide">Gentle, wide gap</option>
+                <option value="straight">Straight columns · underside</option>
+                <option value="gentle">Gentle fan · underside</option>
+                <option value="balanced">Original 16° · top mount</option>
                 <option value="custom" disabled>Custom layout</option></select
               ><i data-i="chev"></i>
             </div>
@@ -112,8 +119,21 @@
           </section>
           <section class="parameterblock">
             <div class="block-title">
-              <h2>Switch profile</h2>
+              <h2>Sensor mount</h2>
               <span>02</span>
+            </div>
+            <div
+              id="mounts"
+              class="profile-picker"
+              aria-label="Sensor mounting position"
+            ></div>
+            <div id="mount-gap"></div>
+            <div id="mount-note" class="smallnote"></div>
+          </section>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Switch profile</h2>
+              <span>03</span>
             </div>
             <div id="profiles" class="profile-picker"></div>
             <div id="switch-note" class="smallnote"></div>

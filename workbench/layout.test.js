@@ -1,6 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { INITIAL, SPECS, clearance, layout, rect } from './layout.js';
+import {
+  INITIAL,
+  SPECS,
+  PRESETS,
+  clearance,
+  layout,
+  rect,
+  prismGap,
+} from './layout.js';
 
 const build = (overrides) => layout({ ...INITIAL, ...overrides });
 const near = (actual, expected) =>
@@ -50,12 +58,12 @@ test('nominal clearances are positive, but the fit check distinguishes a clear n
       );
     }
   }
-  const partial = build({ splay: 0, gap: 8 }).mins;
+  const partial = build({ mount: 'top', splay: 0, gap: 8 }).mins;
   assert.ok(
     partial.cap > 0 && partial.sensor < 0,
     'a visibly clear nub does not guarantee room below',
   );
-  const crowded = build({ splay: 0, gap: 0 }).mins;
+  const crowded = build({ mount: 'top', splay: 0, gap: 0 }).mins;
   assert.ok(
     crowded.cap < 0 && crowded.sensor < 0,
     'removing both splay and gap should collide',
@@ -85,9 +93,7 @@ test('inner separation changes desk span, while a wider column gap actually make
     'moving a whole half must not alter its internal clearances',
   );
   const wider = build({ gap: INITIAL.gap + 4 });
-  assert.ok(
-    wider.width > nominal.width && wider.mins.sensor > nominal.mins.sensor,
-  );
+  assert.ok(wider.width > nominal.width && wider.mins.cap > nominal.mins.cap);
   near(wider.height, nominal.height);
 });
 
@@ -130,4 +136,48 @@ test('signed clearance measures real face and corner distances, not axis-aligned
   near(clearance(plate(0, 0), plate(2, 0)), 0);
   // Small square fully inside a rotated 10×10 square requires 6 mm of translation to escape.
   near(clearance(plate(7, 9, 24, 10, 10), plate(7, 9, 24)), -6);
+});
+
+test('straight top-mounted card collides; under-mounted card and shaft clear at the cost of height', () => {
+  const under = build(PRESETS.straight),
+    top = build({ ...PRESETS.straight, mount: 'top' }),
+    original = build(PRESETS.balanced);
+  assert.ok(
+    top.mins.sensor < 0 && under.mins.sensor > 0 && under.mins.aperture > 0,
+  );
+  near(under.mins.cap, top.mins.cap);
+  near(under.width, top.width);
+  assert.ok(under.width < original.width && under.height > original.height);
+  const p = half(under, 'right').pointer;
+  near(p.boardTop, -SPECS.pcbT - PRESETS.straight.standoff);
+  near(p.boardTop - p.boardBottom, SPECS.pointer.t);
+  near(p.stemTop - p.boardTop, SPECS.pointer.stem);
+  near(
+    p.boardBottom - SPECS.pointer.rearReserve - (under.backBottom + 1),
+    under.mins.cover,
+  );
+  assert.ok(p.stemTop < 0 && p.capTop > under.cap.top && under.mins.shaft > 0);
+});
+
+test('shallow under-mount interferes with switch backs even with unchanged cap clearance', () => {
+  const nominal = build(),
+    shallow = build({ standoff: 1 }),
+    closed = build({ splay: 0, gap: 0 });
+  assert.ok(
+    shallow.mins.sensor < 0 && nominal.mins.sensor > 0 && closed.mins.cap < 0,
+  );
+  near(shallow.mins.cap, nominal.mins.cap);
+  near(shallow.width, nominal.width);
+  assert.ok(shallow.height < nominal.height);
+});
+
+test('prism clearance distinguishes planar overlap, diagonal distance and true 3D interference', () => {
+  const prism = (x, z) => ({
+    polygon: rect({ x, y: 0, a: 0 }, 2, 2),
+    bottom: z,
+    top: z + 2,
+  });
+  near(prismGap(prism(0, 0), prism(0, 5)), 3);
+  near(prismGap(prism(0, 0), prism(5, 6)), 5);
+  near(prismGap(prism(0, 0), prism(1, 1.5)), -0.5);
 });

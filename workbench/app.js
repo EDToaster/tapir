@@ -1,5 +1,6 @@
 import './style.css';
-import { INITIAL, SPECS, layout, rect } from './layout.js';
+import { INITIAL, PRESETS, SPECS, layout, rect } from './layout.js';
+import { sectionHTML } from './section.js';
 import { PARTS } from './parts.js';
 import { createFallback } from './fallback.js';
 import { createViewer } from './viewer.js';
@@ -38,6 +39,7 @@ const ranges = {
   nubY: ['Pointer fore / aft', -15, 8, 0.5, ' mm'],
   separation: ['Half separation', 4, 95, 1, ' mm'],
   batteryT: ['Battery thickness', 2.5, 8, 0.1, ' mm'],
+  standoff: ['Board-to-sensor spacing', 0.4, 4, 0.1, ' mm'],
 };
 function range(k) {
   let [label, min, max, step] = ranges[k];
@@ -63,6 +65,7 @@ function range(k) {
 }
 $('#geometry-sliders').innerHTML = ['splay', 'gap', 'nubY'].map(range).join('');
 $('#extra-sliders').innerHTML = ['separation', 'batteryT'].map(range).join('');
+$('#mount-gap').innerHTML = range('standoff');
 function group(el, values, field) {
   $(el).innerHTML = values
     .map(
@@ -111,6 +114,14 @@ const layerLabels = {
   electronics: 'Electronics',
   back: 'Back covers',
 };
+group(
+  '#mounts',
+  [
+    ['under', 'Under PCB'],
+    ['top', 'On top'],
+  ],
+  'mount',
+);
 $('#layerpop').innerHTML =
   '<div class="eyebrow">VISIBLE PARTS</div>' +
   Object.entries(layerLabels)
@@ -139,9 +150,26 @@ try {
 const dialog = $('#dialog');
 let model,
   queued = false;
+let restoreBack = false;
+function openUnderside() {
+  if (st.layers.back) restoreBack = true;
+  st.mode = 'underside';
+  st.view = 'iso';
+  st.layers.back = false;
+}
+function leaveUnderside() {
+  if (restoreBack) st.layers.back = true;
+  restoreBack = false;
+}
 function sync() {
   queued = false;
   model = layout(st);
+  const under = st.mount === 'under';
+  $('#mount-gap').hidden = !under;
+  $('#mount-note').textContent = under
+    ? 'Spacing is from the carrier underside to the sensor PCB’s top face. Direct-solder switches only.'
+    : 'The whole sensor board shares the switch-housing plane. Switch mount without changing splay to compare.';
+  $('#section-panel').innerHTML = sectionHTML(model, st);
   view.update(st);
   Object.keys(ranges).forEach((k) => {
     const el = $('#' + k),
@@ -166,7 +194,11 @@ function sync() {
   const info = [
     ['Overall span', fmt(model.width), 'mm'],
     ['Assembled height', fmt(model.height), 'mm'],
-    ['Sensor to switch', sg(model.mins.sensor), 'mm'],
+    [
+      under ? 'Sensor to underside parts' : 'Sensor to switch',
+      sg(model.mins.sensor),
+      'mm',
+    ],
   ];
   $('#metrics').innerHTML = info
     .map(
@@ -197,19 +229,13 @@ function changed() {
 Object.keys(ranges).forEach((k) =>
   $('#' + k).addEventListener('input', (e) => {
     st[k] = +e.target.value;
-    if (['splay', 'gap', 'nubY'].includes(k)) $('#preset').value = 'custom';
+    if (['splay', 'gap', 'nubY', 'standoff'].includes(k))
+      $('#preset').value = 'custom';
     changed();
   }),
 );
 $('#preset').onchange = (e) => {
-  Object.assign(
-    st,
-    {
-      balanced: { splay: 16, gap: 8, nubY: -6 },
-      fan: { splay: 20, gap: 5, nubY: -6 },
-      wide: { splay: 8, gap: 12, nubY: -6 },
-    }[e.target.value],
-  );
+  Object.assign(st, PRESETS[e.target.value]);
   changed();
 };
 $('#pressed').onchange = (e) => {
@@ -272,13 +298,39 @@ function fit() {
     '<p class="callout"><b>' +
       (Object.values(r.mins).some((n) => n < 0)
         ? 'Interference in the current geometry.'
-        : 'No overlap in the four tested plan envelopes.') +
-      '</b> Positive values are edge gaps; negative values indicate overlap. These are nominal 2D screens, not a tolerance or assembly approval.</p>' +
+        : 'No overlap among the tested envelopes.') +
+      '</b> Positive means separation; negative means interference. These are nominal envelope checks, not tolerance or assembly approval.</p>' +
       check(
         'sensor',
-        'Sensor PCB to switch housing',
-        'Rotated rectangular envelopes',
+        st.mount === 'under'
+          ? 'Sensor to underside parts'
+          : 'Sensor PCB to switch housing',
+        st.mount === 'under'
+          ? '3D: reserved sensor volume vs. nearby switch backs'
+          : 'Plan: rotated rectangular envelopes',
       ) +
+      (st.mount === 'under'
+        ? check(
+            'aperture',
+            'Carrier opening to switch housing',
+            'Plan: proposed square cutout and switch flanges',
+          ) +
+          check(
+            'shaft',
+            'Post to aperture wall',
+            'Per side with a centered 2.4 mm shaft envelope; no movement',
+          ) +
+          check(
+            'face',
+            'Sensor face reserve to carrier',
+            'Excludes the shaft, which passes through the cutout',
+          ) +
+          check(
+            'cover',
+            'Rear hardware reserve to cover',
+            'Inside the cover, with the assumed mounting/wire reserve',
+          )
+        : '') +
       check(
         'cap',
         'Pointer cap to keycap skirt',
@@ -292,7 +344,13 @@ function fit() {
       fmt(r.depth) +
       ' × ' +
       fmt(r.height) +
-      ' mm, measured at the configured split separation. Height includes the proposed back cover and pointer extension; exploded offsets are excluded.</p><p><b>Not tested:</b> solder joints, pin protrusion beyond the allocated cavity, USB cable, battery leads/swelling, antenna keep-out, component tolerances, board flex or finger reach. Pressing a key changes its Z position, not its conservative skirt footprint. Hiding parts never removes them from the checks.</p>',
+      ' mm, at this split separation; exploded offsets are excluded.</p>' +
+      (st.mount === 'under'
+        ? '<p><b>What the underside check assumes:</b> Direct solder, not hot-swap. Choc terminals allow 1.4 mm below this 1.6 mm carrier plus 0.4 mm for solder; the ULP alternative instead reserves a provisional 0.6 mm process zone. Sensor front and rear hardware have 0.5 and 0.8 mm reserves. The cover lowers automatically; its clearance is a design allowance, not a measurement. The rubber top is ' +
+          fmt(r.halves[1].pointer.capTop - r.halves[1].pointer.stemTop) +
+          ' mm above the stock post tip, including rubber. The detached driver stays on top.</p>'
+        : '') +
+      '<p><b>Not verified:</b> actual solder, routed copper, milled corners, sensor retention/adapter, flex and wobble of the longer shaft, fasteners, wire bends, hot-swap sockets, USB plug and battery swelling. Moving a key changes Z but not its conservative skirt footprint; hiding parts never changes the report.</p>',
   );
 }
 function sources() {
@@ -372,6 +430,8 @@ function svgTemplate() {
     '° splay · ' +
     st.gap +
     ' mm extra gap · ' +
+    (st.mount === 'under' ? 'under PCB' : 'top mount') +
+    ' · ' +
     st.switchType +
     ' · print at 100%, no fit-to-page</text>' +
     sheet.join('') +
@@ -395,7 +455,15 @@ document.addEventListener('click', (e) => {
   if (!b) return;
   if (b.dataset.field) {
     let f = b.dataset.field;
+    if (
+      st.mode === 'underside' &&
+      ((f === 'mode' && b.dataset.value !== 'underside') || f === 'view')
+    )
+      leaveUnderside();
     st[f] = b.dataset.value;
+    if (f === 'mount') $('#preset').value = 'custom';
+    if (f === 'mode' && st.mode === 'underside' && st.mount === 'under')
+      openUnderside();
     if (f === 'view' && st.mode === 'underside') {
       st.mode = 'assembled';
     }
@@ -404,6 +472,14 @@ document.addEventListener('click', (e) => {
     return;
   }
   switch (b.dataset.action) {
+    case 'reveal':
+      openUnderside();
+      st.layers.electronics = true;
+      st.layers.pcb = true;
+      st.layers.switches = true;
+      changed();
+      document.querySelector('.viewport').scrollIntoView({ block: 'center' });
+      break;
     case 'assembly':
       if (dialog.open) dialog.close();
       break;
@@ -423,8 +499,9 @@ document.addEventListener('click', (e) => {
       view.setView(st.view);
       break;
     case 'reset':
+      restoreBack = false;
       Object.assign(st, structuredClone(INITIAL));
-      $('#preset').value = 'balanced';
+      $('#preset').value = 'straight';
       $('#layerpop').hidden = true;
       changed();
       view.setView('iso');
@@ -437,6 +514,7 @@ document.addEventListener('click', (e) => {
 document.querySelectorAll('[data-layer]').forEach(
   (x) =>
     (x.onchange = () => {
+      if (x.dataset.layer === 'back') restoreBack = false;
       st.layers[x.dataset.layer] = x.checked;
       changed();
     }),
