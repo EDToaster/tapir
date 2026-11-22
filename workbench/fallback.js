@@ -1,4 +1,13 @@
 import { layout, rect as footprint, SPECS } from './layout.js';
+import {
+  posePoint as pos,
+  bounds2,
+  fitFrame,
+  projector,
+  viewAngles,
+  explodedOffsets as E,
+  assemblyEnvelope,
+} from './projection.js';
 
 const RAD = Math.PI / 180;
 const round = (n) => Number(n.toFixed(2));
@@ -11,13 +20,6 @@ const esc = (s) =>
       ],
   );
 const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
-const pos = (p, x = 0, y = 0) => {
-  const a = (p.a || 0) * RAD;
-  return [
-    p.x + x * Math.cos(a) - y * Math.sin(a),
-    p.y + x * Math.sin(a) + y * Math.cos(a),
-  ];
-};
 const box = (p, w, h, r = 0.6) => {
   const radius = Math.min(r, w / 2, h / 2),
     out = [];
@@ -86,20 +88,10 @@ export function createFallback(host, onPick) {
   };
   function setView(view) {
     lastView = view;
-    const angles = {
-      iso: [12, 42],
-      isometric: [12, 42],
-      top: [0, 90],
-      front: [0, 3],
-      side: [90, 3],
-      under: [-10, -48],
-      underside: [-10, -48],
-      bottom: [0, -90],
-    }[view] || [12, 42];
-    yaw = angles[0] * RAD;
-    elev = angles[1] * RAD;
-    if (state?.mode === 'underside' || state?.mode === 'under')
-      elev = -Math.abs(elev);
+    [yaw, elev] = viewAngles(
+      view,
+      state?.mode === 'underside' || state?.mode === 'under',
+    );
     zoom = 1;
     queue();
   }
@@ -123,25 +115,23 @@ export function createFallback(host, onPick) {
       explode = state.mode === 'exploded' ? 1 : 0,
       under = elev < 0;
     const ex = {
-      back: -13 * explode,
+      back: E.back * explode,
       pcb: 0,
-      sw: 12 * explode,
-      key: 27 * explode,
-      parts: 9 * explode,
-      underSensor: -6 * explode,
+      sw: E.switches * explode,
+      key: E.keycaps * explode,
+      parts: E.electronics * explode,
+      underSensor: E.underSensor * explode,
     };
     const cy = Math.cos(yaw),
       sy = Math.sin(yaw),
       ce = Math.cos(elev),
       se = Math.sin(elev);
-    const project = ([x, y], z = 0) => [
-      x * cy - y * sy,
-      (x * sy + y * cy) * se - z * ce,
-    ];
+    const project3 = projector(yaw, elev);
+    const project = ([x, y], z = 0) => project3([x, y, z]);
     const coords = (ps) => ps.map((p) => p.map(round).join(',')).join(' ');
     let fragments = [],
       extraDefs = '',
-      bounds = [],
+      bounds = assemblyEnvelope(model, state, SPECS).map(project3),
       shadows = '',
       offset = 0;
     picks = [];
@@ -304,9 +294,6 @@ export function createFallback(host, onPick) {
               h.pointer.opening,
             )
           : null;
-      for (const xy of h.outline)
-        for (const z of [backZ, cap.top + ex.key + 1])
-          bounds.push(plane(xy, z));
       if (!under && Object.values(L).some(Boolean)) {
         let ps = h.outline.map((p) => {
           let [x, y] = plane(p, backZ);
@@ -612,20 +599,14 @@ export function createFallback(host, onPick) {
         }
       }
     }
-    const xx = bounds.map((p) => p[0]),
-      yy = bounds.map((p) => p[1]),
-      x0 = Math.min(...xx),
-      x1 = Math.max(...xx),
-      y0 = Math.min(...yy),
-      y1 = Math.max(...yy);
     const aspect = (host.clientWidth || 800) / (host.clientHeight || 430),
-      w = (x1 - x0) * 1.13,
-      h = Math.max((y1 - y0) * 1.3, w / aspect);
+      f = fitFrame(bounds2(bounds), aspect),
+      h = f.h;
     const vh = h / zoom,
       vw = vh * aspect;
     svg.setAttribute(
       'viewBox',
-      [(x0 + x1 - vw) / 2, (y0 + y1 - vh) / 2, vw, vh].map(round).join(' '),
+      [f.x + (f.w - vw) / 2, f.y + (f.h - vh) / 2, vw, vh].map(round).join(' '),
     );
     svg.innerHTML =
       '<defs>' +

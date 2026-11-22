@@ -2,6 +2,7 @@
 // This is an ALTERNATIVE layout. Do not attach these solids to the baseline
 // XIAO or interpret an old shaft hole as a valid Plus solder land pattern.
 import polyclip from 'polygon-clipping';
+import { sliceX, viewAngles, projector, posePoint } from './projection.js';
 import {
   INITIAL,
   PRESETS,
@@ -148,7 +149,8 @@ export function stackModel(options = {}, layoutState = {}) {
     y: p.y + o.headShift,
     a: o.sensorFlip ? 270 : 90,
   };
-  const sensor = delta(head, 0, P.axisToBoardCenter);
+  const [sx, sy] = posePoint(head, 0, P.axisToBoardCenter);
+  const sensor = { x: sx, y: sy, a: head.a };
   const controller = {
     x: sensor.x + o.offsetX,
     y: sensor.y + o.offsetY,
@@ -720,7 +722,7 @@ function localCrop(m) {
       ...r.deck.polygon,
       ...r.boardSolid.polygon,
       ...r.usb.polygon,
-      ...rect(m.nearestThumb, 18, 17),
+      ...r.movingCaps[m.baseline.keys.indexOf(m.nearestThumb)].polygon,
       point(m.head),
     ]);
   return rect(
@@ -731,19 +733,6 @@ function localCrop(m) {
 }
 function clip(poly, window) {
   return polyclip.intersection([poly], [window]).map((c) => c[0].slice(0, -1));
-}
-function sliceX(poly, x) {
-  const hits = [];
-  for (let i = 0; i < poly.length; i++) {
-    const a = poly[i],
-      b = poly[(i + 1) % poly.length];
-    if ((a[0] <= x && b[0] > x) || (b[0] <= x && a[0] > x))
-      hits.push(a[1] + ((x - a[0]) * (b[1] - a[1])) / (b[0] - a[0]));
-  }
-  hits.sort((a, b) => a - b);
-  let spans = [];
-  for (let i = 1; i < hits.length; i += 2) spans.push([hits[i - 1], hits[i]]);
-  return spans;
 }
 function inset(m) {
   const fitInset = fit(box(m.outline), 495, 55, 165, 128);
@@ -802,12 +791,13 @@ function projView(m, view) {
     window = localCrop(m),
     low = r.back.bottom,
     high = Math.max(m.metrics.capTop, m.metrics.keyTop);
+  const iso = projector(...viewAngles('iso'));
   const proj = (p, z) =>
     view === 'plan'
       ? [p[0], p[1]]
       : view === 'section'
         ? [p[1], -2 * z]
-        : [0.84 * p[0] - 0.68 * p[1], 0.34 * p[0] + 0.42 * p[1] - 0.91 * z];
+        : iso([...p, z]);
   const b = box(window.flatMap((p) => [proj(p, low), proj(p, high)])),
     map = fit(b, 19, 34, 447, 220);
   const Q = (p, z) => map(proj(p, z)),
@@ -921,7 +911,13 @@ function projView(m, view) {
     let slices = clip(o.polygon, window);
     for (const poly of slices) {
       out +=
-        '<g><title>' + escape(o.label) + '</title>' + shape(o, poly) + '</g>';
+        '<g data-solid="' +
+        escape(o.id) +
+        '"><title>' +
+        escape(o.label) +
+        '</title>' +
+        shape(o, poly) +
+        '</g>';
     }
     if (o === r.sensorCard && view !== 'section') {
       for (const [x, y] of m.sensorHoles) {
@@ -956,8 +952,21 @@ function projView(m, view) {
       'stroke-width=".7" stroke-dasharray="6 2 1 2"',
     );
   }
+  if (view === 'section') {
+    const top = Q(point(m.head), m.metrics.capTop),
+      bottom = Q(point(m.head), r.back.bottom);
+    out += line(
+      [top[0], top[1] - 6],
+      [bottom[0], bottom[1] + 3],
+      '#85584a',
+      'data-datum="shaft-axis" stroke-width=".7" stroke-dasharray="4 2 1 2"',
+    );
+  }
   if (view !== 'section') {
-    const s = Q(point(m.nearestThumb), m.refs.movingCaps.at(-3).top);
+    const s = Q(
+      point(m.nearestThumb),
+      m.refs.movingCaps[m.baseline.keys.indexOf(m.nearestThumb)].top,
+    );
     out += txt(
       s[0],
       s[1] + 3,
@@ -972,7 +981,7 @@ function projView(m, view) {
 /** A dependency-free, standalone SVG string for plan | section | iso.
  * Section is a true YZ vertical cut through the current shaft, not the USB
  * centerline: off-cut feet/connectors are intentionally absent. */
-export function stackSVG(m, view = 'iso') {
+export function stackSVG(m, view = 'iso', compact = false) {
   if (!['iso', 'plan', 'section'].includes(view)) view = 'iso';
   const key = {
     iso: 'AXONOMETRIC',
@@ -1017,7 +1026,9 @@ export function stackSVG(m, view = 'iso') {
     );
   const colorsNote = m.metrics.screened ? '#49674c' : '#aa4b38';
   return (
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 373" role="img" aria-label="' +
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' +
+    (compact ? '478 565' : '680 373') +
+    '" role="img" aria-label="' +
     key +
     ' of the thumb pointing stick over the XIAO nRF52840 Plus, plus whole-half plan" style="font-family:Manrope,system-ui,sans-serif;color:#33483b">' +
     '<title>Tapir controller stack: ' +
@@ -1025,14 +1036,23 @@ export function stackSVG(m, view = 'iso') {
     '</title><desc>Engineering envelope study, not verified fit. The bridge is supported by four proposed feet outside the XIAO. The original remote pointer driver is retained. ' +
     escape(notes.join(' ')) +
     '</desc>' +
-    '<rect width="680" height="373" fill="#edf0e8"/><g fill="#33483b">' +
+    '<rect width="100%" height="100%" fill="#edf0e8"/><g fill="#33483b">' +
     tag(20, 22, key + '   /   RIGHT THUMB') +
-    tag(490, 22, 'WHOLE RIGHT HALF') +
-    '<path stroke="#ced7c9" d="M478 12v346M18 288h444"/>' +
+    (compact
+      ? '<path stroke="#ced7c9" d="M18 375h444M18 288h444"/>'
+      : '<path stroke="#ced7c9" d="M478 12v346M18 288h444"/>') +
     '<g>' +
     projView(m, view) +
     '</g>' +
+    '<g' +
+    (compact ? ' transform="translate(-470 375)"' : '') +
+    '>' +
+    tag(490, 22, 'WHOLE RIGHT HALF') +
     inset(m) +
+    '</g>' +
+    '<g' +
+    (compact ? ' transform="translate(-252 205)"' : '') +
+    '>' +
     txt(493, 203, 'Dashed: former XIAO', 12) +
     txt(493, 222, 'Purple: separate driver', 12) +
     txt(493, 241, 'Dashed lead: direct span', 11) +
@@ -1055,6 +1075,7 @@ export function stackSVG(m, view = 'iso') {
       11,
       'fill="' + colorsNote + '" font-weight="650"',
     ) +
+    '</g>' +
     leg +
     txt(19, 274, notes[0], 11, 'fill="#627265"') +
     txt(20, 365, notes[1], 11, 'fill="#627265"') +

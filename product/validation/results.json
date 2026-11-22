@@ -1,0 +1,3735 @@
+{
+  "schema": 1,
+  "disposition": "HOLD",
+  "counts": {
+    "PASS_DIGITAL": 70,
+    "BLOCKED": 1,
+    "PHYSICAL_PENDING": 9
+  },
+  "rows": [
+    {
+      "id": "left.erc",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "KiCad 10.0.8; 0 findings incl warnings and exclusions; none; CLI exit 0",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_sch",
+        "product/electronics/left/tapir-left.kicad_pro"
+      ]
+    },
+    {
+      "id": "left.drc-parity",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "KiCad 10.0.8; 0 findings incl warnings and exclusions; none; CLI exit 0",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_sch",
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/electronics/left/tapir-left.kicad_pro"
+      ]
+    },
+    {
+      "id": "left.schematic-endpoints",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "114 functional pin/net endpoints on 51 electrical designators match independent matrix, power and controller contract",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_sch"
+      ]
+    },
+    {
+      "id": "left.pcb-endpoints",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "114 functional pin/net endpoints on 51 electrical designators match independent matrix, power and controller contract",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb"
+      ]
+    },
+    {
+      "id": "left.endpoint-parity",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "114 native XML ⇔ board endpoints agree; 445 copper segments/arcs, 27 vias; native DRC separately tests continuity",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/electronics/left/tapir-left.kicad_sch"
+      ]
+    },
+    {
+      "id": "left.carrier-contour",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "15 native edges, 134.825 × 97.083 × 1.60 mm, 10716.82 mm²; bidirectional contour sample residual 0.000001 mm",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "left.mount-registration",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "4 native NPTHs vs boss datums; maximum XY 0.000000 mm, Ø 0.000000 mm. This does not establish printed boss fit.",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "left.all-footprint-drills",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "132/132 footprint drills one-to-one by owning reference, plating, coordinate and Ø; maximum XY 0.000001 mm, Ø 0.000000 mm. Includes switch, slide, mount and any wire-pad holes; routing vias excluded.",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "left.switch-registration",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "312 native XY/drill comparisons (including asymmetric Choc locators and backside diodes); max residual 0.000001 mm (SW19.locator-right XY); tolerance 0.015 mm",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "left.cap-stroke",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "378 pairwise convex prism checks across all 21 full-stroke unions (including rest and bottom-out); closest SW1-stroke to SW7-stroke: +0.500 mm; nominal, no tolerance or flex",
+      "evidence": [
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "left.cell-envelope",
+      "scope": "power",
+      "status": "PASS_DIGITAL",
+      "observed": "body 11.5×31.0×3.8 mm, reserve 13.5×33.0×4.8 vs max cell 12.3×32×4.3. Remaining total XYZ 1.20/1.00/0.50 mm is not approved swell/lead/insulation space.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/validation/vendor-v11.json"
+      ]
+    },
+    {
+      "id": "left.matrix-to-firmware",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "24 physical positions traced from placed electrical pad through diode and controller to firmware slots; no aliases",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/firmware/config/boards/shields/tapir/tapir.dtsi",
+        "product/firmware/config/boards/shields/tapir/tapir-transform.dtsi",
+        "product/firmware/config/boards/shields/tapir/tapir_left.overlay"
+      ]
+    },
+    {
+      "id": "left.inventory",
+      "scope": "sourcing",
+      "status": "PASS_DIGITAL",
+      "observed": "55 placed references, independently enumerated incl 51 electrical parts and 4 mechanical holes",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/electronics/left/tapir-left.kicad_pcb"
+      ]
+    },
+    {
+      "id": "right.erc",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "KiCad 10.0.8; 0 findings incl warnings and exclusions; none; CLI exit 0",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_sch",
+        "product/electronics/right/tapir-right.kicad_pro"
+      ]
+    },
+    {
+      "id": "right.drc-parity",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "KiCad 10.0.8; 0 findings incl warnings and exclusions; none; CLI exit 0",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_sch",
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/electronics/right/tapir-right.kicad_pro"
+      ]
+    },
+    {
+      "id": "right.schematic-endpoints",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "127 functional pin/net endpoints on 52 electrical designators match independent matrix, power and controller contract",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_sch"
+      ]
+    },
+    {
+      "id": "right.pcb-endpoints",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "127 functional pin/net endpoints on 52 electrical designators match independent matrix, power and controller contract",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb"
+      ]
+    },
+    {
+      "id": "right.endpoint-parity",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "127 native XML ⇔ board endpoints agree; 392 copper segments/arcs, 30 vias; native DRC separately tests continuity",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/electronics/right/tapir-right.kicad_sch"
+      ]
+    },
+    {
+      "id": "right.carrier-contour",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "19 native edges, 134.825 × 106.350 × 1.60 mm, 11577.95 mm²; bidirectional contour sample residual 0.000000 mm",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "right.mount-registration",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "4 native NPTHs vs boss datums; maximum XY 0.000000 mm, Ø 0.000000 mm. This does not establish printed boss fit.",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "right.all-footprint-drills",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "137/137 footprint drills one-to-one by owning reference, plating, coordinate and Ø; maximum XY 0.000001 mm, Ø 0.000000 mm. Includes switch, slide, mount and any wire-pad holes; routing vias excluded.",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "right.switch-registration",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "294 native XY/drill comparisons (including asymmetric Choc locators and backside diodes); max residual 0.000001 mm (SW19.locator-right XY); tolerance 0.015 mm",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "right.cap-stroke",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "483 pairwise convex prism checks across all 21 full-stroke unions (including rest and bottom-out); closest SW1-stroke to SW7-stroke: +0.500 mm; nominal, no tolerance or flex",
+      "evidence": [
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "right.cell-envelope",
+      "scope": "power",
+      "status": "PASS_DIGITAL",
+      "observed": "body 11.5×31.0×3.8 mm, reserve 13.5×33.0×4.8 vs max cell 12.3×32×4.3. Remaining total XYZ 1.20/1.00/0.50 mm is not approved swell/lead/insulation space.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/validation/vendor-v11.json"
+      ]
+    },
+    {
+      "id": "right.matrix-to-firmware",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "21 physical positions traced from placed electrical pad through diode and controller to firmware slots; no aliases",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/firmware/config/boards/shields/tapir/tapir.dtsi",
+        "product/firmware/config/boards/shields/tapir/tapir-transform.dtsi",
+        "product/firmware/config/boards/shields/tapir/tapir_right.overlay"
+      ]
+    },
+    {
+      "id": "right.pointer-pins",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "4/4 from board U1 pad through manufacturer v1.1 netlist into pin + polarity in right overlay; PS2_DATA=P1.15, PS2_CLK=P0.15, PS2_RST=P0.19, PTR_EN=P1.01",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/firmware/config/boards/shields/tapir/tapir_right.overlay",
+        "product/validation/vendor-v11.json"
+      ]
+    },
+    {
+      "id": "right.inventory",
+      "scope": "sourcing",
+      "status": "PASS_DIGITAL",
+      "observed": "56 placed references, independently enumerated incl 52 electrical parts and 4 mechanical holes",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/electronics/right/tapir-right.kicad_pcb"
+      ]
+    },
+    {
+      "id": "keymap.original-42",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "126/126 original bindings match normalized frozen keymap SHA on Base/Lower/Raise; 3 appended controls match, none silently trigger original hold-taps",
+      "evidence": [
+        "product/firmware/config/tapir.keymap"
+      ]
+    },
+    {
+      "id": "charger.margin",
+      "scope": "power",
+      "status": "PASS_DIGITAL",
+      "observed": "Seeed Plus v1.1 schematic marks BQ25100, 2.7k ISET to GND + 2.7k to P0.13; high-Z application source. Conditional bound 47.30–54.25 mA (assumed ±1% R) below 100 mA; actively low could reach 108.49 mA. Bootloader/actual module not verified.",
+      "evidence": [
+        "product/firmware/config/boards/shields/tapir/tapir.dtsi",
+        "product/validation/vendor-v11.json"
+      ]
+    },
+    {
+      "id": "left.uf2",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "nRF52840 UF2 670 validated block numbers/family/magic, 171520 payload bytes, addresses 0x27000..0x50e00 exclusive; not a flash or HID trial",
+      "evidence": [
+        "product/firmware/build-evidence/left/zmk.uf2"
+      ]
+    },
+    {
+      "id": "right.uf2",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "nRF52840 UF2 999 validated block numbers/family/magic, 255744 payload bytes, addresses 0x27000..0x65700 exclusive; not a flash or HID trial",
+      "evidence": [
+        "product/firmware/build-evidence/right/zmk.uf2"
+      ]
+    },
+    {
+      "id": "firmware.distinct",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "Both UF2 digests are different (build configs/roles checked separately)",
+      "evidence": [
+        "product/firmware/build-evidence/left/zmk.uf2",
+        "product/firmware/build-evidence/right/zmk.uf2"
+      ]
+    },
+    {
+      "id": "split.key-coverage",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "45/45 global positions reached exactly once; 42 typing positions plus click, scroll, right-click at 42, 43, 44",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/firmware/config/boards/shields/tapir/tapir.dtsi",
+        "product/firmware/config/tapir.keymap"
+      ]
+    },
+    {
+      "id": "power.week-budget",
+      "scope": "power",
+      "status": "PASS_DIGITAL",
+      "observed": "100 mAh × 80% / 168 h = 0.476190 mA mean per half; 1 h pointer/7 h connected/16 h asleep. Arithmetic target only, not a runtime estimate.",
+      "evidence": [
+        "product/requirements.md"
+      ]
+    },
+    {
+      "id": "left.cam-readback",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "23 source/output hashes matched; 9 nonempty Gerber layer functions and 69 PTH + 90 NPTH Excellon hits including vias match native board totals; max readback rounding ≤0.001 mm. Not a fabrication order.",
+      "evidence": [
+        "product/electronics/build/fabrication/left/manifest.json",
+        "product/electronics/reports/tapir-left-cam-readback.json",
+        "product/electronics/left/tapir-left.kicad_pcb"
+      ]
+    },
+    {
+      "id": "left.part-variants",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "51 footprint values matched to expected MPN/value; 3 XIAO/power/interface orientations and positions registered, worst XY 0.000000 mm",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "left.compiled-role",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "Resolved left role, 45 transform cells, 10 row/column GPIOs and wake flags; sleep enabled at 900000 ms and P0.13 compiled as no-pull input; image execution on hardware pending",
+      "evidence": [
+        "product/firmware/build-evidence/left/zephyr.dts",
+        "product/firmware/build-evidence/left/resolved.config",
+        "product/firmware/config/boards/shields/tapir/tapir-transform.dtsi"
+      ]
+    },
+    {
+      "id": "left.boss-bore",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "4 boss bores in actual tray mesh at z=−3.0; centers void, 16/16 annulus probes each; minimum center-to-wall radius 1.196 mm (nominal Ø2.4 case bores)",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/left/bottom-tray.stl",
+        "product/mechanical/build/left/service-bezel.stl"
+      ]
+    },
+    {
+      "id": "left.tray-insertion",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "Vertical insertion/removal sweep: actual open tray mesh vs board outline + 152 switch-tail and backside-diode envelopes from seated heights to +25 mm; no material overlap. Other parts installed after board per assembly order.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/left/bottom-tray.stl",
+        "product/mechanical/build/left/service-bezel.stl"
+      ]
+    },
+    {
+      "id": "left.usb-bezel",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "12.35 × 6.50 mm overmold prism, 38 mm straight approach from declared mouth, Z 0..6.50: no tray/bezel material in emitted meshes; seating datum/real overmold not validated.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/left/bottom-tray.stl",
+        "product/mechanical/build/left/service-bezel.stl"
+      ]
+    },
+    {
+      "id": "left.bezel-stroke",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "Entire 3 mm cap-travel envelope for 21 keys vs the actual emitted bezel mesh; zero material intersections across all overlapping Z slabs.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/left/bottom-tray.stl",
+        "product/mechanical/build/left/service-bezel.stl"
+      ]
+    },
+    {
+      "id": "left.pouch-to-case",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "12.3 × 32 × 4.3 mm cell at drawing maximum vs actual tray, bezel and pouch organizer across all intersecting height slabs: no material intersection. Cell growth and the 105 mm lead/mate remain separate physical gates.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/left/bottom-tray.stl",
+        "product/mechanical/build/left/service-bezel.stl",
+        "product/mechanical/build/left/pouch-organizer.stl"
+      ]
+    },
+    {
+      "id": "left.lead-self-clearance",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "105.000 mm path, 56 linear pieces; 0 nonlocal segment-pair overlaps in the assumed 2.20 mm XY × 1.20 mm Z wire reservation. Over all continuous points ≥6 mm apart along the wire and <1.20 mm apart in Z, minimum XY 4.669 mm (Z separation 0.000; arc lengths 13.567/19.567 mm). This tests the reserved volume, not actual conductor geometry, conductor strain, or the local 6 mm bend neighborhood.",
+      "evidence": [
+        "product/mechanical/build/left/battery-wire-105mm.json"
+      ]
+    },
+    {
+      "id": "left.step-placements",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "Independent AP214 parsing: native board plus 72 footprint model occurrences; every reference/model/count, signed side, yaw, Z and XY match the native board (max XY 0.00000000 mm). Each library STEP hash checked against the declared model fidelity; fabricated bores and bare harness pads are intentionally not separate STEP parts.",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/electronics/step/tapir-left-populated.step",
+        "product/electronics/models/manifest.json",
+        "product/electronics/models/C_0603_1608Metric.step",
+        "product/electronics/models/D_SOD-323.step",
+        "product/electronics/models/JST_S2B_PH_SM4_TB_fit.step",
+        "product/electronics/models/MBK_1U_clearance_seated.step",
+        "product/electronics/models/R_0603_1608Metric.step",
+        "product/electronics/models/SOT-23-6.step",
+        "product/electronics/models/SW_Kailh_Choc_V1.step",
+        "product/electronics/models/SW_SPDT_PCM12.step",
+        "product/electronics/models/SW_SPST_PTS810.step",
+        "product/electronics/models/XIAO_nRF52840_Plus_nonSense_fit.step"
+      ]
+    },
+    {
+      "id": "left.brep-motion",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "44 required/reported checks; 36 common-volume screens, worst 0.0000139 mm³ (<0.00002); 4 swept-wire screens, worst 0.000000 mm³; independently summed lead centerline 105.000 mm; minimum modeled junction radius 1.166 mm (no vendor limit). 3 emitted meshes hash-match and current geometry hash. Seating/torque/cable flex not physically tested.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/left/clearances.json",
+        "product/mechanical/build/left/mesh-manifest.json",
+        "product/mechanical/build/left/assembly.step",
+        "product/mechanical/build/left/printable-parts.step",
+        "product/mechanical/build/left/battery-wire-105mm.json"
+      ]
+    },
+    {
+      "id": "left.engagement",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "4 × M2×6 + 3 × M2×8; both nominally engage 1.60 mm nuts; tips clear desk by 0.8/1.3 mm. Physical torque, actual stock and pull-through remain open.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/left/clearances.json",
+        "product/mechanical/build/left/mesh-manifest.json",
+        "product/mechanical/build/left/assembly.step",
+        "product/mechanical/build/left/printable-parts.step",
+        "product/mechanical/build/left/battery-wire-105mm.json"
+      ]
+    },
+    {
+      "id": "left.carried-envelope",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "Modeled portable enclosure union 143.507 × 106.849 × 20.350 mm; CAD XYZ min (-107.136, -71.341, -6.8) and max (36.371, 35.508, 13.55). Includes 3 print meshes checked vs native finished BRep; transformed populated STEP model bounding boxes, 203 component/key/knob/slide envelopes and 7 head/nut locations. No stick cap on left. Optional feet not fitted; external cable excluded. Separately, nominal seated 36 mm Qualtek rigid overmold alone gives 143.507 × 134.831 mm XY; flexible cable extension, actual stop and bend are unqualified. Not a physical size.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/left/clearances.json",
+        "product/mechanical/build/left/mesh-manifest.json",
+        "product/electronics/step/tapir-left-populated.step",
+        "product/electronics/models/manifest.json",
+        "product/mechanical/build/left/bottom-tray.stl",
+        "product/mechanical/build/left/service-bezel.stl",
+        "product/mechanical/build/left/pouch-organizer.stl"
+      ]
+    },
+    {
+      "id": "left.populated-step-fit",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "All 73 native STEP occurrences (carrier + 72 modeled parts/caps), frame −1.595 mm, tested vs all printed bodies by the CAD kernel: no common-volume finding >0.00002 mm³. Independent AP214 membership/side/placement audit and STL section sweeps are separate. Solder fillets, cable flexibility, terminals and unmodeled internals are not tested by this BRep screen.",
+      "evidence": [
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/electronics/step/tapir-left-populated.step",
+        "product/design/geometry.json",
+        "product/mechanical/build/left/clearances.json",
+        "product/mechanical/build/left/mesh-manifest.json",
+        "product/mechanical/build/left/bottom-tray.stl",
+        "product/mechanical/build/left/service-bezel.stl",
+        "product/mechanical/build/left/pouch-organizer.stl"
+      ]
+    },
+    {
+      "id": "right.cam-readback",
+      "scope": "electrical",
+      "status": "PASS_DIGITAL",
+      "observed": "23 source/output hashes matched; 9 nonempty Gerber layer functions and 77 PTH + 90 NPTH Excellon hits including vias match native board totals; max readback rounding ≤0.001 mm. Not a fabrication order.",
+      "evidence": [
+        "product/electronics/build/fabrication/right/manifest.json",
+        "product/electronics/reports/tapir-right-cam-readback.json",
+        "product/electronics/right/tapir-right.kicad_pcb"
+      ]
+    },
+    {
+      "id": "right.part-variants",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "52 footprint values matched to expected MPN/value; 4 XIAO/power/interface orientations and positions registered, worst XY 0.000000 mm",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/design/geometry.json"
+      ]
+    },
+    {
+      "id": "right.compiled-role",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "Resolved right role, 45 transform cells, 10 row/column GPIOs and wake flags; sleep enabled at 900000 ms and P0.13 compiled as no-pull input; image execution on hardware pending",
+      "evidence": [
+        "product/firmware/build-evidence/right/zephyr.dts",
+        "product/firmware/build-evidence/right/resolved.config",
+        "product/firmware/config/boards/shields/tapir/tapir-transform.dtsi"
+      ]
+    },
+    {
+      "id": "right.boss-bore",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "4 boss bores in actual tray mesh at z=−3.0; centers void, 16/16 annulus probes each; minimum center-to-wall radius 1.196 mm (nominal Ø2.4 case bores)",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/bottom-tray.stl",
+        "product/mechanical/build/right/service-bezel.stl"
+      ]
+    },
+    {
+      "id": "right.tray-insertion",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "Vertical insertion/removal sweep: actual open tray mesh vs board outline + 149 switch-tail and backside-diode envelopes from seated heights to +25 mm; no material overlap. Other parts installed after board per assembly order.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/bottom-tray.stl",
+        "product/mechanical/build/right/service-bezel.stl"
+      ]
+    },
+    {
+      "id": "right.usb-bezel",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "12.35 × 6.50 mm overmold prism, 38 mm straight approach from declared mouth, Z 0..6.50: no tray/bezel material in emitted meshes; seating datum/real overmold not validated.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/bottom-tray.stl",
+        "product/mechanical/build/right/service-bezel.stl"
+      ]
+    },
+    {
+      "id": "right.bezel-stroke",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "Entire 3 mm cap-travel envelope for 21 keys vs the actual emitted bezel mesh; zero material intersections across all overlapping Z slabs.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/bottom-tray.stl",
+        "product/mechanical/build/right/service-bezel.stl"
+      ]
+    },
+    {
+      "id": "right.pouch-to-case",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "12.3 × 32 × 4.3 mm cell at drawing maximum vs actual tray, bezel and pouch organizer across all intersecting height slabs: no material intersection. Cell growth and the 105 mm lead/mate remain separate physical gates.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/bottom-tray.stl",
+        "product/mechanical/build/right/service-bezel.stl",
+        "product/mechanical/build/right/pouch-organizer.stl"
+      ]
+    },
+    {
+      "id": "right.sensor-bores",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "4 bridge-bore centers at sensor's 9.5 mm square drill coordinates; actual mesh in-plane radii 0.718..0.718 mm under nominal Ø1.80 sensor features. Not a screw/paste/bond specification; actual sensor retention unqualified.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/pointer-bridge.stl"
+      ]
+    },
+    {
+      "id": "right.lead-self-clearance",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "105.000 mm path, 111 linear pieces; 0 nonlocal segment-pair overlaps in the assumed 2.20 mm XY × 1.20 mm Z wire reservation. Over all continuous points ≥6 mm apart along the wire and <1.20 mm apart in Z, minimum XY 4.559 mm (Z separation 1.200; arc lengths 98.367/104.367 mm). This tests the reserved volume, not actual conductor geometry, conductor strain, or the local 6 mm bend neighborhood.",
+      "evidence": [
+        "product/mechanical/build/right/battery-wire-105mm.json"
+      ]
+    },
+    {
+      "id": "right.step-placements",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "Independent AP214 parsing: native board plus 72 footprint model occurrences; every reference/model/count, signed side, yaw, Z and XY match the native board (max XY 0.00000000 mm). Each library STEP hash checked against the declared model fidelity; fabricated bores and bare harness pads are intentionally not separate STEP parts.",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/electronics/step/tapir-right-populated.step",
+        "product/electronics/models/manifest.json",
+        "product/electronics/models/C_0603_1608Metric.step",
+        "product/electronics/models/D_SOD-323.step",
+        "product/electronics/models/JST_S2B_PH_SM4_TB_fit.step",
+        "product/electronics/models/MBK_1U_clearance_seated.step",
+        "product/electronics/models/R_0603_1608Metric.step",
+        "product/electronics/models/SOT-23-6.step",
+        "product/electronics/models/SW_Kailh_Choc_V1.step",
+        "product/electronics/models/SW_SPDT_PCM12.step",
+        "product/electronics/models/SW_SPST_PTS810.step",
+        "product/electronics/models/XIAO_nRF52840_Plus_nonSense_fit.step"
+      ]
+    },
+    {
+      "id": "right.brep-motion",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "57 required/reported checks; 43 common-volume screens, worst 0.0000000 mm³ (<0.00002); 9 swept-wire screens, worst 0.000000 mm³; independently summed lead centerline 105.000 mm; minimum modeled junction radius 1.6 mm (no vendor limit). 4 emitted meshes hash-match and current geometry hash. Seating/torque/cable flex not physically tested.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/clearances.json",
+        "product/mechanical/build/right/mesh-manifest.json",
+        "product/mechanical/build/right/assembly.step",
+        "product/mechanical/build/right/printable-parts.step",
+        "product/mechanical/build/right/battery-wire-105mm.json"
+      ]
+    },
+    {
+      "id": "right.engagement",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "4 × M2×6 + 3 × M2×8; both nominally engage 1.60 mm nuts; tips clear desk by 0.8/1.3 mm. Physical torque, actual stock and pull-through remain open.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/clearances.json",
+        "product/mechanical/build/right/mesh-manifest.json",
+        "product/mechanical/build/right/assembly.step",
+        "product/mechanical/build/right/printable-parts.step",
+        "product/mechanical/build/right/battery-wire-105mm.json"
+      ]
+    },
+    {
+      "id": "right.analog-harness-prints",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "Continuous 37.082 mm 3D provisional sensor→driver centerline with 2.80 mm XY diameter and 0.80 mm height vs every slab of 4 emitted prints. Closest in-plane material gap in intersecting Z slab: +0.285 mm to service-bezel on segment 4; 0 intersecting segment/slab pairs. Solder lands, terminals, flex and retention are provisional.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/bottom-tray.stl",
+        "product/mechanical/build/right/service-bezel.stl",
+        "product/mechanical/build/right/pouch-organizer.stl",
+        "product/mechanical/build/right/pointer-bridge.stl"
+      ]
+    },
+    {
+      "id": "right.carried-envelope",
+      "scope": "mechanical",
+      "status": "PASS_DIGITAL",
+      "observed": "Modeled portable enclosure union 145.029 × 116.312 × 20.350 mm; CAD XYZ min (-38.578, -81.439, -6.8) and max (106.451, 34.873, 13.55). Includes 4 print meshes checked vs native finished BRep; transformed populated STEP model bounding boxes, 201 component/key/knob/slide envelopes and 7 head/nut locations. Right rubber stick-cap envelope tops at +11.05 mm and does not set maximum case height. Optional feet not fitted; external cable excluded. Separately, nominal seated 36 mm Qualtek rigid overmold alone gives 145.029 × 146.863 mm XY; flexible cable extension, actual stop and bend are unqualified. Not a physical size.",
+      "evidence": [
+        "product/design/geometry.json",
+        "product/mechanical/build/right/clearances.json",
+        "product/mechanical/build/right/mesh-manifest.json",
+        "product/electronics/step/tapir-right-populated.step",
+        "product/electronics/models/manifest.json",
+        "product/mechanical/build/right/bottom-tray.stl",
+        "product/mechanical/build/right/service-bezel.stl",
+        "product/mechanical/build/right/pouch-organizer.stl",
+        "product/mechanical/build/right/pointer-bridge.stl"
+      ]
+    },
+    {
+      "id": "right.populated-step-fit",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "All 73 native STEP occurrences (carrier + 72 modeled parts/caps), frame −1.595 mm, tested vs all printed bodies by the CAD kernel: no common-volume finding >0.00002 mm³. Independent AP214 membership/side/placement audit and STL section sweeps are separate. Solder fillets, cable flexibility, terminals and unmodeled internals are not tested by this BRep screen.",
+      "evidence": [
+        "product/electronics/right/tapir-right.kicad_pcb",
+        "product/electronics/step/tapir-right-populated.step",
+        "product/design/geometry.json",
+        "product/mechanical/build/right/clearances.json",
+        "product/mechanical/build/right/mesh-manifest.json",
+        "product/mechanical/build/right/bottom-tray.stl",
+        "product/mechanical/build/right/service-bezel.stl",
+        "product/mechanical/build/right/pouch-organizer.stl",
+        "product/mechanical/build/right/pointer-bridge.stl"
+      ]
+    },
+    {
+      "id": "bom.placement-accounting",
+      "scope": "sourcing",
+      "status": "PASS_DIGITAL",
+      "observed": "28 unique BOM lines; 102 purchased on-carrier references mapped to a unique line by side and quantity (excludes bare pads and drilled holes). Off-board items retained separately.",
+      "evidence": [
+        "product/sourcing/bom.csv",
+        "product/electronics/left/tapir-left.kicad_pcb",
+        "product/electronics/right/tapir-right.kicad_pcb"
+      ]
+    },
+    {
+      "id": "charger.voltage-compatibility",
+      "scope": "power",
+      "status": "BLOCKED",
+      "observed": "BQ25100 regulation can reach 4.23 V; pack specifies 4.20 V CC/CV, with no approved +30 mV charging window. A PCM overvoltage trip is NOT a permitted CV limit. Obtain written pack compatibility for the full tolerance or redesign the charger; USB-only testing with both cells disconnected. One good measured unit is not qualification.",
+      "evidence": [
+        "product/validation/vendor-v11.json",
+        "product/validation/BENCH.md"
+      ]
+    },
+    {
+      "id": "controller.hidden-lands",
+      "scope": "integration",
+      "status": "PASS_DIGITAL",
+      "observed": "6/6 hidden host lands registered to Seeed module refs/nets; battery pads have 1.7812 × 1.0160 mm nominal bounding-rectangle overlap. No solder paste/reflow/yield proof.",
+      "evidence": [
+        "product/electronics/reports/xiao-hidden-lands.json",
+        "product/validation/vendor-v11.json"
+      ]
+    },
+    {
+      "id": "power.pointer-headroom",
+      "scope": "power",
+      "status": "PASS_DIGITAL",
+      "observed": "Lower-bound budget, not prediction: right driver alone draws 6.64 or 12.17 mAh/day for 1 h active + 7 h idle, assuming perfect gating 16 h. At Z-Tap-disabled typical idle that leaves 0.200 mA mean for both MCU/radio and all other right-half loads. Z-Tap-enabled idle alone would exceed the 11.43 mAh/day target. Host event suppression is not a measured sensor mode.",
+      "evidence": [
+        "product/firmware/config/boards/shields/tapir/tapir_right.overlay",
+        "product/requirements.md"
+      ]
+    },
+    {
+      "id": "firmware.pointer-events",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "12 observed ZMK native events match independent sequence: motion, left held during drag, release, wheel on both axes, return to cursor, right held then release. This did not exercise real PS/2, split BLE, USB or hardware wake.",
+      "evidence": [
+        "product/firmware/build-evidence/native-pointer-events.txt",
+        "product/firmware/tests/pointer/keycode_events.snapshot",
+        "product/firmware/tests/pointer/native_posix_64.keymap",
+        "product/firmware/config/boards/shields/tapir/tapir-listener.dtsi"
+      ]
+    },
+    {
+      "id": "firmware.split-ble-hog",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "Independent byte-level decode of 13 × 9-byte mouse reports on paired, subscribed third simulated host: opposing-hand left/right drag and releases, two isolated wheel axes, cursor restored; real RF, plug, PS/2 transducer and abrupt disconnect are untested.",
+      "evidence": [
+        "product/firmware/build-evidence/split-ble-host.txt",
+        "product/firmware/tests/split-ble/run.sh",
+        "product/firmware/tests/split-ble/peripheral.overlay"
+      ]
+    },
+    {
+      "id": "firmware.evidence-freeze",
+      "scope": "firmware",
+      "status": "PASS_DIGITAL",
+      "observed": "12 listed build/test/vendor evidence digests verified, including both handed UF2s, resolved DTS/Kconfigs and actual simulation traces. The build procedure and clean replay record are supplied; digest checks alone do not certify physical execution.",
+      "evidence": [
+        "product/firmware/build-evidence/SHA256SUMS",
+        "product/firmware/build-evidence/validation.md",
+        "product/firmware/tools/build.sh"
+      ]
+    },
+    {
+      "id": "physical.mounts",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "M01/M03: actual bores, fastener/tool access, bridge load/retention and removal are unmeasured.",
+      "evidence": [
+        "product/validation/BENCH.md#mechanical-and-electrical-inspection"
+      ]
+    },
+    {
+      "id": "physical.stroke",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "M02/M06: 42 physical switches + caps, 3 buttons, thumb reach and simultaneous presses not exercised.",
+      "evidence": [
+        "product/validation/BENCH.md#mechanical-and-electrical-inspection"
+      ]
+    },
+    {
+      "id": "physical.usb",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "M04: no actual USB overmold, mating stop or closed-case cable measured on either half.",
+      "evidence": [
+        "product/validation/BENCH.md#mechanical-and-electrical-inspection"
+      ]
+    },
+    {
+      "id": "physical.pouch",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "M05: actual maximum pouch/PCM/wires, swelling, insulation and safe closure unverified.",
+      "evidence": [
+        "product/validation/BENCH.md#mechanical-and-electrical-inspection"
+      ]
+    },
+    {
+      "id": "physical.polarity",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "E01/E02: board J1 pin allocation is intent. Exact Adafruit 1570 drawing calls for a reversed plug; verify real pack polarity with meter before connecting, never infer from colors.",
+      "evidence": [
+        "product/validation/BENCH.md#mechanical-and-electrical-inspection"
+      ]
+    },
+    {
+      "id": "physical.charge",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "E02: physical 50 mA mode and peak below 100 mA through reset, DFU, USB hot-plug, suspend and charge termination not measured.",
+      "evidence": [
+        "product/validation/BENCH.md#mechanical-and-electrical-inspection"
+      ]
+    },
+    {
+      "id": "physical.power",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "E03/E04: rail startup and backfeed, both battery-only current integrals, sleep/wake and seven-day runtime not measured.",
+      "evidence": [
+        "product/validation/BENCH.md#mechanical-and-electrical-inspection"
+      ]
+    },
+    {
+      "id": "physical.rf",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "E05: closed-case BLE range/reconnect, hand attenuation and loss under load unmeasured.",
+      "evidence": [
+        "product/validation/BENCH.md#mechanical-and-electrical-inspection"
+      ]
+    },
+    {
+      "id": "physical.hid",
+      "scope": "physical",
+      "status": "PHYSICAL_PENDING",
+      "observed": "H01–H04: real host USB/BLE, cross-half drag and scroll, disconnects and recovery not exercised.",
+      "evidence": [
+        "product/validation/BENCH.md#host-event-and-fault-matrix"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "hand": "left",
+      "ref": "D1",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D10",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D11",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D12",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D13",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D14",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D15",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D16",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D17",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D18",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D19",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D2",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D20",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D21",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D22",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D23",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D24",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D3",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D4",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D5",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D6",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D7",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D8",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "D9",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "left",
+      "ref": "H1",
+      "value": "M2_Carrier_Mount",
+      "footprint": "Tapir:M2_Carrier_Mount",
+      "side": "F.Cu",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "declared case-mount datum, non-electrical"
+      ],
+      "fit_scope": [
+        "Fabricated hole in carrier; no separate purchased solid."
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "H2",
+      "value": "M2_Carrier_Mount",
+      "footprint": "Tapir:M2_Carrier_Mount",
+      "side": "F.Cu",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "declared case-mount datum, non-electrical"
+      ],
+      "fit_scope": [
+        "Fabricated hole in carrier; no separate purchased solid."
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "H3",
+      "value": "M2_Carrier_Mount",
+      "footprint": "Tapir:M2_Carrier_Mount",
+      "side": "F.Cu",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "declared case-mount datum, non-electrical"
+      ],
+      "fit_scope": [
+        "Fabricated hole in carrier; no separate purchased solid."
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "H4",
+      "value": "M2_Carrier_Mount",
+      "footprint": "Tapir:M2_Carrier_Mount",
+      "side": "F.Cu",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "declared case-mount datum, non-electrical"
+      ],
+      "fit_scope": [
+        "Fabricated hole in carrier; no separate purchased solid."
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "J1",
+      "value": "S2B-PH-SM4-TB(LF)(SN)",
+      "footprint": "Tapir:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "JST_S2B_PH_SM4_TB_fit.step: Original simplified JST PH side-entry surface-mount 2-position fit body from drawing; no latch/insertion-force validation"
+      ],
+      "bom_line": "J1"
+    },
+    {
+      "hand": "left",
+      "ref": "S1",
+      "value": "PCM12SMTR",
+      "footprint": "Tapir:SW_SPDT_PCM12",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_SPDT_PCM12.step: KiCad native; original model header explicitly identifies PCM12SMTR"
+      ],
+      "bom_line": "S1"
+    },
+    {
+      "hand": "left",
+      "ref": "SW1",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW10",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW11",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW12",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW13",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW14",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW15",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW16",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW17",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW18",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW19",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW2",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW20",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW21",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW22",
+      "value": "PTS810SJM250SMTR LFS",
+      "footprint": "Tapir:SW_SPST_PTS810",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_SPST_PTS810.step: PTS810 J-bend series; 2.50 mm height verified, actuator grade/force not modeled"
+      ],
+      "bom_line": "MS"
+    },
+    {
+      "hand": "left",
+      "ref": "SW23",
+      "value": "PTS810SJM250SMTR LFS",
+      "footprint": "Tapir:SW_SPST_PTS810",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_SPST_PTS810.step: PTS810 J-bend series; 2.50 mm height verified, actuator grade/force not modeled"
+      ],
+      "bom_line": "MS"
+    },
+    {
+      "hand": "left",
+      "ref": "SW24",
+      "value": "PTS810SJM250SMTR LFS",
+      "footprint": "Tapir:SW_SPST_PTS810",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_SPST_PTS810.step: PTS810 J-bend series; 2.50 mm height verified, actuator grade/force not modeled"
+      ],
+      "bom_line": "MS"
+    },
+    {
+      "hand": "left",
+      "ref": "SW3",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW4",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW5",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW6",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW7",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW8",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "SW9",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "left",
+      "ref": "U1",
+      "value": "XIAO nRF52840 Plus",
+      "footprint": "Tapir:XIAO-nRF52840-Plus-SMD",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "14 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "XIAO_nRF52840_Plus_nonSense_fit.step: Independently constructed from non-Sense Plus v1.1 artwork; 23 edge positions, 14 header holes, no IMU/microphone; Z allowances"
+      ],
+      "bom_line": "U1"
+    },
+    {
+      "hand": "right",
+      "ref": "C1",
+      "value": "1uF",
+      "footprint": "Tapir:C_0603_1608Metric",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "C_0603_1608Metric.step: package only; thickness depends on actual selected capacitor"
+      ],
+      "bom_line": "C1"
+    },
+    {
+      "hand": "right",
+      "ref": "C2",
+      "value": "100nF",
+      "footprint": "Tapir:C_0603_1608Metric",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "C_0603_1608Metric.step: package only; thickness depends on actual selected capacitor"
+      ],
+      "bom_line": "C2"
+    },
+    {
+      "hand": "right",
+      "ref": "D1",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D10",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D11",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D12",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D13",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D14",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D15",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D16",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D17",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D18",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D19",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D2",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D20",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D21",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D3",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D4",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D5",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D6",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D7",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D8",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "D9",
+      "value": "1N4148WS-7-F",
+      "footprint": "Tapir:D_SOD-323",
+      "side": "B.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "D_SOD-323.step: SOD-323 package CAD, not die-specific"
+      ],
+      "bom_line": "D"
+    },
+    {
+      "hand": "right",
+      "ref": "H1",
+      "value": "M2_Carrier_Mount",
+      "footprint": "Tapir:M2_Carrier_Mount",
+      "side": "F.Cu",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "declared case-mount datum, non-electrical"
+      ],
+      "fit_scope": [
+        "Fabricated hole in carrier; no separate purchased solid."
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "H2",
+      "value": "M2_Carrier_Mount",
+      "footprint": "Tapir:M2_Carrier_Mount",
+      "side": "F.Cu",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "declared case-mount datum, non-electrical"
+      ],
+      "fit_scope": [
+        "Fabricated hole in carrier; no separate purchased solid."
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "H3",
+      "value": "M2_Carrier_Mount",
+      "footprint": "Tapir:M2_Carrier_Mount",
+      "side": "F.Cu",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "declared case-mount datum, non-electrical"
+      ],
+      "fit_scope": [
+        "Fabricated hole in carrier; no separate purchased solid."
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "H4",
+      "value": "M2_Carrier_Mount",
+      "footprint": "Tapir:M2_Carrier_Mount",
+      "side": "F.Cu",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "declared case-mount datum, non-electrical"
+      ],
+      "fit_scope": [
+        "Fabricated hole in carrier; no separate purchased solid."
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "J1",
+      "value": "S2B-PH-SM4-TB(LF)(SN)",
+      "footprint": "Tapir:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "JST_S2B_PH_SM4_TB_fit.step: Original simplified JST PH side-entry surface-mount 2-position fit body from drawing; no latch/insertion-force validation"
+      ],
+      "bom_line": "J1"
+    },
+    {
+      "hand": "right",
+      "ref": "J2",
+      "value": "SK8707-01-004 host cable",
+      "footprint": "Tapir:Sprintek_Host_Wires",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "5 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "Bare copper harness pads; no connector solid. Actual interconnect, strain relief and solder are bench-only."
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "R1",
+      "value": "4.7k",
+      "footprint": "Tapir:R_0603_1608Metric",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "R_0603_1608Metric.step: package only; suffix/value does not follow from body geometry"
+      ],
+      "bom_line": "R12"
+    },
+    {
+      "hand": "right",
+      "ref": "R2",
+      "value": "4.7k",
+      "footprint": "Tapir:R_0603_1608Metric",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "R_0603_1608Metric.step: package only; suffix/value does not follow from body geometry"
+      ],
+      "bom_line": "R12"
+    },
+    {
+      "hand": "right",
+      "ref": "R3",
+      "value": "100k",
+      "footprint": "Tapir:R_0603_1608Metric",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "R_0603_1608Metric.step: package only; suffix/value does not follow from body geometry"
+      ],
+      "bom_line": "R3"
+    },
+    {
+      "hand": "right",
+      "ref": "S1",
+      "value": "PCM12SMTR",
+      "footprint": "Tapir:SW_SPDT_PCM12",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_SPDT_PCM12.step: KiCad native; original model header explicitly identifies PCM12SMTR"
+      ],
+      "bom_line": "S1"
+    },
+    {
+      "hand": "right",
+      "ref": "SW1",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW10",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW11",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW12",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW13",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW14",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW15",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW16",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW17",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW18",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW19",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW2",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW20",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW21",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW3",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW4",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW5",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW6",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW7",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW8",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "SW9",
+      "value": "CPG135001D01",
+      "footprint": "Tapir:Choc_PG1350",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "2 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SW_Kailh_Choc_V1.step: KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+        "MBK_1U_clearance_seated.step: Independent seated keycap envelope; excludes stem prongs, not mold/print geometry"
+      ],
+      "bom_line": "SW"
+    },
+    {
+      "hand": "right",
+      "ref": "U1",
+      "value": "XIAO nRF52840 Plus",
+      "footprint": "Tapir:XIAO-nRF52840-Plus-SMD",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "19 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "XIAO_nRF52840_Plus_nonSense_fit.step: Independently constructed from non-Sense Plus v1.1 artwork; 23 edge positions, 14 header holes, no IMU/microphone; Z allowances"
+      ],
+      "bom_line": "U1"
+    },
+    {
+      "hand": "right",
+      "ref": "U2",
+      "value": "TPS22918DBVR",
+      "footprint": "Tapir:SOT-23-6",
+      "side": "F.Cu",
+      "net_contract": "PASS_DIGITAL",
+      "physical": "PHYSICAL_PENDING",
+      "notes": [
+        "5 assigned functional pins compared with independent expected nets"
+      ],
+      "fit_scope": [
+        "SOT-23-6.step: nominal six-terminal SOT-23/DBV package, not a TI assembly model"
+      ],
+      "bom_line": "U2"
+    },
+    {
+      "hand": "left",
+      "ref": "CAP",
+      "value": "KC10130_1U-BK",
+      "qty": 21,
+      "bom_line": "CAP",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Per-switch MBK envelope installed on every switch in carrier STEP and full cap-stroke screen; not an original supplier BRep."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "CAP",
+      "value": "KC10130_1U-BK",
+      "qty": 21,
+      "bom_line": "CAP",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Per-switch MBK envelope installed on every switch in carrier STEP and full cap-stroke screen; not an original supplier BRep."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "BT",
+      "value": "1570",
+      "qty": 1,
+      "bom_line": "BT",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Maximum-pack envelope, printed pocket and 105 mm nominal lead routing; no actual pouch, heat, strain or polarity validation."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "BT",
+      "value": "1570",
+      "qty": 1,
+      "bom_line": "BT",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Maximum-pack envelope, printed pocket and 105 mm nominal lead routing; no actual pouch, heat, strain or polarity validation."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "TPK",
+      "value": "SK8707-01-004",
+      "qty": 1,
+      "bom_line": "TPK",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Kit parent line, not an extra installed part. See sensor, driver, dome and wire evidence."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "TPSEN",
+      "value": "SK8707-01-004 / sensor child",
+      "qty": 1,
+      "bom_line": "TPSEN",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Sensor dimensions, four registered bores and provisional attachment land; actual strain element/adhesive not qualified."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "TPDRV",
+      "value": "SK8707-01-004 / driver child",
+      "qty": 1,
+      "bom_line": "TPDRV",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Detached driver envelope/cover motion and electrical pin contract; actual terminations, retention and solder fillets unmodeled."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "TPDOM",
+      "value": "SK8707-01-004 / included dome",
+      "qty": 1,
+      "bom_line": "TPDOM",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Installed dome and post envelope; force, full deflection, rubber geometry and subjective reach require a physical sample."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "WA",
+      "value": "4736",
+      "qty": 4,
+      "bom_line": "WA",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Four analog node assignments documented; lead clearances, strain relief, analog balance, soldering and actual function require assembly."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "WD",
+      "value": "4736",
+      "qty": 5,
+      "bom_line": "WD",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Five host pad/node assignments documented; soldering, insulation, strain relief and signal integrity require assembly."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "F6",
+      "value": "HBS73801-M2-6-A2",
+      "qty": 4,
+      "bom_line": "F6",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native smooth shaft/head/pocket and drive access screen; actual threaded engagement/torque untested."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "F6",
+      "value": "HBS73801-M2-6-A2",
+      "qty": 4,
+      "bom_line": "F6",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native smooth shaft/head/pocket and drive access screen; actual threaded engagement/torque untested."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "F8",
+      "value": "HBS73801-M2-8-A2",
+      "qty": 3,
+      "bom_line": "F8",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native smooth shaft/head/pocket and drive access screen; actual threaded engagement/torque untested."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "F8",
+      "value": "HBS73801-M2-8-A2",
+      "qty": 3,
+      "bom_line": "F8",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native smooth shaft/head/pocket and drive access screen; actual threaded engagement/torque untested."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "FN",
+      "value": "NXM02A2",
+      "qty": 7,
+      "bom_line": "FN",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native M2 AF4 envelope, pocket, full axial engagement; nut retention/tolerance untested."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "FN",
+      "value": "NXM02A2",
+      "qty": 7,
+      "bom_line": "FN",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native M2 AF4 envelope, pocket, full axial engagement; nut retention/tolerance untested."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "PCBA",
+      "value": "Tapir Rev A left",
+      "qty": 1,
+      "bom_line": "PCBA",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native outline, mounting drill, CAM, seated populated BRep and continuous as-soldered tray sweep."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "PCBB",
+      "value": "Tapir Rev A right",
+      "qty": 1,
+      "bom_line": "PCBB",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native outline, mounting drill, CAM, seated populated BRep and continuous as-soldered tray sweep."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "CASETRAY",
+      "value": "bottom_tray L/R",
+      "qty": 1,
+      "bom_line": "CASETRAY",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native pan vs emitted STL; bores, board/solder field, floor, wall and service sweeps checked at nominal pose."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "CASETRAY",
+      "value": "bottom_tray L/R",
+      "qty": 1,
+      "bom_line": "CASETRAY",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native pan vs emitted STL; bores, board/solder field, floor, wall and service sweeps checked at nominal pose."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "CASEBEZ",
+      "value": "service_bezel_and_hood L/R",
+      "qty": 1,
+      "bom_line": "CASEBEZ",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native upper bezel vs emitted STL; cap stroke, release/screwdriver/USB paths and paddle regions checked at nominal pose."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "CASEBEZ",
+      "value": "service_bezel_and_hood L/R",
+      "qty": 1,
+      "bom_line": "CASEBEZ",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native upper bezel vs emitted STL; cap stroke, release/screwdriver/USB paths and paddle regions checked at nominal pose."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "left",
+      "ref": "CASECASS",
+      "value": "pouch_separator_and_winding_form L/R",
+      "qty": 1,
+      "bom_line": "CASECASS",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Seated and descending cassette checked against case and maximum pouch; numerical uncut cable path, no cell was fitted."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "CASECASS",
+      "value": "pouch_separator_and_winding_form L/R",
+      "qty": 1,
+      "bom_line": "CASECASS",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Seated and descending cassette checked against case and maximum pouch; numerical uncut cable path, no cell was fitted."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    },
+    {
+      "hand": "right",
+      "ref": "BRIDGE",
+      "value": "captive_pointer_bridge R",
+      "qty": 1,
+      "bom_line": "BRIDGE",
+      "net_contract": "NOT_APPLICABLE",
+      "physical": "PHYSICAL_PENDING",
+      "fit_scope": [
+        "Native low tabs, feet, controller/USB envelope and lift obstruction; emitted sensor pilot bores; load and attachment untested."
+      ],
+      "notes": [
+        "Procurement/assembly line; quantity/identity only, no measured fit or live stock inferred"
+      ]
+    }
+  ],
+  "key_trace": {
+    "left": [
+      {
+        "ref": "SW1",
+        "label": "Esc",
+        "logical": 0,
+        "global_matrix": [
+          0,
+          0
+        ],
+        "x": -90,
+        "y": -9,
+        "row_gpio": "D0",
+        "column_gpio": "D4"
+      },
+      {
+        "ref": "SW2",
+        "label": "Q",
+        "logical": 1,
+        "global_matrix": [
+          0,
+          1
+        ],
+        "x": -72,
+        "y": -13,
+        "row_gpio": "D0",
+        "column_gpio": "D5"
+      },
+      {
+        "ref": "SW3",
+        "label": "W",
+        "logical": 2,
+        "global_matrix": [
+          0,
+          2
+        ],
+        "x": -54,
+        "y": -17,
+        "row_gpio": "D0",
+        "column_gpio": "D6"
+      },
+      {
+        "ref": "SW4",
+        "label": "E",
+        "logical": 3,
+        "global_matrix": [
+          0,
+          3
+        ],
+        "x": -36,
+        "y": -20,
+        "row_gpio": "D0",
+        "column_gpio": "D7"
+      },
+      {
+        "ref": "SW5",
+        "label": "R",
+        "logical": 4,
+        "global_matrix": [
+          0,
+          4
+        ],
+        "x": -18,
+        "y": -17,
+        "row_gpio": "D0",
+        "column_gpio": "D8"
+      },
+      {
+        "ref": "SW6",
+        "label": "T",
+        "logical": 5,
+        "global_matrix": [
+          0,
+          5
+        ],
+        "x": 0,
+        "y": -15.5,
+        "row_gpio": "D0",
+        "column_gpio": "D9"
+      },
+      {
+        "ref": "SW7",
+        "label": "Shift",
+        "logical": 12,
+        "global_matrix": [
+          1,
+          0
+        ],
+        "x": -90,
+        "y": 8,
+        "row_gpio": "D1",
+        "column_gpio": "D4"
+      },
+      {
+        "ref": "SW8",
+        "label": "A",
+        "logical": 13,
+        "global_matrix": [
+          1,
+          1
+        ],
+        "x": -72,
+        "y": 4,
+        "row_gpio": "D1",
+        "column_gpio": "D5"
+      },
+      {
+        "ref": "SW9",
+        "label": "S",
+        "logical": 14,
+        "global_matrix": [
+          1,
+          2
+        ],
+        "x": -54,
+        "y": 0,
+        "row_gpio": "D1",
+        "column_gpio": "D6"
+      },
+      {
+        "ref": "SW10",
+        "label": "D",
+        "logical": 15,
+        "global_matrix": [
+          1,
+          3
+        ],
+        "x": -36,
+        "y": -3,
+        "row_gpio": "D1",
+        "column_gpio": "D7"
+      },
+      {
+        "ref": "SW11",
+        "label": "F",
+        "logical": 16,
+        "global_matrix": [
+          1,
+          4
+        ],
+        "x": -18,
+        "y": 0,
+        "row_gpio": "D1",
+        "column_gpio": "D8"
+      },
+      {
+        "ref": "SW12",
+        "label": "G",
+        "logical": 17,
+        "global_matrix": [
+          1,
+          5
+        ],
+        "x": 0,
+        "y": 1.5,
+        "row_gpio": "D1",
+        "column_gpio": "D9"
+      },
+      {
+        "ref": "SW13",
+        "label": "Ctrl",
+        "logical": 24,
+        "global_matrix": [
+          2,
+          0
+        ],
+        "x": -90,
+        "y": 25,
+        "row_gpio": "D2",
+        "column_gpio": "D4"
+      },
+      {
+        "ref": "SW14",
+        "label": "Z",
+        "logical": 25,
+        "global_matrix": [
+          2,
+          1
+        ],
+        "x": -72,
+        "y": 21,
+        "row_gpio": "D2",
+        "column_gpio": "D5"
+      },
+      {
+        "ref": "SW15",
+        "label": "X",
+        "logical": 26,
+        "global_matrix": [
+          2,
+          2
+        ],
+        "x": -54,
+        "y": 17,
+        "row_gpio": "D2",
+        "column_gpio": "D6"
+      },
+      {
+        "ref": "SW16",
+        "label": "C",
+        "logical": 27,
+        "global_matrix": [
+          2,
+          3
+        ],
+        "x": -36,
+        "y": 14,
+        "row_gpio": "D2",
+        "column_gpio": "D7"
+      },
+      {
+        "ref": "SW17",
+        "label": "V",
+        "logical": 28,
+        "global_matrix": [
+          2,
+          4
+        ],
+        "x": -18,
+        "y": 17,
+        "row_gpio": "D2",
+        "column_gpio": "D8"
+      },
+      {
+        "ref": "SW18",
+        "label": "B",
+        "logical": 29,
+        "global_matrix": [
+          2,
+          5
+        ],
+        "x": 0,
+        "y": 18.5,
+        "row_gpio": "D2",
+        "column_gpio": "D9"
+      },
+      {
+        "ref": "SW19",
+        "label": "Alt",
+        "logical": 36,
+        "global_matrix": [
+          3,
+          3
+        ],
+        "x": -21,
+        "y": 41,
+        "row_gpio": "D3",
+        "column_gpio": "D7"
+      },
+      {
+        "ref": "SW20",
+        "label": "Raise",
+        "logical": 37,
+        "global_matrix": [
+          3,
+          4
+        ],
+        "x": -0.6,
+        "y": 45,
+        "row_gpio": "D3",
+        "column_gpio": "D8"
+      },
+      {
+        "ref": "SW21",
+        "label": "Space",
+        "logical": 38,
+        "global_matrix": [
+          3,
+          5
+        ],
+        "x": 20,
+        "y": 53,
+        "row_gpio": "D3",
+        "column_gpio": "D9"
+      },
+      {
+        "ref": "SW22",
+        "label": "L",
+        "logical": 42,
+        "global_matrix": [
+          3,
+          0
+        ],
+        "x": -22,
+        "y": 57,
+        "row_gpio": "D3",
+        "column_gpio": "D4"
+      },
+      {
+        "ref": "SW23",
+        "label": "Scroll",
+        "logical": 43,
+        "global_matrix": [
+          3,
+          1
+        ],
+        "x": -33,
+        "y": 57,
+        "row_gpio": "D3",
+        "column_gpio": "D5"
+      },
+      {
+        "ref": "SW24",
+        "label": "R",
+        "logical": 44,
+        "global_matrix": [
+          3,
+          2
+        ],
+        "x": -44,
+        "y": 57,
+        "row_gpio": "D3",
+        "column_gpio": "D6"
+      }
+    ],
+    "right": [
+      {
+        "ref": "SW6",
+        "label": "Y",
+        "logical": 6,
+        "global_matrix": [
+          0,
+          6
+        ],
+        "x": 0,
+        "y": -15.5,
+        "row_gpio": "D0",
+        "column_gpio": "D9"
+      },
+      {
+        "ref": "SW5",
+        "label": "U",
+        "logical": 7,
+        "global_matrix": [
+          0,
+          7
+        ],
+        "x": 18,
+        "y": -17,
+        "row_gpio": "D0",
+        "column_gpio": "D8"
+      },
+      {
+        "ref": "SW4",
+        "label": "I",
+        "logical": 8,
+        "global_matrix": [
+          0,
+          8
+        ],
+        "x": 36,
+        "y": -20,
+        "row_gpio": "D0",
+        "column_gpio": "D7"
+      },
+      {
+        "ref": "SW3",
+        "label": "O",
+        "logical": 9,
+        "global_matrix": [
+          0,
+          9
+        ],
+        "x": 54,
+        "y": -17,
+        "row_gpio": "D0",
+        "column_gpio": "D6"
+      },
+      {
+        "ref": "SW2",
+        "label": "P",
+        "logical": 10,
+        "global_matrix": [
+          0,
+          10
+        ],
+        "x": 72,
+        "y": -13,
+        "row_gpio": "D0",
+        "column_gpio": "D5"
+      },
+      {
+        "ref": "SW1",
+        "label": "\\",
+        "logical": 11,
+        "global_matrix": [
+          0,
+          11
+        ],
+        "x": 90,
+        "y": -9,
+        "row_gpio": "D0",
+        "column_gpio": "D4"
+      },
+      {
+        "ref": "SW12",
+        "label": "H",
+        "logical": 18,
+        "global_matrix": [
+          1,
+          6
+        ],
+        "x": 0,
+        "y": 1.5,
+        "row_gpio": "D1",
+        "column_gpio": "D9"
+      },
+      {
+        "ref": "SW11",
+        "label": "J",
+        "logical": 19,
+        "global_matrix": [
+          1,
+          7
+        ],
+        "x": 18,
+        "y": 0,
+        "row_gpio": "D1",
+        "column_gpio": "D8"
+      },
+      {
+        "ref": "SW10",
+        "label": "K",
+        "logical": 20,
+        "global_matrix": [
+          1,
+          8
+        ],
+        "x": 36,
+        "y": -3,
+        "row_gpio": "D1",
+        "column_gpio": "D7"
+      },
+      {
+        "ref": "SW9",
+        "label": "L",
+        "logical": 21,
+        "global_matrix": [
+          1,
+          9
+        ],
+        "x": 54,
+        "y": 0,
+        "row_gpio": "D1",
+        "column_gpio": "D6"
+      },
+      {
+        "ref": "SW8",
+        "label": ";",
+        "logical": 22,
+        "global_matrix": [
+          1,
+          10
+        ],
+        "x": 72,
+        "y": 4,
+        "row_gpio": "D1",
+        "column_gpio": "D5"
+      },
+      {
+        "ref": "SW7",
+        "label": "'",
+        "logical": 23,
+        "global_matrix": [
+          1,
+          11
+        ],
+        "x": 90,
+        "y": 8,
+        "row_gpio": "D1",
+        "column_gpio": "D4"
+      },
+      {
+        "ref": "SW18",
+        "label": "N",
+        "logical": 30,
+        "global_matrix": [
+          2,
+          6
+        ],
+        "x": 0,
+        "y": 18.5,
+        "row_gpio": "D2",
+        "column_gpio": "D9"
+      },
+      {
+        "ref": "SW17",
+        "label": "M",
+        "logical": 31,
+        "global_matrix": [
+          2,
+          7
+        ],
+        "x": 18,
+        "y": 17,
+        "row_gpio": "D2",
+        "column_gpio": "D8"
+      },
+      {
+        "ref": "SW16",
+        "label": ",",
+        "logical": 32,
+        "global_matrix": [
+          2,
+          8
+        ],
+        "x": 36,
+        "y": 14,
+        "row_gpio": "D2",
+        "column_gpio": "D7"
+      },
+      {
+        "ref": "SW15",
+        "label": ".",
+        "logical": 33,
+        "global_matrix": [
+          2,
+          9
+        ],
+        "x": 54,
+        "y": 17,
+        "row_gpio": "D2",
+        "column_gpio": "D6"
+      },
+      {
+        "ref": "SW14",
+        "label": "/",
+        "logical": 34,
+        "global_matrix": [
+          2,
+          10
+        ],
+        "x": 72,
+        "y": 21,
+        "row_gpio": "D2",
+        "column_gpio": "D5"
+      },
+      {
+        "ref": "SW13",
+        "label": "Enter",
+        "logical": 35,
+        "global_matrix": [
+          2,
+          11
+        ],
+        "x": 90,
+        "y": 25,
+        "row_gpio": "D2",
+        "column_gpio": "D4"
+      },
+      {
+        "ref": "SW21",
+        "label": "Bksp",
+        "logical": 39,
+        "global_matrix": [
+          3,
+          6
+        ],
+        "x": -20,
+        "y": 53,
+        "row_gpio": "D3",
+        "column_gpio": "D9"
+      },
+      {
+        "ref": "SW20",
+        "label": "Lower",
+        "logical": 40,
+        "global_matrix": [
+          3,
+          7
+        ],
+        "x": 0.6,
+        "y": 45,
+        "row_gpio": "D3",
+        "column_gpio": "D8"
+      },
+      {
+        "ref": "SW19",
+        "label": "Tab",
+        "logical": 41,
+        "global_matrix": [
+          3,
+          8
+        ],
+        "x": 21,
+        "y": 41,
+        "row_gpio": "D3",
+        "column_gpio": "D7"
+      }
+    ]
+  },
+  "inputs_sha256": {
+    "product/design/geometry.json": "20ad221093737c378c4b5ea2b33760189b9a99a57a39fdb5763000540c22b89d",
+    "product/electronics/build/fabrication/left/manifest.json": "f7d304dfbc8d51135fde0e9affc915581d0f09ff7822ada9faa9406152bc08f3",
+    "product/electronics/build/fabrication/right/manifest.json": "0d617e3d21077044404c503ad17fb19d0adb1dcf6be817e5b8ea8629c6febbcd",
+    "product/electronics/left/tapir-left.kicad_pcb": "76c74bb570cfacf54510aba40bff0080d3b8e2b11705e310a0c985328a8244ab",
+    "product/electronics/left/tapir-left.kicad_pro": "23aaadea913977f2b33cda0b47fabafc1acfa03d2b3c94b073265e0ab4c7efed",
+    "product/electronics/left/tapir-left.kicad_sch": "2861e8a34bf722b2ab73f3f711f2c9438e58bfd7443c402ac9bff16b5080b92f",
+    "product/electronics/models/C_0603_1608Metric.step": "4857b3dc717675bf1fb22edda622ac3b3ae03cf44d81eefaf3fa3ba3a86d84c1",
+    "product/electronics/models/D_SOD-323.step": "cd8619b2119cd95683a2c5e660ab4f2d4db674f696cd6f9e9756f221171a214d",
+    "product/electronics/models/JST_S2B_PH_SM4_TB_fit.step": "93d7d3b5166d3f01b5f6e3d9c525bd92717e6e0d9fa9f81a815af7a71ebc8cf1",
+    "product/electronics/models/MBK_1U_clearance_seated.step": "f278bcfdb34eb2ef670a3e4da18cb3f1c0cd8e1cc9d90e8212baa20396bcb5df",
+    "product/electronics/models/R_0603_1608Metric.step": "1875571c326d0d9e96f36b4efeb8094068ef7619f0a449c781caf0b49c2e5861",
+    "product/electronics/models/SOT-23-6.step": "c9fe686b4d1b56927a41fa84a9bc1efb61d8a45a123a3db43bcaa05c2891d635",
+    "product/electronics/models/SW_Kailh_Choc_V1.step": "669d72c083f226e1f9ee9e9dc8424c18e9641984223ba5422a1235d773a6a9a8",
+    "product/electronics/models/SW_SPDT_PCM12.step": "a10ea113b1599b80249c9f289ca60875d1442ab8e7b62a025b047afe6e77cf92",
+    "product/electronics/models/SW_SPST_PTS810.step": "03ea59013f361d6becd35559a0a130d1ad29f382cf861d2a1365880acf17005a",
+    "product/electronics/models/XIAO_nRF52840_Plus_nonSense_fit.step": "473c1f1707f579a3aa9c30ad0d799396a8ecea2b00b3b9e668b62a039397126d",
+    "product/electronics/models/manifest.json": "1fe98c69c98ef0bcae7a757109a9ad1929662260c1a45dec176c724cff85dda0",
+    "product/electronics/reports/tapir-left-cam-readback.json": "f8d25c7f46b03c70ee3482f02e58bb54faa747b3c90ffcb058e4fad885aa9e34",
+    "product/electronics/reports/tapir-right-cam-readback.json": "f7ce72234f6de08f15670fc17044ffec304544d3903ef577292d388cb2a1fd9f",
+    "product/electronics/reports/xiao-hidden-lands.json": "1636f47d5435919a7026614aa0507090eda1e3db8d3e4bffab24ce001f0f0cd0",
+    "product/electronics/right/tapir-right.kicad_pcb": "8e1b84099515bd7313d2519ab39725ebc4b76f4e8110877c886d32888200a707",
+    "product/electronics/right/tapir-right.kicad_pro": "209f4ad589801dda7a7f795b05f5fc8430d3d24cd1628b93bb29d527fc1782c4",
+    "product/electronics/right/tapir-right.kicad_sch": "ff4e10266447057c13f16b0fc4fe92c18f6ef4d514a15d02310d0ea9b2245509",
+    "product/electronics/step/tapir-left-populated.step": "f124f53826e63b9dc1196fbc4bd4716e5ae9ebd75c316ddcb9c8324e133a1f37",
+    "product/electronics/step/tapir-right-populated.step": "9ebb9784ca2c83dc7e40a38d76f30aa99d1bf84f05ff37f4c52d4e659ddc13ac",
+    "product/firmware/build-evidence/SHA256SUMS": "0185d5de02eb89835e6f892e899d9e29885243fcd2e7e08dca9bba03959a6a4d",
+    "product/firmware/build-evidence/left/resolved.config": "315985610d5d137081503d4fec6eec85221dc816c587a09080cd1c5d77c304dc",
+    "product/firmware/build-evidence/left/zephyr.dts": "012bfe40e673e838a1acb4826eb9bb4a1e6dc38203f29f60a216a4089ef374a1",
+    "product/firmware/build-evidence/left/zmk.uf2": "18d1226dc23082fd1310f035b61fa516c2bebe95eaa03eaeeba47b0bdbf62c90",
+    "product/firmware/build-evidence/native-pointer-events.txt": "02f3c8956afb2931e8560aa70a87752b9a507aca6b8ccd65a1f17bb42aa6039e",
+    "product/firmware/build-evidence/right/resolved.config": "991985669d9721f5fb1e2abbe0795c37a98bdfa29468aaf0c992fddd33d958fa",
+    "product/firmware/build-evidence/right/zephyr.dts": "26e53d3a43eb712b77bf84c895a0abcd141c2b4d1f5976b8701df221f518fd27",
+    "product/firmware/build-evidence/right/zmk.uf2": "c9359935a6b20a584d0e639a143fb11e18457963dd79a0dde0aa805a7f798a82",
+    "product/firmware/build-evidence/split-ble-host.txt": "d507e791708bed8f8af2179282602ccb583119202c113776e313c1113e837b6e",
+    "product/firmware/build-evidence/validation.md": "0665c0f71b58071759880338106c4ec7df35877c3193364c2385beeabd38e9d6",
+    "product/firmware/config/boards/shields/tapir/tapir-listener.dtsi": "88aba402e1ff6ae435de17ce031457e1f49f36461cefd40ec49477963f60975a",
+    "product/firmware/config/boards/shields/tapir/tapir-transform.dtsi": "b2cb2c26f3df20bd089e115cbf60655bd7c8f6269cf95ce69ac235a25fc94066",
+    "product/firmware/config/boards/shields/tapir/tapir.dtsi": "ce01991468e148542fd1ef5292c649b06a18842dbdab48bdde8f8888a5b14d8d",
+    "product/firmware/config/boards/shields/tapir/tapir_left.overlay": "8161259477d1a65968e6a3121572b28eb97e1eb2690eef5f09db04769104e0e6",
+    "product/firmware/config/boards/shields/tapir/tapir_right.overlay": "a1c347a19bb1fd9b9758a3e2e047b62a191f18310500bfa1901959d869189b83",
+    "product/firmware/config/tapir.keymap": "f5e36406dba55316f83bc9ea6b626f16ec0f6e342b29a2aa7f278084833d96a0",
+    "product/firmware/tests/pointer/keycode_events.snapshot": "02f3c8956afb2931e8560aa70a87752b9a507aca6b8ccd65a1f17bb42aa6039e",
+    "product/firmware/tests/pointer/native_posix_64.keymap": "0d9dd0c4a82691754d8a255a7e0e2b0238be461c00d68c2b1473f2fa1a53f462",
+    "product/firmware/tests/split-ble/peripheral.overlay": "fccb595c3867cd51969307bb99db609b75e495988edf27080322763db0385487",
+    "product/firmware/tests/split-ble/run.sh": "849a18d341e8b5e6eaf3d2a136350c8bfc0f826c0bd2d033aacb973da9e709be",
+    "product/firmware/tools/build.sh": "1724aeeb3dadeb5f6729ee90fce56518b91be2c7d6b2ab27100b5d383cc4a0ec",
+    "product/mechanical/build/left/assembly.step": "05ab54fb053b59bf88c5598958dd4cd2cabb0e5bb205e998f5ec37651255b0fb",
+    "product/mechanical/build/left/battery-wire-105mm.json": "d1d59c69f63d545fc09b756c374db1944751e88d785fdacbca9a2f94dd3696cb",
+    "product/mechanical/build/left/bottom-tray.stl": "a0a0f4f4a6f3b7d03c42e1c67933262f8dfd8afeec7ed6fe9a3449e249cd3b22",
+    "product/mechanical/build/left/clearances.json": "567563048e72dc677c4e5cdeaee647ef51f24bdd5bb4c2611c2805ee26ad97f2",
+    "product/mechanical/build/left/mesh-manifest.json": "8f192f0887bb6baa8075fb00c941f041741959779b76f8667235cccaa95ad5e3",
+    "product/mechanical/build/left/pouch-organizer.stl": "51befc75f7ac7ee2c486c5fbfd08b73c701d31c4ace0c2d4c4ec072bbf291f83",
+    "product/mechanical/build/left/printable-parts.step": "5dd7243731ce8d182bfb30f151cb3e27468beddbc0088c43f86df7312ec189fb",
+    "product/mechanical/build/left/service-bezel.stl": "e4aa725bf4d034cbf0c536aa4094debee4e340afef930125191987faf88e3c3b",
+    "product/mechanical/build/right/assembly.step": "05d9d2ab9c8d5135fa56164d9a8b09e62cae41c032cfeeafd0213c7aaabd2f7d",
+    "product/mechanical/build/right/battery-wire-105mm.json": "c748fd89327d1073f9561ec16f314d65987f22ca29c1a31ba59e906aeac91d56",
+    "product/mechanical/build/right/bottom-tray.stl": "e3c9026ec1f132a66540a9693a476c88bfd1495fdf9cf1330495fdadb3646252",
+    "product/mechanical/build/right/clearances.json": "8855bd65a18ae6eea01ec37fd962aa2f1cfa077b828b6012410576949363b7c5",
+    "product/mechanical/build/right/mesh-manifest.json": "4687594512113563f7bd67970b1e01b7d8c978cf9157affb543402e929362f5c",
+    "product/mechanical/build/right/pointer-bridge.stl": "e72724309b5d6a710e9116b733ffb895b0df93ad7882c73ac903a3865317a8de",
+    "product/mechanical/build/right/pouch-organizer.stl": "7ff1a908939a571c5694b678aaef5b853392314a25255cbd5416be8e7c253aac",
+    "product/mechanical/build/right/printable-parts.step": "3de7489d1ab61e3feb8206685136d0ee5e6599e3e8f48e5340f5e5d71ac5f7b1",
+    "product/mechanical/build/right/service-bezel.stl": "80a71936815860662be038c0e81f768aefcb5ddf82e290f25ca2b2d687f702a8",
+    "product/requirements.md": "74b81cd7703b6073fbaaeeaaeb557fdbb6c9107bb875d3ad55e84df1cd1d87ce",
+    "product/sourcing/bom.csv": "d92b43c27880bd40aa1d3b6809cc0384668f6439cc5163d7e0d166cb2c275ede",
+    "product/validation/BENCH.md": "fa1a2485c87e46ce2d9eb3f9b028248a138c3446990547d81bcbe671abd558c4",
+    "product/validation/vendor-v11.json": "59a18149dc048824734eda5f78e94e8d479740d77493fa463656ecf7a0ddebb2"
+  },
+  "interpretation": "PASS_DIGITAL is limited to the named test; no physical acceptance or order authorization."
+}

@@ -1,0 +1,42 @@
+# Rev A verification record
+
+Start with [the last measured digital run](REPORT.md) and [the first-article traveller](BENCH.md). These tests do not authorize buying, fabrication or live charging. The nominal fit checks qualify the named files and shapes, not a printed assembly, a manufactured PCB or a brand of cable.
+
+## Reproduce
+
+From the repository root, install KiCad CLI 10 (the recorded run uses 10.0.8) and Python 3.10 or newer. The main runner uses only the Python standard library. It rereads the delivered native schematic, board, emitted case meshes, compiled DTS/Kconfig and flash images. KiCad exports fresh netlists and runs fresh ERC and DRC in temporary directories; no generator or router is imported or trusted as the circuit oracle.
+
+```sh
+python product/validation/verify.py --report-only
+python product/validation/render.py
+# Automation: zero only if all applicable digital/engineering gates passed.
+python product/validation/verify.py
+# Production/first article: nonzero for missing physical measurements too.
+python product/validation/verify.py --release
+```
+
+`--report-only` means "write and inspect the findings even if red", not "tests passed." Direct a non-destructive comparison to a scratch path with `--out /tmp/check.json`. The `--left-build` and `--right-build` arguments optionally select distinct local Zephyr build directories for checking freshly compiled images. Native compiler/runtime reproduction is in [firmware](../firmware/); geometry and case regeneration are in [design](../design/) and [mechanical](../mechanical/). On a clean source-only checkout regenerate omitted build outputs first. A missing report, backend or mesh is BLOCKED, never fabricated from a bounding box or substituted from the historical stack study.
+
+For the populated case interference, regenerate the enclosure using [the mechanical build instructions](../mechanical/README.md). The exporter tests every imported model versus every printed body and records the STEP hash, instance count, transform and volumetric exceptions. The independent acceptance runner reparses AP214 assembly relationships, enumerates every library model name versus native footprint assignment, checks XY/yaw/side/Z, checks component model file hashes, compares against the exact BRep inputs and tests the emitted STL material/void in separate motion sweeps. This is one native BRep computation plus independent registration/section testing, not two purported kernel executions. Model fidelity is carried per designator; a manufacturer-drawing envelope does not become a physical part.
+
+The 13-notification split simulation is separate from the 12-event native pointing test. Its two simulated keyboard halves inject inputs locally and exchange split traffic; an independent third simulated host pairs, subscribes and receives actual HOG notification bytes. The acceptance runner decodes each signed field from those host bytes directly. Real radio behavior, disconnect fault handling, physical PS/2, switched power and actual HID hardware remain deferred.
+
+Lead-to-print and lead-to-pack interference do not establish lead-to-lead clearance. `wire.py` separately checks the produced 105 mm polyline against itself: for every pair of straight segments, clip their continuous parameter domain by a 6 mm nonlocal arc-distance condition and the lead's ±0.60 mm Z allowance, then minimize XY distance on the resulting polygon and compare to 2.20 mm. The contiguous 6 mm neighborhood is explicitly not a bend-radius test. This is a reserved-volume screen, not a conductor cross-section measurement; the [pack drawing](https://cdn-shop.adafruit.com/product-files/1570/1570datasheet.pdf) must be reconciled with the supplier's stock lead length, permitted radius and exit datums before fitting a live pack.
+
+## What is independently checked
+
+| Interface | Evidence and scope | What it does not prove |
+|---|---|---|
+| Native ECAD | Reload both complete native documents, run KiCad 10 ERC and all-severity DRC with schematic parity, compare XML endpoints to PCB pads and to separately enumerated expected electrical endpoints. Check for real copper segments, vias and matrix-to-GPIO mapping. | Independent bench continuity, assembly, impedance, RF performance, approved fab process and protections. Default KiCad ignored rules are not active ERC/DRC constraints. |
+| Footprint, controller and registration | Every declared footprint drill compared one-to-one by owner, type, center and diameter. Compare top- and bottom-side placement, signed rotations, all switch/diode references, contours, heights and connector origins. Compare hidden lands to the separately computed vendor-board overlap report. | Plated-hole tolerances, real wear, hidden solder joint quality, or the absence of a mold flange absent from the source CAD. |
+| Input behavior | Physical half/XY → switch → diode → controller pin → scan channel → global index. Check three original 42-binding layers against normalized fingerprints from [the frozen original Corne keymap](https://github.com/EDToaster/edtoaster-zmk-keymaps/blob/4fc3285c8436de332c8218bcda881c09e30f472e/config/corne.keymap), and compare actual native-simulation events with an independent expected drag/scroll/release sequence. Validate distinct flash images, family/magic/blocks, role flags and resolved pins. | Flashing, real PS/2 communication, actual split transport, stuck-input recovery on a real host, or button feel. The synthetic event stream does not include a disconnected BLE radio. |
+| Mechanical fit | Independently calculate convex swept-volume and clearance screens in both halves and check every prismatic height slab of the actual assembled-pose tray/bezel STL (positive material/void, not just mesh existence). Explicitly test boss annuli, switch bottom-out, PCB/tail removal, max pouch envelope, sensor bores and enlarged plug corridor. Validate producer BRep checks with geometry and mesh fingerprints and thresholds. | Mating, dynamic strain, compliance, structural load capacity, print accuracy, useful cable bend radius or guaranteed human reach. The enclosure CAD's reviews and physical tests are not made green by a passing numerical row. |
+| Power and supply | Match battery connector, isolator, XIAO and gated pointer nets; verify DATA/CLK pull-ups return to the switched rail and correct controller, RESET and EN pads. Compare programmed current and allowable average to the selected pack. Reconcile fitted references against separate BOM quantities, including custom/nonpurchase features and off-board components. | Actual full sleep draw, supply transients, finished battery runtime, correct factory pack polarity, authorization to charge, or live availability. |
+
+The [manufacturer module archive](https://files.seeedstudio.com/wiki/XIAO-BLE/Seeed_Studio_XIAO_nRF52840_Plus.zip) is pinned as `f5e4e0e9c7d1725a89be2677549734f6ad96a8e00a16cb1742e0b3abfa99bdd9`. Run `python product/validation/vendor.py path/to/archive.zip` to regenerate the small [audited interface extract](vendor-v11.json). It records manufacturer U2/R18/R12 and named U4 nets from the maker's native schematic, not the often-confused general XIAO board description.
+
+The [TI BQ2510x data sheet](https://www.ti.com/lit/ds/symlink/bq25100.pdf), [selected protected pack specification](https://cdn-shop.adafruit.com/product-files/1570/1570datasheet.pdf) and [Sprintek electrical/pinout reference](https://docs.holykeebs.com/datasheets/SK8707-01.pdf) underlie the charger and pointer screens. The target freezes a 50 mA charge selection, but resistor/current calculations cannot establish allowable CV voltage or safe polarity on a physical pack. Sprintek method 1 castellations use 1 GND, 2 DATA, 3 CLK, 4 active-high RESET, 5 VCC; the documented FFC pin assignment is different. For the detached head, four independently identified Sn/Dr analog paths are not the five host-side wires.
+
+## Evidence policy
+
+`results.json` is the machine record. `rows` report observed evidence and input paths, `inputs_sha256` binds the exact files, `key_trace` lists every cross-domain logical mapping, and `components` records every carrier reference plus off-board BOM entries by side. Each instance remains physical-pending. The accepted statuses are PASS_DIGITAL, FAIL, BLOCKED and PHYSICAL_PENDING. A nominal hypothesis, external supplier answer or future physical test requires a new, dated disposition, not editing a passing result into this release.

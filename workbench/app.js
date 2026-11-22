@@ -459,7 +459,7 @@ function svgTemplate() {
           : '') +
         '</g>',
     );
-    row += 106;
+    row += Math.max(...ys) - miny + 10;
   }
   return (
     '<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297"><g font-family="sans-serif" fill="#28352d"><text x="10" y="11" font-size="5.5">Tapir / 1:1 reach template</text><text x="10" y="18" font-size="3.2">' +

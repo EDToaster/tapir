@@ -1,8 +1,16 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import {
+  toThree,
+  viewAngles,
+  bounds2,
+  fitFrame,
+  solidVertices,
+} from './projection.js';
 
 // Interactive inspection of the exact prisms used by stackModel and build123d.
-// Reflect layout Y into drawing Y so +Z points up and the palm is in front.
+// Construct in the extrusion plane, then rotate into the baseline Three
+// frame: CAD (across, palm, height) maps to world (across, height, palm).
 export function createStackOrbit(div) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -11,21 +19,22 @@ export function createStackOrbit(div) {
   div.replaceChildren(renderer.domElement);
   const scene = new THREE.Scene(),
     camera = new THREE.OrthographicCamera(-38, 38, 28, -28, 0.1, 1000);
-  camera.up.set(0, 0, 1);
+  camera.up.set(0, 1, 0);
   const ctl = new OrbitControls(camera, renderer.domElement);
   ctl.minZoom = 0.25;
   ctl.maxZoom = 8;
   ctl.enableDamping = false;
   scene.add(new THREE.HemisphereLight(0xfffcf0, 0x8f998b, 2.15));
   const light = new THREE.DirectionalLight(0xfff5d9, 2.15);
-  light.position.set(-80, -100, 140);
+  light.position.set(-80, 140, 100);
   scene.add(light);
   const fill = new THREE.DirectionalLight(0xd7e8ee, 1.15);
-  fill.position.set(90, 55, 80);
+  fill.position.set(90, 80, -55);
   scene.add(fill);
   let group = new THREE.Group(),
     model,
-    frame = 0;
+    frame = 0,
+    showWhole = false;
   scene.add(group);
   const tint = {
     carrier: '#325249',
@@ -56,30 +65,65 @@ export function createStackOrbit(div) {
     let w = div.clientWidth,
       h = div.clientHeight;
     if (!w || !h) return;
-    camera.left = (-28 * w) / h;
-    camera.right = (28 * w) / h;
-    camera.top = 28;
-    camera.bottom = -28;
-    camera.updateProjectionMatrix();
     renderer.setSize(w, h, false);
+    if (model) reframe(false);
     render();
   });
   ro.observe(div);
   ctl.addEventListener('change', render);
-  function center(whole = false) {
-    if (!model) return;
-    const box = new THREE.Box3().setFromPoints(
-      model.outline.map(([x, y]) => new THREE.Vector3(x, -y, 0)),
-    );
-    const target = whole
-      ? box.getCenter(new THREE.Vector3())
-      : new THREE.Vector3(model.head.x, -model.head.y, 4);
-    camera.zoom = whole ? 0.36 : 1.2;
-    camera.position.copy(target).add(new THREE.Vector3(-46, -75, 56));
+  function reframe(reset) {
+    if (!model || !div.clientHeight || !div.clientWidth) return;
+    const [yaw, el] = viewAngles('iso'),
+      dir = reset
+        ? new THREE.Vector3(
+            Math.sin(yaw) * Math.cos(el),
+            Math.sin(el),
+            Math.cos(yaw) * Math.cos(el),
+          )
+        : camera.position.clone().sub(ctl.target).normalize();
+    const r = camera.up.clone().cross(dir).normalize(),
+      u = dir.clone().cross(r).normalize();
+    const solids = showWhole
+      ? model.solids.filter((s) => Object.hasOwn(tint, s.role))
+      : [
+          model.refs.deck,
+          ...model.refs.feet,
+          model.refs.usb,
+          model.refs.sensorCard,
+          model.refs.cap,
+          model.refs.post,
+          model.refs.plug,
+          model.refs.rf,
+          model.refs.boardSolid,
+          model.refs.movingCaps.find(
+            (s) => s.label === model.nearestThumb.label,
+          ),
+        ].filter(Boolean);
+    const xyz = solids
+      .flatMap(solidVertices)
+      .map((p) => new THREE.Vector3(...toThree(p)));
+    const b = bounds2(xyz.map((p) => [p.dot(r), p.dot(u)])),
+      depth = xyz.map((p) => p.dot(dir));
+    const t = r
+      .clone()
+      .multiplyScalar((b.x0 + b.x1) / 2)
+      .addScaledVector(u, (b.y0 + b.y1) / 2)
+      .addScaledVector(dir, (Math.min(...depth) + Math.max(...depth)) / 2);
+    const f = fitFrame(b, div.clientWidth / div.clientHeight, 1.15, 1.18);
+    camera.left = -f.w / 2;
+    camera.right = f.w / 2;
+    camera.top = f.h / 2;
+    camera.bottom = -f.h / 2;
+    if (reset) camera.zoom = 1;
+    camera.position.copy(t).addScaledVector(dir, 300);
+    ctl.target.copy(t);
     camera.updateProjectionMatrix();
-    ctl.target.copy(target);
     ctl.update();
     render();
+  }
+  function center(whole = false) {
+    showWhole = whole;
+    reframe(true);
   }
   function update(next) {
     const first = !model;
@@ -103,6 +147,7 @@ export function createStackOrbit(div) {
         curveSegments: 8,
       });
       geom.translate(0, 0, s.bottom);
+      geom.rotateX(-Math.PI / 2);
       const alpha =
         s.role === 'plug'
           ? 0.18
@@ -132,6 +177,7 @@ export function createStackOrbit(div) {
       group.add(edge);
     }
     if (first) center();
+    else reframe(false);
     render();
   }
   return { update, center };

@@ -62923,30 +62923,65 @@
             "bridge"
           ],
           "explanation": "Provisional 6×6 mm copper/metal screen vs hardware, independent of empty-space Z; carrier copper, hand loading and radio performance unproven."
+        },
+        {
+          "id": "analog-bundle-to-carrier-parts",
+          "status": "pass",
+          "gap": 0.55,
+          "pair": [
+            "lead-span-1-0",
+            "bridge"
+          ],
+          "explanation": "Entire swept 2.8 mm wide × 0.8 mm high conservative surrogate against bridge, feet, all switches/caps and hardware. Sensor and detached driver intentionally excluded as termination bodies; real solder/pin access and bend radii are not established."
+        },
+        {
+          "id": "analog-bundle-to-board-edge",
+          "status": "pass",
+          "gap": 1.698075,
+          "pair": [
+            "analog bundle",
+            "carrier edge"
+          ],
+          "explanation": "Signed lower bound for the full lateral 1.4 mm radius around every guide segment to the actual concave perimeter; rails and case cover still require MCAD."
         }
       ],
       "wiring": {
         "sensorToDriver": {
-          "evidence": "Proposed four insulated analog leads; this is a centerline study, NOT a supplied flex or verified solder exit.",
+          "evidence": "Proposed four insulated analog leads; loft over bridge before descending on its key-side (−Y) edge. Top-edge solder exit and driver contact point are provisional. NOT a supplied flex, measured bundle, selected connector or verified solder map.",
           "points": [
             [
               18.84,
               66,
-              6.75
+              7.55
             ],
             [
-              23,
+              21.5,
               66,
-              6.75
+              7.85
             ],
             [
-              31,
-              56,
+              25.5,
+              62.5,
+              7.85
+            ],
+            [
+              26,
+              56.7,
+              7.85
+            ],
+            [
+              30.7,
+              54.4,
+              2
+            ],
+            [
+              34,
+              51.5,
               1.5
             ],
             [
-              41,
-              46,
+              41.7,
+              46.5,
               1.5
             ],
             [
@@ -62956,7 +62991,14 @@
             ]
           ],
           "minimumEndpointDistance": 31.593957,
-          "actualTerminalAndBend": "sample gate"
+          "actualTerminalAndBend": "sample gate",
+          "bundleAllowance": {
+            "width": 2.8,
+            "height": 0.8
+          },
+          "endpointNote": "Launch on the top edge of the castellated sensor. Electrical pin order and driver solder landing must be verified on the exact assembly; the last point is an envelope corner, not an electrical pad claim.",
+          "polylineLength": 37.08195,
+          "guardSegmentCount": 96
         },
         "battery": {
           "cellLeadLength": 105,

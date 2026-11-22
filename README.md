@@ -1,67 +1,31 @@
 # Tapir
 
-Tapir is a low-profile wireless split keyboard concept with 42 typing keys,
-a right-hand pointing stick at the inner end of the thumb cluster, and
-left-hand click and scroll controls. The first prototype is an interactive
-geometry study, not manufacturing CAD.
+Tapir is a flat wireless split keyboard designed around the 42-key Cygnus/Corne layout. There are three rows of six and three thumbs per half. A separately supported Sprintek pointing stick sits over the right XIAO near the middle thumb. The three extra controls on the left are for left click, right click and hold-to-scroll. Nothing replaces a typing key.
 
-## Try the assembly workbench
+**Rev A is a digital prototype on hold, not an approved hardware build.** Start with the [engineering handoff](product/README.md), [release evidence](product/validation/results.json), [physical acceptance procedure](product/validation/BENCH.md) and [configuration decisions](product/design-decisions.md). Do not connect or charge a cell until the battery gates are closed. No physical fit, runtime, radio range or charging result is claimed.
 
-With Node.js 20.20 or 22 LTS and npm, run from the repository root:
+## Inspect the design
+
+The [assembly workbench](https://www.perplexity.ai/computer/a/06720a1c-6b0b-43b8-b744-eb15799f3c35) opens the Rev A product. Select a half to inspect carrier insertion, bezel closure or a named USB-C plug gauge. You can also rotate the assembly, switch to plan or front view, toggle layers, or separate parts along the board normal. The dimension cards distinguish the complete modeled assembly from the smaller bare PCB. The product uses separate left/right geometry; neither final half is a mirrored copy of the other. Download the build package there for the editable design and generated deliverables.
+
+To run or rebuild the site from source:
 
 ```sh
 cd workbench
 npm ci
 npm run check
 npm run dev
+# For the static deployment: npm run build
 ```
 
-Open the local URL printed by Vite. Adjust splay, the gap, and the stick's
-position beside the thumbs; compare Choc v1 with PG1316S. Inspect a part for its
-dimensional references, and open **Fit report** for signed envelope clearances.
-Move the thumb stick 4 mm away from the palm to see a nominal collision. Export the SVG at 100%
-and check its 50 mm line with a ruler before testing reach. Key legends show
-orientation; the workbench is not a firmware/keymap preview.
+The basic web preview needs Node 20.20+ or 22 LTS and Python 3. The full preview also uses the KiCad 10 Python bindings, the generated build123d case mesh directory and the local STEP library. Follow the [native handoff](product/README.md) for those tools. Missing geometry is not replaced with guessed routes or checked-off results.
 
-## Right-thumb pointing stick
+## Explore alternatives
 
-Inspired by [Dabao's thumb placement](https://github.com/justinmklam/dabao),
-the default puts the nub 15 mm toward the palm from the innermost right thumb
-key center. All six thumb keys stay put. The finger bank returns to standard
-18 × 17 mm Choc spacing, with no splay or extra gap. The underside sensor is
-rotated across the thumb bay with 1.4 mm between its top and the carrier underside.
-The detached driver stays in its previous position. The three older inter-column
-presets are retained for comparison.
+Open **Design studies** for dimensional sliders, the 1:1 reach template and the earlier inter-column, under-mounted and stacked studies. Print at 100% and verify the 50 mm scale bar. These are comparisons, not alternative build configurations for the routed boards. The current Sprintek layout does not establish that a salvaged ThinkPad stick will fit or work electrically.
 
-**Compare thumb reach · 1:1** exports two right-hand patterns on one A4 sheet.
-Print at 100% and verify the 50 mm rule: can the thumb steer the nub without
-lifting the palm or bumping a thumb key? Use the two thumb offset sliders to
-move the axis and print again. **Export full layout** still produces both halves.
-
-The reference geometry is the Sprintek SK8707-01-004; salvaged two-piece
-ThinkPad assemblies from AliExpress are legitimate candidates. See
-[pointer sourcing](docs/pointer-sourcing.md) before buying a T440 donor
-or cutting a footprint for it. The workbench does not assert donor fit.
-Test retention, electrical pinout, consumption and drift on the actual sample.
-
-## TrackPoint over the controller
-
-Open **Stack study** (or append `#stack` to the local workbench URL). This is an
-alternative right-half design, not a second sensor on the default keyboard. The
-XIAO moves out of its rear bay and sits beneath a separately supported Sprintek
-sensing head. The pointing-stick driver remains a separate component. Rotate
-the study in 3D, check plan/section, change the USB exit and offsets, and print
-the current placement at 1:1. The centered preset illustrates a real nominal
-clash; the middle-thumb preset tests sharing the outside dimensions without
-giving up any keys.
-
-- [Mechanical evaluation and competing placements](docs/stack-mechanics.md)
-- [Source geometry, original RP2040-Zero build and electrical limits](docs/stack-evidence.md)
-- [What changes if the detached driver is stacked too?](docs/stack-alternatives.md)
-- [Editable build123d assembly, verified STEP and regeneration commands](mechanical/stack/)
-
-Use `npm run build` in `workbench/` for the static site (`dist/`).
-The 3D scene, vector fallback and print export share `layout.js`.
-See [AGENTS.md](AGENTS.md) for the PCB, enclosure, firmware and prototype
-acceptance process, including how to distinguish sourced dimensions from
-unverified design allowances.
+- [Thumb-placement and donor sourcing](docs/pointer-sourcing.md)
+- [Stack mechanics and competing positions](docs/stack-mechanics.md)
+- [Original RP2040-Zero inspiration and supplier drawings](docs/stack-evidence.md)
+- [Earlier editable stack-only model](mechanical/stack/)
+- [Project rules and authorization boundary](AGENTS.md)

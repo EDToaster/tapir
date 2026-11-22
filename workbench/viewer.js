@@ -2,6 +2,13 @@ import * as T from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { layout, rect as footprint, SPECS } from './layout.js';
+import {
+  viewAngles,
+  explodedOffsets,
+  fitFrame,
+  assemblyEnvelope,
+  toThree,
+} from './projection.js';
 
 // Local CAD frame: +X right, +Z toward the typist, +Y above PCB. All values in mm.
 const RAD = Math.PI / 180;
@@ -1164,21 +1171,17 @@ const OFFSETS = {
     underSensor: 0,
     back: 0,
   },
-  exploded: {
-    keycaps: 35,
-    switches: 16,
-    pcb: 0,
-    electronics: 12,
-    underSensor: -7,
-    back: -14,
-  },
+  exploded: explodedOffsets,
 };
 const asV = (v) => new T.Vector3(...v);
 const dirFor = (view, mode) => {
-  const under = mode === 'underside';
-  if (view === 'top') return asV([0, under ? -1 : 1, 0.0001]).normalize();
-  if (view === 'front') return asV([0, under ? -0.032 : 0.032, 1]).normalize();
-  return asV([0.33, under ? -0.97 : 0.96, 1.06]).normalize();
+  const [yaw, elev] = viewAngles(view, mode === 'underside'),
+    ce = Math.max(1e-5, Math.cos(elev));
+  return asV([
+    Math.sin(yaw) * ce,
+    Math.sin(elev),
+    Math.cos(yaw) * ce,
+  ]).normalize();
 };
 
 /** A transparent, orthographic WebGL model viewport. update() accepts a complete layout state. */
@@ -1305,53 +1308,47 @@ export function createViewer(host, onPick) {
     schedule();
   });
 
-  function fit(view) {
+  function fit(view, customDirection) {
     if (!model) return null;
-    const direction = dirFor(view, currentMode),
+    const direction = customDirection || dirFor(view, currentMode),
       right = new T.Vector3()
         .crossVectors(new T.Vector3(0, 1, 0), direction)
         .normalize(),
       up = new T.Vector3().crossVectors(direction, right).normalize();
-    const coords = model.data.halves.flatMap((h) =>
-      h.outline.map(([x, z]) => [x + h.origin.x, z + h.origin.y]),
-    );
-    const floor = finite(model.data.backBottom, -SPECS.pcbT - 3.2);
-    const heights =
-      currentMode === 'exploded'
-        ? [floor + OFFSETS.exploded.back, 48]
-        : [
-            floor,
-            Math.max(model.data.cap.top + 1.2, finite(state?.batteryT, 3.3)),
-          ];
     let minX = Infinity,
       maxX = -Infinity,
       minY = Infinity,
       maxY = -Infinity,
       minD = Infinity,
       maxD = -Infinity;
-    for (const [x, z] of coords)
-      for (const y of heights) {
-        const p = new T.Vector3(x, y, z),
-          px = p.dot(right),
-          py = p.dot(up),
-          pd = p.dot(direction);
-        minX = Math.min(minX, px);
-        maxX = Math.max(maxX, px);
-        minY = Math.min(minY, py);
-        maxY = Math.max(maxY, py);
-        minD = Math.min(minD, pd);
-        maxD = Math.max(maxD, pd);
-      }
+    for (const cad of assemblyEnvelope(model.data, state, SPECS)) {
+      const p = new T.Vector3(...toThree(cad)),
+        px = p.dot(right),
+        py = p.dot(up),
+        pd = p.dot(direction);
+      minX = Math.min(minX, px);
+      maxX = Math.max(maxX, px);
+      minY = Math.min(minY, py);
+      maxY = Math.max(maxY, py);
+      minD = Math.min(minD, pd);
+      maxD = Math.max(maxD, pd);
+    }
     const target = right
       .clone()
       .multiplyScalar((minX + maxX) / 2)
       .addScaledVector(up, (minY + maxY) / 2)
       .addScaledVector(direction, (minD + maxD) / 2);
-    const viewSpan = Math.max(
-      ((maxX - minX) / (width / height)) * 1.093,
-      (maxY - minY) * 1.24,
-      54,
-    );
+    const viewSpan = fitFrame(
+      {
+        x0: minX,
+        x1: maxX,
+        y0: minY,
+        y1: maxY,
+        w: maxX - minX,
+        h: maxY - minY,
+      },
+      width / height,
+    ).h;
     return {
       target,
       pos: target.clone().addScaledVector(direction, 520),
@@ -1397,6 +1394,14 @@ export function createViewer(host, onPick) {
     renderer.setSize(width, height, false);
     if (model && !manual) setView(currentView, true);
     else {
+      if (model) {
+        const dir = cam.position.clone().sub(controls.target).normalize(),
+          f = fit(currentView, dir);
+        cam.position.copy(f.pos);
+        controls.target.copy(f.target);
+        span = f.span;
+        controls.update();
+      }
       frustum();
       schedule();
     }
@@ -1413,7 +1418,8 @@ export function createViewer(host, onPick) {
         ),
       ),
     );
-    if (geom !== signature || !model) {
+    const geometryChanged = geom !== signature || !model;
+    if (geometryChanged) {
       const nextAssembly = makeAssembly(next);
       if (model) {
         scene.remove(model.root);
@@ -1453,7 +1459,8 @@ export function createViewer(host, onPick) {
       (oldMode === 'underside') !== (currentMode === 'underside')
     )
       setView(next.view || 'iso', first);
-    else if (oldMode !== currentMode && !manual) setView(currentView);
+    else if ((geometryChanged || oldMode !== currentMode) && !manual)
+      setView(currentView, true);
     else schedule();
     model.root.updateMatrixWorld(true);
   }

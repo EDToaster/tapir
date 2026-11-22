@@ -1,4 +1,5 @@
-import { SPECS } from './layout.js';
+import { SPECS, rect } from './layout.js';
+import { sliceX, posePoint } from './projection.js';
 
 const mm = (n) =>
   Math.abs(n) < 0.005 ? '0' : Number(n.toFixed(2)).toString().replace('-', '−');
@@ -9,8 +10,63 @@ const ink = '#304238',
   copper = '#9f8c64',
   red = '#c74e36';
 
-// Section through the stick axis. X spacing is deliberately schematic: the
-// neighbouring keycaps do not necessarily intersect this exact cut plane.
+export function baselineCut(model, state) {
+  const h = model.halves.find((x) => x.pointer),
+    p = h.pointer,
+    s = SPECS.pointer,
+    thumb = state.placement === 'thumb';
+  const [at, along] = thumb ? [p.x, p.y] : [p.y, p.x],
+    range = 27,
+    solids = [];
+  const cut = (poly) =>
+    sliceX(thumb ? poly : poly.map(([x, y]) => [y, x]), at)
+      .map(([a, b]) => [
+        Math.max(-range, a - along),
+        Math.min(range, b - along),
+      ])
+      .filter(([a, b]) => a < b);
+  const add = (spans, bottom, top, role) => {
+    for (const [a, b] of spans)
+      if (top > bottom) solids.push({ a, b, bottom, top, role });
+  };
+  const sections = cut(h.outline),
+    back = model.backBottom;
+  add(sections, back, back + (model.coverT ?? 1), 'back');
+  const holes = p.under
+    ? cut(rect({ ...p, a: p.apertureA ?? p.a }, p.opening, p.opening))
+    : [];
+  let laminate = sections;
+  for (const [lo, hi] of holes)
+    laminate = laminate.flatMap(([a, b]) =>
+      [
+        [a, Math.min(b, lo)],
+        [Math.max(a, hi), b],
+      ].filter(([x, y]) => x < y),
+    );
+  add(laminate, -SPECS.pcbT, 0, 'carrier');
+  const keyTop = model.cap.top - (state.pressed ? model.cap.travel : 0);
+  for (const k of h.keys)
+    add(
+      cut(rect(k, model.cap.w, model.cap.h)),
+      keyTop - (state.switchType === 'ulp' ? 1.3 : 4),
+      keyTop,
+      'key',
+    );
+  const [x, y] = posePoint(p, 0, s.axisToBoardCenter),
+    boardTop = p.boardTop ?? s.t,
+    boardBottom = p.boardBottom ?? 0;
+  add(cut(rect({ x, y, a: p.a }, s.w, s.h)), boardBottom, boardTop, 'sensor');
+  const rubberBottom =
+    p.capTop - Math.min(1.9, Math.max(1.1, p.capTop - p.stemTop - 0.12));
+  add(cut(rect(p, s.stem, s.stem)), boardTop, p.stemTop, 'post');
+  add([[-1.12, 1.12]], p.stemTop, rubberBottom, 'hub');
+  add([[-s.cap / 2, s.cap / 2]], rubberBottom, p.capTop, 'cap');
+  return {
+    range,
+    solids,
+    name: thumb ? 'Y–Z / toward palm →' : 'X–Z / across half →',
+  };
+}
 export function sectionHTML(model, state) {
   const p = model?.halves?.[1]?.pointer;
   if (!p) return '';
@@ -29,218 +85,119 @@ export function sectionHTML(model, state) {
   const coverTop = coverBottom + coverT;
   const faceLimit = boardTop + sensor.frontReserve,
     rearLimit = boardBottom - sensor.rearReserve;
-  const keyT = state.switchType === 'ulp' ? 1.3 : 4;
-  const rubberBottom =
-    tip - Math.min(1.9, Math.max(1.1, tip - stockTop - 0.12));
-  const low = Math.min(coverBottom, boardBottom, -carrier),
-    high = Math.max(tip, keyTop);
-  const px = Math.min(13, 143 / (high - low)),
-    Y = (z) => +(19 + (high - z) * px).toFixed(2);
+  // Pick a vertical cut across the finger columns or towards the thumb row.
+  // Rotate neither the model nor the key footprints a second time.
+  const cut = baselineCut(model, state);
   const W = 416,
-    H = Math.ceil(Y(low) + 16),
-    axis = 204,
-    left = 48,
-    right = 366;
-  const rect = (x, w, top, bottom, fill) =>
-    '<rect x="' +
-    x +
+    H = 174,
+    axis = 190;
+  const high = Math.max(tip, keyTop),
+    low = Math.min(coverBottom, boardBottom);
+  const scale = Math.min(267 / (cut.range * 2), 125 / (high - low)),
+    topY = 17 + (125 - (high - low) * scale) / 2;
+  const X = (u) => axis + u * scale,
+    Y = (z) => topY + (high - z) * scale;
+  const edge = '#626f61',
+    inkKey = '#e4dfd0';
+  const segment = (a, b, z, t, fill, role) =>
+    '<rect data-role="' +
+    role +
+    '" x="' +
+    X(a) +
     '" y="' +
-    Y(top) +
+    Y(t) +
     '" width="' +
-    w +
+    (b - a) * scale +
     '" height="' +
-    Math.max(0, Y(bottom) - Y(top)).toFixed(2) +
+    (t - z) * scale +
     '" fill="' +
     fill +
-    '"/>';
-  const line = (x, y, xx, yy, stroke, width = 1, dashes = '') =>
+    '" stroke="' +
+    edge +
+    '" stroke-width=".55"/>';
+  const line = (x, y, x2, y2, c, d = '') =>
     '<path d="M' +
     x +
     ' ' +
     y +
     'L' +
-    xx +
+    x2 +
     ' ' +
-    yy +
+    y2 +
     '" fill="none" stroke="' +
-    stroke +
-    '" stroke-width="' +
-    width +
-    '"' +
-    (dashes ? ' stroke-dasharray="' + dashes + '"' : '') +
+    c +
+    '" stroke-width=".85" ' +
+    (d ? 'stroke-dasharray="' + d + '"' : '') +
     '/>';
-  const label = (x, y, t, color = ink, size = 10, anchor = 'start') =>
+  const txt = (x, y, t, c = ink, anchor = 'start') =>
     '<text x="' +
     x +
     '" y="' +
     y +
     '" fill="' +
-    color +
-    '" font-family="ui-monospace,monospace" font-size="' +
-    size +
+    c +
     '" text-anchor="' +
     anchor +
-    '">' +
+    '" font-family="ui-monospace,monospace" font-size="10">' +
     t +
     '</text>';
-  const badge = (x, y, n, color) =>
-    '<g><circle cx="' +
-    x +
-    '" cy="' +
-    y +
-    '" r="7.5" fill="' +
-    color +
-    '"/>' +
-    label(x, y + 3.5, n, '#fff', 10, 'middle') +
-    '</g>';
-  let drawing =
-    '<title>' +
-    location +
-    ': right pointing stick section, ' +
-    (under ? 'underside' : 'top') +
-    ' mount</title>';
-  drawing +=
-    '<desc>Heights measured from the carrier PCB top. ' +
-    (thumb
-      ? 'One reference key is drawn beside the thumb bay.'
-      : 'A reference key is drawn on either side of the stick.') +
-    ' Lateral dimensions are schematic; this drawing does not establish reach or side clearance.</desc>';
-  drawing += label(6, 12, 'Z / mm', '#657067', 9);
-  for (let z = Math.ceil(low / 5) * 5; z <= high; z += 5) {
-    drawing +=
-      line(
-        40,
-        Y(z),
-        right,
-        Y(z),
-        z === 0 ? '#849182' : '#dcdfd4',
-        z === 0 ? 0.9 : 0.65,
-        '3 4',
-      ) + label(33, Y(z) + 3, zval(z), '#657067', 10, 'end');
-  }
-  // Indicate axis before hardware so it appears only in empty space.
-  drawing += line(axis, 5, axis, H - 7, '#a4a99a', 0.7, '5 2 1 2');
-  // Neighbouring keycap crowns and skirts; side positions are contextual only.
-  const key = (x) => {
-    const yt = Y(keyTop),
-      yb = Y(keyTop - keyT),
-      rim = Y(keyTop - keyT * 0.18);
-    return (
-      '<path d="M' +
-      x +
-      ' ' +
-      yb +
-      ' L' +
-      (x + 4) +
-      ' ' +
-      rim +
-      ' Q' +
-      (x + 5) +
-      ' ' +
-      yt +
-      ' ' +
-      (x + 9) +
-      ' ' +
-      yt +
-      ' H' +
-      (x + 61) +
-      ' Q' +
-      (x + 65) +
-      ' ' +
-      yt +
-      ' ' +
-      (x + 66) +
-      ' ' +
-      rim +
-      ' L' +
-      (x + 70) +
-      ' ' +
-      yb +
-      ' Z" fill="#e4dfd0" stroke="#948f80" stroke-width="1"/>'
-    );
+  const colors = {
+    back: '#696e61',
+    carrier: forest,
+    key: inkKey,
+    sensor: '#83a28a',
+    post: '#968a73',
+    hub: copper,
+    cap: red,
   };
-  drawing += key(71);
-  drawing += thumb
-    ? label(313, 15, 'THUMB BAY', '#657067', 9, 'middle')
-    : key(267);
-  if (under) {
+  let drawing =
+    '<title>Right stick, section at ' +
+    cut.name +
+    '</title><desc>Only intersecting geometry is shown. Printed heights and lateral distances use the same scale. Keycap envelopes show their outer heights, not sculpted profiles.</desc>';
+  drawing += txt(6, 12, 'Z / mm', '#657067');
+  for (let z = Math.ceil(low / 5) * 5; z <= high; z += 5)
     drawing +=
-      rect(left, axis - 13 - left, 0, -carrier, forest) +
-      rect(axis + 13, right - axis - 13, 0, -carrier, forest);
-  } else drawing += rect(left, right - left, 0, -carrier, forest);
-  drawing += rect(left, right - left, coverTop, coverBottom, '#696e61');
-  if (under) {
-    drawing +=
-      '<rect x="' +
-      (axis - 40) +
-      '" y="' +
-      Y(faceLimit) +
-      '" width="80" height="' +
-      (Y(rearLimit) - Y(faceLimit)) +
-      '" fill="#adbd9d" fill-opacity=".3" stroke="#6c8368" stroke-width=".8" stroke-dasharray="3 2"/>';
+      line(40, Y(z), 323, Y(z), '#b5bcae', '3 3') +
+      txt(34, Y(z) + 3, zval(z), '#657067', 'end');
+  for (const s of cut.solids) {
+    if (s.role === 'sensor' && under)
+      drawing +=
+        '<rect x="' +
+        X(s.a) +
+        '" y="' +
+        Y(faceLimit) +
+        '" width="' +
+        (s.b - s.a) * scale +
+        '" height="' +
+        (faceLimit - rearLimit) * scale +
+        '" fill="#d3decd" stroke="#81937a" stroke-width=".7" stroke-dasharray="2 2"/>';
+    drawing += segment(s.a, s.b, s.bottom, s.top, colors[s.role], s.role);
   }
-  drawing += rect(axis - 40, 80, boardTop, boardBottom, '#83a28a');
-  drawing += line(
-    axis - 40,
-    Y(boardBottom),
-    axis + 40,
-    Y(boardBottom),
-    '#4f6a57',
-    0.6,
-  );
-  drawing +=
-    rect(axis - 5, 10, stockTop, boardTop, '#968a73') +
-    rect(axis - 4, 8, rubberBottom, stockTop, copper);
-  const yt = Y(tip),
-    yb = Y(rubberBottom),
-    r = Math.min((yb - yt) * 0.38, 5);
-  drawing +=
-    '<path d="M' +
-    (axis - 11) +
-    ' ' +
-    yb +
-    ' V' +
-    (yt + r) +
-    ' Q' +
-    (axis - 11) +
-    ' ' +
-    yt +
-    ' ' +
-    (axis - 7) +
-    ' ' +
-    yt +
-    ' H' +
-    (axis + 7) +
-    ' Q' +
-    (axis + 11) +
-    ' ' +
-    yt +
-    ' ' +
-    (axis + 11) +
-    ' ' +
-    (yt + r) +
-    ' V' +
-    yb +
-    ' Z" fill="' +
-    red +
-    '"/>';
-  drawing +=
-    line(axis + 12, yt, axis + 29, yt, red) + badge(axis + 38, yt, '1', red);
-  const pcbY = (Y(0) + Y(-carrier)) / 2;
-  drawing +=
-    badge(right + 13, pcbY, '2', forest) +
-    line(right, pcbY, right + 6, pcbY, forest);
-  const cardY = (Y(boardTop) + Y(boardBottom)) / 2,
-    markerY = under ? Math.min(H - 13, cardY + 13) : Math.max(12, cardY - 14);
-  const badgeX = under ? axis - 71 : axis + 64,
-    edge = under ? axis - 40 : axis + 40;
-  drawing +=
-    line(edge, cardY, badgeX, markerY, '#526c58') +
-    badge(badgeX, markerY, '3', '#577361');
-  const coverY = (Y(coverTop) + Y(coverBottom)) / 2;
-  drawing +=
-    line(right, coverY, right + 25, coverY, '#696e61') +
-    badge(right + 32, coverY, '4', '#696e61');
+  drawing += line(axis, 9, axis, 147, '#8c5a4d', '4 2 1 2');
+  const targets = [
+    ['cap', tip, '1', red],
+    ['carrier', -carrier / 2, '2', forest],
+    ['sensor', (boardTop + boardBottom) / 2, '3', '#577361'],
+    ['back', coverBottom + coverT / 2, '4', '#696e61'],
+  ];
+  for (const [i, [role, z, n, color]] of targets.entries()) {
+    const part = cut.solids.filter((s) => s.role === role).at(-1);
+    if (!part) continue;
+    const x = X(part.b),
+      y = Y(z),
+      ty = 23 + i * 34;
+    drawing +=
+      line(x, y, 330, y, color) +
+      line(330, y, 354, ty, color) +
+      line(354, ty, 365, ty, color) +
+      '<circle cx="374" cy="' +
+      ty +
+      '" r="7.5" fill="' +
+      color +
+      '"/>' +
+      txt(374, ty + 3.3, n, 'white', 'middle');
+  }
+  drawing += txt(axis, 164, cut.name + ' · shaft at 0 mm', '#657067', 'middle');
   const legend = (n, name, body, c) =>
     '<div style="min-width:0"><span style="display:block;font-size:11px;color:#74796d"><b style="color:' +
     c +
@@ -309,10 +266,6 @@ export function sectionHTML(model, state) {
         mm(rearLimit - coverTop) +
         ' mm to the cover after the rear allowance. These are design allowances, not measured component heights; support and retention remain open.</p>'
       : '') +
-    '<p style="font-size:11px;line-height:1.45;margin:4px 0 0;color:#70766a">Z = 0 at the carrier top. Heights are to scale. ' +
-    (thumb
-      ? 'One nearby key is shown for height reference; the opposite side represents the open thumb bay.'
-      : 'Keys on either side are shown for height reference.') +
-    ' Widths and spacing are schematic, not evidence of lateral clearance or comfortable reach. The section always shows the assembled stack.</p></div>'
+    '<p style="font-size:11px;line-height:1.45;margin:4px 0 0;color:#70766a">Z = 0 at the carrier top. This true-scale section passes through the shaft center. Only intersecting key envelopes appear; off-plane neighbors are omitted. Dashed centerline: shaft axis. The section shows the assembled stack, not verified lateral clearance or comfortable reach.</p></div>'
   );
 }

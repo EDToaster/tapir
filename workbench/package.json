@@ -4,9 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "python3 ../product/release/prepare_site.py",
+    "prebuild": "python3 ../product/release/prepare_site.py",
     "dev": "vite",
     "build": "vite build --base=./ && cp ../mechanical/stack/tapir-stacked-thumb.step dist/",
-    "check": "node --test layout.test.js stack.test.js"
+    "check": "node --test *.test.js"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",

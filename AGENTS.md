@@ -8,9 +8,10 @@ Design, simulate, render, and revise in Git without asking about each trace, hol
 case iteration. **Stop before ordering PCBs, PCBA, printed parts, or components;
 paid fabrication and purchases require explicit approval.**
 
-## What exists today
+## Product and study boundaries
 
-- `workbench/layout.js` owns the nominal layout, dimensions, plan clearances, and 3D underside-envelope checks;
+- `product/` owns the Rev A deliverable. Read its README, design decisions, requirements, actual native reports and open acceptance gates. `product/design/geometry.json` is the common placement contract. Regenerate it from editable code; never realign board, case, illustrations or tests by moving individual projected elements.
+- `workbench/layout.js` owns the original parametric layout, dimensions, plan clearances, and 3D underside-envelope checks;
   `workbench/parts.js` gives their provenance and limitations. The interactive workbench,
   vector fallback, and printable reach template consume the same layout. Keep them in sync.
 - `workbench/stack.js` owns the optional sensor-over-XIAO study; keep its 3D,
@@ -20,9 +21,7 @@ paid fabrication and purchases require explicit approval.**
 - Work in mm. Layout X is across the halves, Y increases toward the thumbs, and height
   is relative to the carrier PCB top. The Three.js renderer uses Y up, so layout Y maps
   to scene Z. Document the datum and transforms when moving to a production CAD coordinate system.
-- The viewer is a reach and packaging study. Its PCB artwork, supports, shaft extension,
-  and button paddles are illustrative. A positive plan gap is not proof of 3D fit.
-  There is no routed PCB, production enclosure, or Tapir firmware target in this revision.
+- Distinguish the `workbench/study.html` comparison scene from the native product viewer at `workbench/index.html`. The latter reads copper from the actual boards, enclosure meshes from build123d, and the release ledger from validation. Keep the no-WebGL fallback visibly labeled. A positive plan gap is not proof of 3D fit; do not call a placeholder a vendor model.
 - From the repo root: `cd workbench && npm ci && npm run check && npm run build`.
   Use `npm run dev` there for the interactive model. When changing geometry, inspect both
   halves, top/front/exploded views, key-down state, a known overlap, and the 1:1 print scale.
@@ -50,7 +49,7 @@ paid fabrication and purchases require explicit approval.**
   the three left mouse controls use spare intersections. Reserve four more GPIOs
   on the right for PS/2 clock, data, reset, and switched power. Verify pad access and
   pin conflicts against the actual board before routing.
-- Build both ZMK halves separately from the [pinned manifest](https://github.com/EDToaster/edtoaster-zmk-keymaps/blob/main/config/west.yml).
+- Build both ZMK roles from the project's [pinned firmware manifest](product/firmware/config/west.yml) and retain attribution to the original Corne keymap.
   Verify scan order, split roles, scroll and drag across halves, and sleep/wake without
   a stuck click. Budget pointer active, idle and off current, regulator and PCB leakage,
   and battery charging against the exact protected cell. Report runtime as an estimate

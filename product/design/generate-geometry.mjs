@@ -141,8 +141,30 @@ function half(h){
     compare('antenna-projection',[rf],[components.bridge,components.sensor,components.driver,components.driverElectronics,swCourt,jCourt,batteryReserve],'Provisional 6×6 mm copper/metal screen vs hardware, independent of empty-space Z; carrier copper, hand loading and radio performance unproven.',xyGap);
   }
   const wiring=right?{
-    sensorToDriver:{evidence:'Proposed four insulated analog leads; this is a centerline study, NOT a supplied flex or verified solder exit.',points:[[18.84,66,6.75],[23,66,6.75],[31,56,1.5],[41,46,1.5],[43.5,46.25,1.5]],minimumEndpointDistance:model.metrics.wireLowerBound,actualTerminalAndBend:'sample gate'},
+    sensorToDriver:{evidence:'Proposed four insulated analog leads; loft over bridge before descending on its key-side (−Y) edge. Top-edge solder exit and driver contact point are provisional. NOT a supplied flex, measured bundle, selected connector or verified solder map.',
+      points:[[18.84,66,7.55],[21.5,66,7.85],[25.5,62.5,7.85],[26,56.7,7.85],[30.7,54.4,2],[34,51.5,1.5],[41.7,46.5,1.5],[43.5,46.25,1.5]],
+      minimumEndpointDistance:model.metrics.wireLowerBound,actualTerminalAndBend:'sample gate',bundleAllowance:{width:2.8,height:.8},endpointNote:'Launch on the top edge of the castellated sensor. Electrical pin order and driver solder landing must be verified on the exact assembly; the last point is an envelope corner, not an electrical pad claim.'},
   }:{};
+  if(right){
+    const w=wiring.sensorToDriver,obs=[...caps,...bodies,xiao,components.usbShell,components.bridge,...components.feet,components.rubberCap,components.shaft,rf,batteryReserve,jCourt,jPlug,swCourt,
+      components.driverHeader,components.driverElectronics,...solids.filter(s=>s.role==='screw-head')];
+    // Every short AABB encloses its entire centerline segment expanded by the
+    // rectangular-bundle circumscribed lateral radius and vertical half-height;
+    // this is conservative between samples, not a samples-only interference test.
+    const prisms=[];let length=0,edge=Infinity;
+    for(let i=1;i<w.points.length;i++){
+      const a=w.points[i-1],b=w.points[i],v=b.map((x,j)=>x-a[j]),len=Math.hypot(...v);
+      const n=Math.ceil(len/.4);length+=len;
+      for(let j=0;j<n;j++){
+        const q=a.map((x,k)=>x+v[k]*(j+.5)/n),dx=Math.abs(v[0])/n,dy=Math.abs(v[1])/n,dz=Math.abs(v[2])/n,mid=pose(q[0],q[1]);
+        prisms.push(cub('lead-span-'+i+'-'+j,'analog-sweep','Analog bundle guard','clearance',mid,w.bundleAllowance.width+dx,w.bundleAllowance.width+dy,q[2]-(w.bundleAllowance.height+dz)/2,q[2]+(w.bundleAllowance.height+dz)/2));
+        edge=Math.min(edge,edgeDistance(mid,outline)-w.bundleAllowance.width/2-Math.hypot(dx,dy)/2);
+      }
+    }
+    w.polylineLength=length;w.guardSegmentCount=prisms.length;
+    compare('analog-bundle-to-carrier-parts',prisms,obs,'Entire swept 2.8 mm wide × 0.8 mm high conservative surrogate against bridge, feet, all switches/caps and hardware. Sensor and detached driver intentionally excluded as termination bodies; real solder/pin access and bend radii are not established.');
+    checks.push({id:'analog-bundle-to-board-edge',status:edge>0?'pass':'clash',gap:edge,pair:['analog bundle','carrier edge'],explanation:'Signed lower bound for the full lateral 1.4 mm radius around every guide segment to the actual concave perimeter; rails and case cover still require MCAD.'});
+  }
   const be=at(bq,0,right?-16:16), ce=at(j,0,4.4); // reference on as-built maximum end face, not the molded cable crimp
   wiring.battery={cellLeadLength:105,connector:'J1',cellExit:[be.x,be.y,1],connectorMouth:[ce.x,ce.y,2.5],
     exitOrientation:right?'−Y toward rear':'+Y toward palm',endpointEvidence:'Design reference on maximum pack end face only: measure actual tab point, pin lead length and installed plug wire exit.',

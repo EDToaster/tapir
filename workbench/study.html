@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f7f6f1" />
+    <title>Tapir · Assembly workbench</title>
+  </head>
+  <body>
+    <header class="head">
+      <div class="brand">tapir<span>.</span></div>
+      <span class="brandline"></span><span class="studio">HARDWARE STUDIO</span>
+      <nav>
+        <a class="nav" href="./index.html" style="text-decoration:none">Product</a>
+        <button class="nav on" data-action="assembly">
+          <i data-i="box"></i>Workbench</button
+        ><button class="nav" data-action="stack">
+          <i data-i="layers"></i>Stack study</button
+        ><button class="nav" data-action="sources">
+          <i data-i="book"></i>Parts &amp; sources
+        </button>
+      </nav>
+      <span class="version"><b></b>Concept / 04</span>
+    </header>
+    <main id="assembly-study">
+      <div class="intro">
+        <div>
+          <div class="eyebrow">
+            <span class="accent-line"></span> TAPIR &nbsp;/&nbsp; DESIGN STUDY
+            004
+          </div>
+          <h1>Assembly workbench</h1>
+          <p>
+            A 42-key travel split with a pointing stick beside the right thumb
+            cluster.
+          </p>
+        </div>
+        <div class="print-actions">
+          <button class="secondary export" data-action="compare">
+            <i data-i="ruler"></i>Compare thumb reach · 1:1
+          </button>
+          <button class="textbtn" data-action="export">
+            Export full layout
+          </button>
+        </div>
+      </div>
+      <div class="workbench">
+        <section class="maincol">
+          <div class="viewport">
+            <div class="stagebar">
+              <div class="stage-meta">
+                <span class="live-dot"></span>MODEL VIEW
+              </div>
+              <div id="views" class="view-select"></div>
+            </div>
+            <div
+              id="scene"
+              tabindex="0"
+              aria-label="Interactive 3D Tapir keyboard. Drag to orbit, scroll to zoom, select a part to inspect."
+            ></div>
+            <div class="viewbottom">
+              <div id="modes" class="mode-select"></div>
+              <div class="view-actions">
+                <button
+                  data-action="layers"
+                  aria-label="Toggle component visibility"
+                  title="Show or hide parts"
+                >
+                  <i data-i="layers"></i></button
+                ><button
+                  data-action="home"
+                  aria-label="Recenter view"
+                  title="Recenter view"
+                >
+                  <i data-i="focus"></i>
+                </button>
+              </div>
+            </div>
+            <div id="layerpop" hidden></div>
+          </div>
+          <div class="view-caption">
+            <span
+              ><i data-i="orbit"></i
+              ><span id="gesture"
+                >Drag to orbit · Scroll to zoom · Click to inspect</span
+              ></span
+            ><span>UNITS: MM</span>
+          </div>
+          <div class="measure-head">
+            <span class="eyebrow">LIVE DIMENSIONS</span
+            ><button class="textbtn" data-action="fit">
+              Fit report <i data-i="diagonal"></i>
+            </button>
+          </div>
+          <div id="metrics" class="metrics"></div>
+          <div class="measure-head">
+            <span class="eyebrow">POINTING STICK / SECTION</span
+            ><button class="textbtn" data-action="reveal">
+              Inspect underside <i data-i="diagonal"></i>
+            </button>
+          </div>
+          <div id="section-panel" class="section-panel"></div>
+        </section>
+        <aside>
+          <div class="panelheading">
+            <div class="eyebrow"><i data-i="sliders"></i>CONFIGURATION</div>
+            <button
+              class="reset"
+              data-action="reset"
+              title="Reset all parameters"
+            >
+              <i data-i="reset"></i>Reset
+            </button>
+          </div>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Geometry</h2>
+              <span>01</span>
+            </div>
+            <label class="select-label" for="preset">Layout preset</label>
+            <div class="selwrap">
+              <select id="preset">
+                <option value="thumb">Thumb cluster · standard pitch</option>
+                <option value="straight">Between columns · straight</option>
+                <option value="gentle">Between columns · gentle fan</option>
+                <option value="balanced">Between columns · original 16°</option>
+                <option value="custom" disabled>Custom layout</option></select
+              ><i data-i="chev"></i>
+            </div>
+            <div id="geometry-sliders"></div>
+            <div id="thumb-offsets"></div>
+            <div id="site-note" class="smallnote"></div>
+          </section>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Sensor mount</h2>
+              <span>02</span>
+            </div>
+            <div
+              id="mounts"
+              class="profile-picker"
+              aria-label="Sensor mounting position"
+            ></div>
+            <div id="mount-gap"></div>
+            <div id="mount-note" class="smallnote"></div>
+            <button class="textbtn donor-link" data-action="sourcing">
+              Sensor &amp; donor options <i data-i="diagonal"></i>
+            </button>
+          </section>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Switch profile</h2>
+              <span>03</span>
+            </div>
+            <div id="profiles" class="profile-picker"></div>
+            <div id="switch-note" class="smallnote"></div>
+            <label class="toggleline"
+              ><span>Simulate full keypress</span
+              ><input type="checkbox" id="pressed" /><span class="toggle"></span
+            ></label>
+          </section>
+          <details class="parameterblock extra">
+            <summary>
+              <span>Assembly settings</span><i data-i="chev"></i>
+            </summary>
+            <div id="extra-sliders"></div>
+          </details>
+          <button class="reportbtn" data-action="fit">
+            <i data-i="ruler"></i>Inspect fit &amp; clearances<i
+              data-i="arrow"
+            ></i>
+          </button>
+        </aside>
+      </div>
+      <footer>
+        <span>TAPIR &nbsp; / &nbsp; MECHANICAL CONCEPT</span
+        ><span>Nominal envelopes. Not fabrication CAD.</span>
+      </footer>
+    </main>
+    <main id="stack-study" hidden aria-labelledby="stack-title">
+      <div class="intro stack-intro">
+        <div>
+          <div class="eyebrow">
+            <span class="accent-line"></span> TAPIR &nbsp;/&nbsp; PACKAGING
+            STUDY 004
+          </div>
+          <h1 id="stack-title">Controller stack</h1>
+          <p>
+            Can the right-thumb pointing stick share the XIAO’s footprint
+            without costing reach, USB access or radio performance?
+          </p>
+        </div>
+        <div class="print-actions">
+          <button class="secondary" id="stack-print">
+            Print reach &amp; plug · 1:1</button
+          ><button class="textbtn" data-action="assembly">
+            Back to keyboard
+          </button>
+        </div>
+      </div>
+      <div class="stack-grid">
+        <section class="stack-main">
+          <div class="stack-figure">
+            <div class="stack-bar">
+              <span class="eyebrow"
+                ><span class="live-dot"></span> ASSEMBLY STUDY</span
+              >
+              <div
+                id="stack-views"
+                class="view-select"
+                aria-label="Study projection"
+              >
+                <button data-stack-view="iso">Diagram</button
+                ><button data-stack-view="orbit">Orbit 3D</button
+                ><button data-stack-view="plan">Plan</button
+                ><button data-stack-view="section">Section</button>
+              </div>
+            </div>
+            <div
+              id="stack-canvas"
+              aria-label="Stacked controller and sensor envelope drawing"
+            ></div>
+            <div id="stack-orbit-region" hidden>
+              <div
+                id="stack-orbit"
+                aria-label="Rotatable right-half stack in context"
+              ></div>
+              <div class="stack-orbit-bar">
+                <span>Drag to orbit · Scroll to zoom</span
+                ><button id="stack-focus">Stack</button
+                ><button id="stack-whole">Whole half</button>
+              </div>
+            </div>
+          </div>
+          <div class="view-caption">
+            <span>Right half · independent sensor support · envelope model</span
+            ><span>UNITS: MM</span>
+          </div>
+          <div id="stack-numbers" class="metrics"></div>
+          <div class="stack-brief">
+            <div class="eyebrow">READING THE STUDY</div>
+            <h2>Does stacking make it smaller?</h2>
+            <p id="stack-verdict" aria-live="polite"></p>
+            <p id="stack-rehome"></p>
+            <p>
+              The sensor and microcontroller may overlap in plan because they
+              sit at different heights. The model also checks the neighboring
+              keys, a USB plug path and an antenna exclusion zone. The detached
+              pointing-stick driver is a third board; it still needs room and a
+              wire route.
+            </p>
+            <p>
+              The
+              <a
+                href="https://codeberg.org/humanplayer2/trackpoint_on_rp2040zero"
+                target="_blank"
+                rel="noopener"
+                >RP2040-Zero build</a
+              >
+              solders the sensor and driver to opposite faces of a
+              daughterboard. Here the MCU is still the wireless XIAO nRF52840
+              Plus; the RP2040 pinout and header stack are not carried over. No
+              measurements from a salvaged T440 module are assumed.
+            </p>
+          </div>
+        </section>
+        <aside id="stack-controls">
+          <div class="panelheading">
+            <div class="eyebrow">STACK CONFIGURATION</div>
+            <button id="stack-reset" class="reset">Reset</button>
+          </div>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Compare placements</h2>
+              <span>01</span>
+            </div>
+            <label class="select-label" for="stack-preset">Candidate</label>
+            <select id="stack-preset" class="stack-select">
+              <option value="compact">Middle thumb · compact</option>
+              <option value="inner">Inner thumb · USB toward split</option>
+              <option value="first">Inner thumb · USB toward palm</option>
+              <option value="center">Centered · original thumb reach</option>
+              <option disabled value="custom">Custom arrangement</option>
+            </select>
+            <div class="smallnote">
+              The centered case keeps the original thumb target. Compare it
+              before changing any offsets.
+            </div>
+          </section>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Placement &amp; height</h2>
+              <span>02</span>
+            </div>
+            <label for="stack-direction" class="select-label">USB exit</label>
+            <select id="stack-direction" class="stack-select">
+              <option value="palm">Toward palm</option>
+              <option value="inner">Toward split</option>
+              <option value="outer">Toward outside edge</option>
+              <option value="keys">Toward finger keys</option>
+            </select>
+            <div id="stack-ranges"></div>
+          </section>
+          <section class="parameterblock">
+            <div class="block-title">
+              <h2>Key envelope</h2>
+              <span>03</span>
+            </div>
+            <label for="stack-switch" class="select-label"
+              >Switch and cap</label
+            >
+            <select id="stack-switch" class="stack-select">
+              <option value="choc">Choc v1 + MBK</option>
+              <option value="ulp">PG1316S + 1U</option>
+            </select>
+            <label class="stack-press"
+              ><input id="stack-pressed" type="checkbox" /> Show full
+              keypress</label
+            >
+          </section>
+        </aside>
+        <section class="stack-report">
+          <div class="eyebrow">FEASIBILITY / NOT A FABRICATION DRAWING</div>
+          <h2>Fit checks</h2>
+          <div id="stack-checks"></div>
+          <p class="smallnote">
+            This is a right-half test. It does not simulate the cable’s bend or
+            interference with your other half at close split settings. Check a
+            physical coupon for antenna performance, loaded stiffness, plug fit,
+            wake and battery current before designing the main PCB.
+          </p>
+          <div class="stack-files">
+            <a id="stack-step" href="./tapir-stacked-thumb.step" download
+              >Download reference STEP</a
+            ><a
+              href="https://github.com/EDToaster/tapir/tree/main/mechanical/stack"
+              target="_blank"
+              rel="noopener"
+              >Editable build123d source</a
+            >
+          </div>
+          <p class="smallnote">
+            The STEP is the middle-thumb preset. To export a custom slider
+            configuration, pass its values to the Python exporter.
+          </p>
+        </section>
+      </div>
+      <footer>
+        <span>TAPIR &nbsp;/&nbsp; MECHANICAL STUDIES</span
+        ><span>DIMENSIONS IN MM</span>
+      </footer>
+    </main>
+    <dialog id="dialog">
+      <div class="dialoghead">
+        <div class="eyebrow" id="dkicker"></div>
+        <button data-action="close" class="iconbtn" aria-label="Close">
+          <i data-i="x"></i>
+        </button>
+      </div>
+      <h2 id="dtitle"></h2>
+      <div id="dbody"></div>
+    </dialog>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

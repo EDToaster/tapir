@@ -32,6 +32,14 @@ export function mountStackStudy(getState) {
     down = false;
   let orbit = null,
     noWebGL = false;
+  let compact = false;
+  const stackCanvas = $('#stack-canvas');
+  new ResizeObserver(() => {
+    const w = stackCanvas.clientWidth;
+    if (!w || !active || compact === w < 525) return;
+    compact = w < 525;
+    draw();
+  }).observe(stackCanvas);
   if (import.meta.env.DEV) {
     $('#stack-step').href =
       'https://github.com/EDToaster/tapir/raw/refs/heads/main/mechanical/stack/tapir-stacked-thumb.step';
@@ -72,11 +80,14 @@ export function mountStackStudy(getState) {
         $('#stack-views [data-stack-view=orbit]').disabled = true;
         return draw();
       }
-    } else
+    } else {
+      compact = stackCanvas.clientWidth > 0 && stackCanvas.clientWidth < 525;
       $('#stack-canvas').innerHTML = stackSVG(
         model,
         view === 'orbit' ? 'iso' : view,
+        compact,
       );
+    }
     $('#stack-direction').value = params.orientation;
     $('#stack-switch').value = profile;
     $('#stack-pressed').checked = down;

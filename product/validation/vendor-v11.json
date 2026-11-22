@@ -1,0 +1,37 @@
+{
+  "archive": "https://files.seeedstudio.com/wiki/XIAO-BLE/Seeed_Studio_XIAO_nRF52840_Plus.zip",
+  "sha256": "f5e4e0e9c7d1725a89be2677549734f6ad96a8e00a16cb1742e0b3abfa99bdd9",
+  "source_member": "202004149, PCBA; Seeed Studio XIAO nRF52840 Plus v1.0_\u539f\u7406\u56fe/Seeed Studio XIAO nRF52840 v1.1.kicad_sch",
+  "method": "KiCad CLI schematic netlist XML export",
+  "module_pads": {
+    "1": "/P0.02_AIN0_LOW_A0_D0",
+    "2": "/P0.03_AIN1_LOW_A1_D1",
+    "3": "/P0.28_AIN4_LOW_A2_D2",
+    "4": "/P0.29_AIN5_LOW_A3_D3",
+    "5": "/P0.04_AIN2_A4_D4",
+    "6": "/P0.05_AIN3_A5_D5",
+    "7": "/P1.11_TX_D6",
+    "8": "/P1.12_RX_D7",
+    "9": "/P1.13_SCK_D8",
+    "10": "/P1.14_MISO_D9",
+    "11": "/P1.15_MOSI_D10",
+    "12": "/3V3",
+    "13": "GND_POWER",
+    "14": "/VBUS",
+    "15": "/P0.15_I2S_SD",
+    "16": "/P0.19_I2S_SCK",
+    "17": "/P1.01_I2S_WS"
+  },
+  "scope": "Directly numbered U4 pins 1..17. Separate battery/debug contacts are audited in product/electronics/reports/xiao-hidden-lands.json.",
+  "charger_marked": "BQ25100",
+  "iset": {
+    "default_to_ground_ohm": 2700,
+    "gpio_branch_ohm": 2700,
+    "gpio": "/P0.13_HICHG",
+    "datasheet": "https://www.ti.com/lit/ds/symlink/bq25100.pdf",
+    "cell_datasheet": "https://cdn-shop.adafruit.com/product-files/1570/1570datasheet.pdf",
+    "ki_min_aohm": 129,
+    "ki_max_aohm": 145,
+    "assumed_r_tolerance": 0.01
+  }
+}
