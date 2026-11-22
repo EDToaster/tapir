@@ -1,0 +1,30 @@
+#include "tapir.dtsi"
+#include "tapir-listener.dtsi"
+
+&default_transform { col-offset = <6>; };
+&kscan0 {
+    col-gpios = <&xiao_d 9 GPIO_ACTIVE_HIGH>, <&xiao_d 8 GPIO_ACTIVE_HIGH>,
+                <&xiao_d 7 GPIO_ACTIVE_HIGH>, <&xiao_d 6 GPIO_ACTIVE_HIGH>,
+                <&xiao_d 5 GPIO_ACTIVE_HIGH>, <&xiao_d 4 GPIO_ACTIVE_HIGH>;
+};
+
+/ {
+    ps2bus: ps2_bus {
+        compatible = "gpio-ps2";
+        // Clock sampled directly on falling edges. External pullups to TP_3V3.
+        scl-gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>; // D11, Plus-only
+        sda-gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>; // D10
+    };
+    tp_rail: pointer_rail {
+        compatible = "tapir,pointer-rail";
+        enable-gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>; // D13, Plus-only
+    };
+    stick: pointing_stick {
+        compatible = "zmk,input-mouse-ps2";
+        ps2-device = <&ps2bus>;
+        rst-gpios = <&gpio0 19 GPIO_ACTIVE_HIGH>; // D12, Plus-only
+        disable-clicking; // no Sprintek Z-tap or P6..8 events to host
+    };
+};
+
+&gpiote { interrupts = <6 0>; };

@@ -1,0 +1,48 @@
+diff --git a/app/src/activity.c b/app/src/activity.c
+index b109d46..a85a4cf 100644
+--- a/app/src/activity.c
++++ b/app/src/activity.c
+@@ -22,4 +22,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
+ 
+ #include <zmk/activity.h>
++#include <zmk/matrix.h>
++#include <zephyr/sys/atomic.h>
+ 
+ #if IS_ENABLED(CONFIG_USB_DEVICE_STACK)
+@@ -47,4 +49,14 @@ static uint32_t activity_last_uptime;
+ #if IS_ENABLED(CONFIG_ZMK_SLEEP)
+ #define MAX_SLEEP_MS CONFIG_ZMK_IDLE_SLEEP_TIMEOUT
++static ATOMIC_DEFINE(held_positions, ZMK_KEYMAP_LEN);
++
++static bool position_is_held(void) {
++    for (size_t i = 0; i < ARRAY_SIZE(held_positions); i++) {
++        if (atomic_get(&held_positions[i])) {
++            return true;
++        }
++    }
++    return false;
++}
+ #endif
+ 
+@@ -70,5 +82,13 @@ static int note_activity(void) {
+ }
+ 
+-static int activity_event_listener(const zmk_event_t *eh) { return note_activity(); }
++static int activity_event_listener(const zmk_event_t *eh) {
++#if IS_ENABLED(CONFIG_ZMK_SLEEP)
++    const struct zmk_position_state_changed *ev = as_zmk_position_state_changed(eh);
++    if (ev && ev->position < ZMK_KEYMAP_LEN) {
++        atomic_set_bit_to(held_positions, ev->position, ev->state);
++    }
++#endif
++    return note_activity();
++}
+ 
+ void activity_work_handler(struct k_work *work) {
+@@ -76,5 +96,5 @@ void activity_work_handler(struct k_work *work) {
+     int32_t inactive_time = current - activity_last_uptime;
+ #if IS_ENABLED(CONFIG_ZMK_SLEEP)
+-    if (inactive_time > MAX_SLEEP_MS && !is_usb_power_present()) {
++    if (inactive_time > MAX_SLEEP_MS && !is_usb_power_present() && !position_is_held()) {
+         // Put devices in suspend power mode before sleeping
+         set_state(ZMK_ACTIVITY_SLEEP);

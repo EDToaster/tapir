@@ -1,0 +1,7 @@
+file_format: "1"
+id: tapir
+name: Tapir
+type: shield
+requires: [seeed_xiao]
+features: [keys, pointer, studio]
+siblings: [tapir_left, tapir_right]

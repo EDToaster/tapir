@@ -1,0 +1,107 @@
+diff --git a/src/drivers/input/input_mouse_ps2.c b/src/drivers/input/input_mouse_ps2.c
+index a5c811b..836f00c 100644
+--- a/src/drivers/input/input_mouse_ps2.c
++++ b/src/drivers/input/input_mouse_ps2.c
+@@ -1792,6 +1792,8 @@ static void zmk_mouse_ps2_init_thread(int dev_ptr, int unused) {
+ 
+     zmk_mouse_ps2_settings_init(dev);
+ 
++    k_work_init_delayable(&data->packet_buffer_timeout, zmk_mouse_ps2_activity_packet_timout);
++
+     // Configure read callback
+     LOG_DBG("Configuring ps2 callback...");
+ #if IS_ENABLED(CONFIG_ZMK_INPUT_MOUSE_PS2_ENABLE_PS2_RESEND_CALLBACK)
+@@ -1818,8 +1820,6 @@ static void zmk_mouse_ps2_init_thread(int dev_ptr, int unused) {
+         LOG_DBG("Successfully activated ps2 callback");
+     }
+ 
+-    k_work_init_delayable(&data->packet_buffer_timeout, zmk_mouse_ps2_activity_packet_timout);
+-
+     return;
+ }
+ 
+@@ -1862,7 +1862,14 @@ int zmk_mouse_ps2_init_power_on_reset(const struct device *dev) {
+     // Wait 600ms
+     k_sleep(MOUSE_PS2_POWER_ON_RESET_TIME);
+ 
+-    // Set pin high
++    // Discard an earlier BAT/ID from application of the switched rail.
++    // While reset is asserted the GPIO backend flushes its receive FIFO;
++    // the following deassertion must supply the BAT/ID we actually consume.
++    if (IS_ENABLED(CONFIG_PS2_GPIO)) {
++        ps2_disable_callback(config->ps2_device);
++    }
++
++    // Active-high Sprintek reset: drive low to release.
+     err = gpio_pin_set_dt(&data->rst_gpio, 0);
+     if (err) {
+         LOG_ERR("Failed Power-On-Reset: Failed to set RST GPIO pin to "
+diff --git a/src/drivers/ps2/ps2_gpio.c b/src/drivers/ps2/ps2_gpio.c
+index 5b7ae16..d210129 100644
+--- a/src/drivers/ps2/ps2_gpio.c
++++ b/src/drivers/ps2/ps2_gpio.c
+@@ -40,7 +40,7 @@ LOG_MODULE_REGISTER(ps2_gpio);
+ // But we also don't want to hand it off at a low priority, since the PS/2
+ // packets must be dealt with quickly. So we use a fairly high priority.
+ #define PS2_GPIO_WORK_QUEUE_CB_PRIORITY 2
+-#define PS2_GPIO_WORK_QUEUE_CB_STACK_SIZE 1024
++#define PS2_GPIO_WORK_QUEUE_CB_STACK_SIZE 2048
+ 
+ /*
+  * PS/2 Defines
+@@ -316,7 +316,7 @@ int ps2_gpio_configure_pin_scl(gpio_flags_t flags, char *descr) {
+ int ps2_gpio_configure_pin_scl_input() { return ps2_gpio_configure_pin_scl((GPIO_INPUT), "input"); }
+ 
+ int ps2_gpio_configure_pin_scl_output() {
+-    return ps2_gpio_configure_pin_scl((GPIO_OUTPUT_HIGH), "output");
++    return ps2_gpio_configure_pin_scl(GPIO_OUTPUT_HIGH | GPIO_OPEN_DRAIN, "open-drain output");
+ }
+ 
+ int ps2_gpio_configure_pin_sda(gpio_flags_t flags, char *descr) {
+@@ -334,7 +334,7 @@ int ps2_gpio_configure_pin_sda(gpio_flags_t flags, char *descr) {
+ int ps2_gpio_configure_pin_sda_input() { return ps2_gpio_configure_pin_sda((GPIO_INPUT), "input"); }
+ 
+ int ps2_gpio_configure_pin_sda_output() {
+-    return ps2_gpio_configure_pin_sda((GPIO_OUTPUT_HIGH), "output");
++    return ps2_gpio_configure_pin_sda(GPIO_OUTPUT_HIGH | GPIO_OPEN_DRAIN, "open-drain output");
+ }
+ 
+ bool ps2_gpio_get_byte_parity(uint8_t byte) {
+@@ -1294,7 +1294,7 @@ static int ps2_gpio_init_gpio(void) {
+ 
+     // Overwrite any user-provided flags from the devicetree
+     data->scl_gpio.dt_flags = 0;
+-    data->scl_gpio.dt_flags = 0;
++    data->sda_gpio.dt_flags = 0;
+ 
+     // Setup interrupt callback for clock line
+     gpio_init_callback(&data->scl_cb_data, ps2_gpio_scl_interrupt_handler, BIT(data->scl_gpio.pin));
+@@ -1306,9 +1306,9 @@ static int ps2_gpio_init_gpio(void) {
+                 err);
+     }
+ 
+-    ps2_gpio_set_scl_callback_enabled(true);
+     ps2_gpio_configure_pin_scl_input();
+     ps2_gpio_configure_pin_sda_input();
++    ps2_gpio_set_scl_callback_enabled(true);
+ 
+     // Check if this stuff is needed
+     // TODO: Figure out why this is requiered.
+@@ -1331,8 +1331,6 @@ static int ps2_gpio_init(const struct device *dev) {
+     // the ps2 callback
+     data->dev = dev;
+ 
+-    ps2_gpio_init_gpio();
+-
+     // Init data queue for synchronous read operations
+     k_msgq_init(&data->data_queue, data->data_queue_buffer, sizeof(struct ps2_gpio_data_queue_item),
+                 PS2_GPIO_DATA_QUEUE_SIZE);
+@@ -1366,7 +1364,7 @@ static int ps2_gpio_init(const struct device *dev) {
+     k_work_init(&data->callback_work, ps2_gpio_read_callback_work_handler);
+     k_work_init(&data->resend_cmd_work, ps2_gpio_send_cmd_resend_worker);
+ 
+-    return 0;
++    return ps2_gpio_init_gpio();
+ }
+ 
+ DEVICE_DT_INST_DEFINE(0, &ps2_gpio_init, NULL, &ps2_gpio_data, &ps2_gpio_config, POST_KERNEL,

@@ -1,0 +1,26 @@
+#include "../../config/tapir.keymap"
+#include "../../config/boards/shields/tapir/tapir-transform.dtsi"
+#include "../../config/boards/shields/tapir/tapir-listener.dtsi"
+#include <dt-bindings/zmk/kscan_mock.h>
+
+/ {
+    chosen { zmk,matrix-transform = &default_transform; };
+    // From 6.5 through 22.5 simulated seconds in 2 s increments.
+    stick: mock_input {
+        compatible = "zmk,input-mock";
+        event-startup-delay = <6500>;
+        event-period = <2000>;
+        events = <INPUT_EV_REL INPUT_REL_X 12 1>,
+                 <INPUT_EV_REL INPUT_REL_Y 12 1>,
+                 <INPUT_EV_REL INPUT_REL_X 12 1>,
+                 <INPUT_EV_REL INPUT_REL_X 12 1>,
+                 <INPUT_EV_REL INPUT_REL_X 12 1>,
+                 <INPUT_EV_REL INPUT_REL_Y (-36) 1>,
+                 <INPUT_EV_REL INPUT_REL_X 24 1>,
+                 <INPUT_EV_REL INPUT_REL_Y 24 1>,
+                 <INPUT_EV_REL INPUT_REL_X 12 1>;
+    };
+};
+
+&kscan { rows = <4>; columns = <6>; events = <>; };
+&default_transform { col-offset = <6>; };

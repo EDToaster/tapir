@@ -1,0 +1,365 @@
+{
+  "C_0603_1608Metric.step": {
+    "bbox_max_mm": [
+      0.8,
+      0.4,
+      0.8
+    ],
+    "bbox_min_mm": [
+      -0.8,
+      -0.4,
+      0.0
+    ],
+    "fidelity": "package only; thickness depends on actual selected capacitor",
+    "footprint": "C_0603_1608Metric",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "C1,C2: 0603/1608",
+    "reuse": "KiCad CC-BY-SA-4.0 + electronic-design exception; licenses/KiCad-LICENSE.md and per-family CREDITS",
+    "sha256": "4857b3dc717675bf1fb22edda622ac3b3ae03cf44d81eefaf3fa3ba3a86d84c1",
+    "solid_volume_sum_mm3": 0.9304,
+    "solids": 1,
+    "source": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/ca5b7874dad95c1c36b7ad8db6ca6b82e4a2a89e/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+  },
+  "D_SOD-323.step": {
+    "bbox_max_mm": [
+      1.25,
+      0.625,
+      1.11
+    ],
+    "bbox_min_mm": [
+      -1.25,
+      -0.625,
+      0.0
+    ],
+    "fidelity": "SOD-323 package CAD, not die-specific",
+    "footprint": "D_SOD-323",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "1N4148WS-7-F",
+    "reuse": "KiCad CC-BY-SA-4.0 + electronic-design exception; licenses/KiCad-LICENSE.md and per-family CREDITS",
+    "sha256": "cd8619b2119cd95683a2c5e660ab4f2d4db674f696cd6f9e9756f221171a214d",
+    "solid_volume_sum_mm3": 1.992,
+    "solids": 1,
+    "source": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/ca5b7874dad95c1c36b7ad8db6ca6b82e4a2a89e/Diode_SMD.3dshapes/D_SOD-323.step"
+  },
+  "JST_S2B_PH_SM4_TB_fit.step": {
+    "bbox_max_mm": [
+      3.95,
+      4.2,
+      5.5
+    ],
+    "bbox_min_mm": [
+      -3.95,
+      -4.4,
+      0.0
+    ],
+    "fidelity": "Original simplified JST PH side-entry surface-mount 2-position fit body from drawing; no latch/insertion-force validation",
+    "footprint": "JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal",
+    "geometry_prefix_sha256": "149d6256d5b0cb44ca2e3ba8c87c1f89b253a4d044a40469666d74c1f09e9bb2",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "S2B-PH-SM4-TB(LF)(SN)",
+    "reuse": "Original Tapir authored B-rep; no vendor B-rep or mesh redistributed",
+    "sha256": "93d7d3b5166d3f01b5f6e3d9c525bd92717e6e0d9fa9f81a815af7a71ebc8cf1",
+    "solid_volume_sum_mm3": 196.8292,
+    "solids": 7,
+    "source": "https://www.jst.co.uk/downloads/series/ePH_(24-12-09).pdf"
+  },
+  "MBK_1U_clearance_seated.step": {
+    "bbox_max_mm": [
+      8.75,
+      8.25,
+      10.6
+    ],
+    "bbox_min_mm": [
+      -8.75,
+      -8.25,
+      6.65
+    ],
+    "fidelity": "Independent seated keycap envelope; excludes stem prongs, not mold/print geometry",
+    "footprint": "Choc_PG1350",
+    "geometry_prefix_sha256": "b4d6e3b79d64ea5b48fbc2da0b295c7157a0e65899577d3da2c2da1151eebd77",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "FKcaps MBK regular 1u",
+    "reuse": "Original Tapir authored B-rep; no vendor B-rep or mesh redistributed",
+    "sha256": "f278bcfdb34eb2ef670a3e4da18cb3f1c0cd8e1cc9d90e8212baa20396bcb5df",
+    "solid_volume_sum_mm3": 687.0916,
+    "solids": 1,
+    "source": "https://github.com/FKcaps/mbk-3dmodels"
+  },
+  "R_0603_1608Metric.step": {
+    "bbox_max_mm": [
+      0.8,
+      0.4,
+      0.45
+    ],
+    "bbox_min_mm": [
+      -0.8,
+      -0.4,
+      0.0
+    ],
+    "fidelity": "package only; suffix/value does not follow from body geometry",
+    "footprint": "R_0603_1608Metric",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "R1,R2,R3: 0603/1608",
+    "reuse": "KiCad CC-BY-SA-4.0 + electronic-design exception; licenses/KiCad-LICENSE.md and per-family CREDITS",
+    "sha256": "1875571c326d0d9e96f36b4efeb8094068ef7619f0a449c781caf0b49c2e5861",
+    "solid_volume_sum_mm3": 0.5372,
+    "solids": 1,
+    "source": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/ca5b7874dad95c1c36b7ad8db6ca6b82e4a2a89e/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+  },
+  "SOT-23-6.step": {
+    "bbox_max_mm": [
+      1.4,
+      1.45,
+      1.55
+    ],
+    "bbox_min_mm": [
+      -1.4,
+      -1.45,
+      0.0
+    ],
+    "fidelity": "nominal six-terminal SOT-23/DBV package, not a TI assembly model",
+    "footprint": "SOT-23-6",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "TPS22918DBVR",
+    "reuse": "KiCad CC-BY-SA-4.0 + electronic-design exception; licenses/KiCad-LICENSE.md and per-family CREDITS",
+    "sha256": "c9fe686b4d1b56927a41fa84a9bc1efb61d8a45a123a3db43bcaa05c2891d635",
+    "solid_volume_sum_mm3": 6.5656,
+    "solids": 1,
+    "source": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/ca5b7874dad95c1c36b7ad8db6ca6b82e4a2a89e/Package_TO_SOT_SMD.3dshapes/SOT-23-6.step"
+  },
+  "SW_Kailh_Choc_V1.step": {
+    "bbox_max_mm": [
+      7.5,
+      7.5,
+      8.05
+    ],
+    "bbox_min_mm": [
+      -7.5,
+      -7.5,
+      -2.9472
+    ],
+    "fidelity": "KiSwitch Choc v1 family mounting/outer geometry verified against target; not supplier-certified SKU; spring, switch force and stem color not indicative",
+    "footprint": "Choc_PG1350",
+    "metal_lead_bbox_centers_xy_mm": [
+      [
+        0.0,
+        5.8678
+      ],
+      [
+        5.0,
+        3.8562
+      ]
+    ],
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "Kailh CPG135001D01 (red)",
+    "reuse": "keyswitch-kicad-library contributors 2019-2022, retained KiSwitch-MIT.txt; unmodified byte content",
+    "sha256": "669d72c083f226e1f9ee9e9dc8424c18e9641984223ba5422a1235d773a6a9a8",
+    "solid_volume_sum_mm3": 942.4531,
+    "solids": 5,
+    "source": "https://raw.githubusercontent.com/kiswitch/kiswitch/aefcf65038d48d2666ff14530d482be3c350fa6e/library/3dmodels/3d-library.3dshapes/SW_Kailh_Choc_V1.stp"
+  },
+  "SW_SPDT_PCM12.step": {
+    "bbox_max_mm": [
+      3.85,
+      1.87,
+      1.5
+    ],
+    "bbox_min_mm": [
+      -3.85,
+      -3.13,
+      -0.5
+    ],
+    "fidelity": "KiCad native; original model header explicitly identifies PCM12SMTR",
+    "footprint": "SW_SPDT_PCM12",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "PCM12SMTR",
+    "reuse": "KiCad CC-BY-SA-4.0 + electronic-design exception; licenses/KiCad-LICENSE.md and per-family CREDITS",
+    "sha256": "a10ea113b1599b80249c9f289ca60875d1442ab8e7b62a025b047afe6e77cf92",
+    "solid_volume_sum_mm3": 24.0946,
+    "solids": 1,
+    "source": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/ca5b7874dad95c1c36b7ad8db6ca6b82e4a2a89e/Button_Switch_SMD.3dshapes/SW_SPDT_PCM12.step"
+  },
+  "SW_SPST_PTS810.step": {
+    "bbox_max_mm": [
+      2.3,
+      1.6,
+      2.5
+    ],
+    "bbox_min_mm": [
+      -2.3,
+      -1.6,
+      0.0
+    ],
+    "fidelity": "PTS810 J-bend series; 2.50 mm height verified, actuator grade/force not modeled",
+    "footprint": "SW_SPST_PTS810",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "PTS810SJM250SMTR LFS",
+    "reuse": "KiCad CC-BY-SA-4.0 + electronic-design exception; licenses/KiCad-LICENSE.md and per-family CREDITS",
+    "sha256": "03ea59013f361d6becd35559a0a130d1ad29f382cf861d2a1365880acf17005a",
+    "solid_volume_sum_mm3": 26.8323,
+    "solids": 1,
+    "source": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/ca5b7874dad95c1c36b7ad8db6ca6b82e4a2a89e/Button_Switch_SMD.3dshapes/SW_SPST_PTS810.step"
+  },
+  "XIAO_nRF52840_Plus_nonSense_fit.step": {
+    "bbox_max_mm": [
+      11.9855,
+      8.89,
+      5.15
+    ],
+    "bbox_min_mm": [
+      -10.4775,
+      -8.89,
+      0.125
+    ],
+    "fidelity": "Independently constructed from non-Sense Plus v1.1 artwork; 23 edge positions, 14 header holes, no IMU/microphone; Z allowances",
+    "footprint": "XIAO-nRF52840-Plus-SMD",
+    "geometry_prefix_sha256": "085333d171228be1c7188dde01c1527f7105e8e06117328aba32797be242b1ad",
+    "model_offset_mm": [
+      0,
+      0,
+      0
+    ],
+    "model_rotation_deg": [
+      0,
+      0,
+      0
+    ],
+    "model_scale": [
+      1,
+      1,
+      1
+    ],
+    "part": "Seeed 102010672",
+    "reuse": "Original Tapir authored B-rep; no vendor B-rep or mesh redistributed",
+    "sha256": "473c1f1707f579a3aa9c30ad0d799396a8ecea2b00b3b9e668b62a039397126d",
+    "solid_volume_sum_mm3": 769.199,
+    "solids": 35,
+    "source": "https://files.seeedstudio.com/wiki/XIAO-BLE/Seeed_Studio_XIAO_nRF52840_Plus.zip"
+  }
+}

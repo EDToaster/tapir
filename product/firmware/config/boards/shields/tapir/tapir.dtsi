@@ -1,0 +1,54 @@
+#include "tapir-transform.dtsi"
+#include <physical_layouts.dtsi>
+
+/ {
+    chosen { zmk,physical-layout = &tapir_layout; zmk,kscan = &kscan0; };
+
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source;
+        diode-direction = "col2row";
+        row-gpios = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                    <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                    <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                    <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+    };
+
+    // Schematic Studio layout in 0.01 key units; not fabrication geometry.
+    #define K(x,y) <&key_physical_attrs 100 100 x y 0 0 0>
+    #define B(x,y) <&key_physical_attrs 55 50 x y 0 0 0>
+    #define KR(y) K(0,(y+45)), K(100,(y+25)), K(200,(y+0)), K(300,(y-15)), K(400,(y+0)), K(500,(y+8)), K(800,(y+8)), K(900,(y+0)), K(1000,(y-15)), K(1100,(y+0)), K(1200,(y+25)), K(1300,(y+45))
+    tapir_layout: physical_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "Tapir 42 + 3";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
+        keys = KR(20), KR(120), KR(220),
+               K(385,340), K(495,365), K(605,405), K(695,405), K(805,365), K(915,340),
+               B(390,445), B(325,445), B(260,445);
+    };
+    #undef KR
+    #undef B
+    #undef K
+};
+
+// Only internal application/NVS flash is used. No display or peripheral bus
+// occupies matrix pins. No NFC/BAT inputs are repurposed.
+&qspi { status = "disabled"; };
+&gd25q16 { status = "disabled"; };
+&p25q16h { status = "disabled"; };
+&xiao_spi { status = "disabled"; };
+&xiao_i2c { status = "disabled"; };
+&xiao_serial { status = "disabled"; };
+
+// Non-Sense Plus: P0.13 is charger current selection, NOT a matrix pin.
+// No pull and no output: the extra charge-current path must stay off.
+&gpio0 {
+    charge_rate_safe {
+        gpio-hog;
+        gpios = <13 GPIO_ACTIVE_HIGH>;
+        input;
+        line-name = "CHG-rate-high-Z";
+    };
+};

@@ -1,0 +1,47 @@
+d_02: @00:00:00.000000  [00:00:00.000,000] <wrn> bt_id: No static addresses stored in controller
+d_02: @00:00:00.002648  [00:00:00.002,624] <dbg> ble_central: main: [Bluetooth initialized]
+d_02: @00:00:00.002648  [00:00:00.002,624] <dbg> ble_central: start_scan: [Scanning successfully started]
+d_02: @00:00:00.004967  [00:00:00.004,943] <dbg> ble_central: device_found: [DEVICE]: FD:9E:B2:48:47:39 (random), AD evt type 0, AD data len 15, RSSI -56
+d_02: @00:00:00.004967  [00:00:00.004,943] <dbg> ble_central: eir_found: [AD]: 25 data_len 2
+d_02: @00:00:00.004967  [00:00:00.004,943] <dbg> ble_central: eir_found: [AD]: 1 data_len 1
+d_02: @00:00:00.004967  [00:00:00.004,943] <dbg> ble_central: eir_found: [AD]: 2 data_len 4
+d_02: @00:00:00.115396  [00:00:00.115,386] <dbg> ble_central: connected: [Connected]: FD:9E:B2:48:47:39 (random)
+d_02: @00:00:00.115396  [00:00:00.115,386] <dbg> ble_central: connected: [Setting the security for the connection]
+d_02: @00:00:01.066883  [00:00:01.066,864] <dbg> ble_central: pairing_complete: Pairing complete
+d_02: @00:00:01.066883  [00:00:01.066,864] <dbg> ble_central: discover_conn: [Discovery started for conn]
+d_02: @00:00:01.166915  [00:00:01.166,900] <dbg> ble_central: discover_func: [ATTRIBUTE] handle 23
+d_02: @00:00:01.366959  [00:00:01.366,943] <dbg> ble_central: discover_func: [ATTRIBUTE] handle 28
+d_02: @00:00:01.466983  [00:00:01.466,979] <dbg> ble_central: discover_func: [ATTRIBUTE] handle 30
+d_02: @00:00:01.466983  [00:00:01.466,979] <dbg> ble_central: discover_func: [SUBSCRIBED]
+d_02: @00:00:01.666959  [00:00:01.666,931] <dbg> ble_central: discover_func: [ATTRIBUTE] handle 32
+d_02: @00:00:01.766984  [00:00:01.766,967] <dbg> ble_central: discover_func: [ATTRIBUTE] handle 34
+d_02: @00:00:01.766984  [00:00:01.766,967] <dbg> ble_central: discover_func: [CONSUMER SUBSCRIBED]
+d_02: @00:00:01.966959  [00:00:01.966,949] <dbg> ble_central: discover_func: [ATTRIBUTE] handle 36
+d_02: @00:00:02.066967  [00:00:02.066,955] <dbg> ble_central: discover_func: [ATTRIBUTE] handle 38
+d_02: @00:00:02.066967  [00:00:02.066,955] <dbg> ble_central: discover_func: [MOUSE SUBSCRIBED]
+d_02: @00:00:06.506967  [00:00:06.506,958] <dbg> ble_central: notify_func: payload
+d_02: @00:00:06.506967                                        00 0c 00 00 00 00 00 00  00                      |........ .       
+d_02: @00:00:07.016968  [00:00:07.016,967] <dbg> ble_central: notify_func: payload
+d_02: @00:00:07.016968                                        01 00 00 00 00 00 00 00  00                      |........ .       
+d_02: @00:00:08.516968  [00:00:08.516,967] <dbg> ble_central: notify_func: payload
+d_02: @00:00:08.516968                                        01 00 00 f4 ff 00 00 00  00                      |........ .       
+d_02: @00:00:10.511967  [00:00:10.511,962] <dbg> ble_central: notify_func: payload
+d_02: @00:00:10.511967                                        01 0c 00 00 00 00 00 00  00                      |........ .       
+d_02: @00:00:12.506967  [00:00:12.506,958] <dbg> ble_central: notify_func: payload
+d_02: @00:00:12.506967                                        01 0c 00 00 00 00 00 00  00                      |........ .       
+d_02: @00:00:14.021967  [00:00:14.021,942] <dbg> ble_central: notify_func: payload
+d_02: @00:00:14.021967                                        00 00 00 00 00 00 00 00  00                      |........ .       
+d_02: @00:00:14.501967  [00:00:14.501,953] <dbg> ble_central: notify_func: payload
+d_02: @00:00:14.501967                                        00 0c 00 00 00 00 00 00  00                      |........ .       
+d_02: @00:00:16.511967  [00:00:16.511,962] <dbg> ble_central: notify_func: payload
+d_02: @00:00:16.511967                                        00 00 00 00 00 fd ff 00  00                      |........ .       
+d_02: @00:00:18.506967  [00:00:18.506,958] <dbg> ble_central: notify_func: payload
+d_02: @00:00:18.506967                                        00 00 00 00 00 00 00 02  00                      |........ .       
+d_02: @00:00:20.516968  [00:00:20.516,967] <dbg> ble_central: notify_func: payload
+d_02: @00:00:20.516968                                        00 00 00 e8 ff 00 00 00  00                      |........ .       
+d_02: @00:00:21.821968  [00:00:21.821,960] <dbg> ble_central: notify_func: payload
+d_02: @00:00:21.821968                                        02 00 00 00 00 00 00 00  00                      |........ .       
+d_02: @00:00:22.511967  [00:00:22.511,962] <dbg> ble_central: notify_func: payload
+d_02: @00:00:22.511967                                        02 0c 00 00 00 00 00 00  00                      |........ .       
+d_02: @00:00:23.816968  [00:00:23.816,955] <dbg> ble_central: notify_func: payload
+d_02: @00:00:23.816968                                        00 00 00 00 00 00 00 00  00                      |........ .       

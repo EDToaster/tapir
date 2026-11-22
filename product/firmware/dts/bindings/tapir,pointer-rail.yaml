@@ -1,0 +1,7 @@
+description: Tapir switched Sprintek rail (right central only)
+compatible: "tapir,pointer-rail"
+include: base.yaml
+properties:
+  enable-gpios:
+    type: phandle-array
+    required: true

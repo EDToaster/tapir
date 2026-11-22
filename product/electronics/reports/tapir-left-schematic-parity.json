@@ -1,0 +1,30 @@
+{
+  "kicad_version": "10.0.8",
+  "native_erc_violations": 0,
+  "erc_exclusions": 0,
+  "erc_ignored_rule_categories": [
+    "single_global_label",
+    "four_way_junction",
+    "simulation_model_issue",
+    "footprint_filter"
+  ],
+  "sheet": "left/tapir-left.kicad_sch",
+  "sheet_sha256": "2861e8a34bf722b2ab73f3f711f2c9438e58bfd7443c402ac9bff16b5080b92f",
+  "manifest_sha256": "62b5ad9c7cc5d0773e8e7f59eece80f1dfa1d05ef0d656d548c54c257b528458",
+  "schematic_components": 51,
+  "named_connected_nets": 37,
+  "schematic_terminals": 131,
+  "explicit_no_connects": 17,
+  "board_checked": true,
+  "board": "left/tapir-left.kicad_pcb",
+  "board_sha256": "76c74bb570cfacf54510aba40bff0080d3b8e2b11705e310a0c985328a8244ab",
+  "board_numbered_pads": 138,
+  "board_only_mechanical": [
+    "H1",
+    "H2",
+    "H3",
+    "H4"
+  ],
+  "passes": true,
+  "findings": []
+}

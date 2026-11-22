@@ -1,0 +1,10 @@
+#include <dt-bindings/zmk/kscan_mock.h>
+&stick { status = "disabled"; };
+&{/pointer_listener} { status = "disabled"; };
+&default_transform { col-offset = <0>; };
+&kscan {
+    // Mock scanner timing: L at 7/14s; Scroll at 15.8/19.8s; R at 21.8/23.8s.
+    events = <ZMK_MOCK_PRESS(3,0,7000) ZMK_MOCK_RELEASE(3,0,1800)
+              ZMK_MOCK_PRESS(3,1,4000) ZMK_MOCK_RELEASE(3,1,2000)
+              ZMK_MOCK_PRESS(3,2,2000) ZMK_MOCK_RELEASE(3,2,900)>;
+};

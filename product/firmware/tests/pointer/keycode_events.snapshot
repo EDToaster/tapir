@@ -1,0 +1,12 @@
+move 12/0
+buttons 0x01
+move 0/-12
+buttons 0x00
+move 12/0
+wheel 2/0
+wheel 0/-3
+move 0/-24
+buttons 0x02
+move 12/0
+buttons 0x00
+move 12/0

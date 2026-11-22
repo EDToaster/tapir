@@ -1,0 +1,16 @@
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
+
+/ {
+    pointer_listener {
+        compatible = "zmk,input-listener";
+        device = <&stick>;
+        // PS/2 +Y is up. HID pointer +Y is down. Verify head rotation on bench.
+        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
+        scroll {
+            layers = <3>;
+            // PS/2 +Y up is already positive wheel; X maps to horizontal wheel.
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 12>;
+        };
+    };
+};

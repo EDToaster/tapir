@@ -1,0 +1,2 @@
+(sym_lib_table (version 7)
+ (lib (name "TapirCircuit") (type "KiCad") (uri "${KIPRJMOD}/TapirCircuit.kicad_sym") (options "") (descr "Tapir carrier symbols")))

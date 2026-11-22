@@ -1,0 +1,63 @@
+{
+  "parser": "Gerbonara 1.6.3",
+  "scope": "Digital geometry/net-attribute readback; no fabricated part measured.",
+  "layers": {
+    "F_Cu": {
+      "function": "Copper,L1,Top",
+      "objects": 293
+    },
+    "B_Cu": {
+      "function": "Copper,L2,Bot",
+      "objects": 393
+    },
+    "F_Mask": {
+      "function": "Soldermask,Top",
+      "objects": 184
+    },
+    "B_Mask": {
+      "function": "Soldermask,Bot",
+      "objects": 180
+    },
+    "F_Silkscreen": {
+      "function": "Legend,Top",
+      "objects": 218
+    },
+    "B_Silkscreen": {
+      "function": "Legend,Bot",
+      "objects": 295
+    },
+    "F_Paste": {
+      "function": "Paste,Top",
+      "objects": 52
+    },
+    "B_Paste": {
+      "function": "Paste,Bot",
+      "objects": 48
+    },
+    "Edge_Cuts": {
+      "function": "Profile,NP",
+      "objects": 15
+    }
+  },
+  "drills": {
+    "PTH": {
+      "hits": 69,
+      "max_xyz_or_dia_rounding_mm": 0.0005
+    },
+    "NPTH": {
+      "hits": 90,
+      "max_xyz_or_dia_rounding_mm": 0.000495
+    }
+  },
+  "copper_lands": {
+    "F_Cu": {
+      "all_numbered_pads_matched": 90
+    },
+    "B_Cu": {
+      "all_numbered_pads_matched": 90
+    }
+  },
+  "profile_segments_matched": 15,
+  "profile_max_coordinate_error_mm": 1e-06,
+  "pass": true
+}

@@ -1,0 +1,93 @@
+{
+  "kicad": "10.0.8",
+  "module_archive_sha256": "f5e4e0e9c7d1725a89be2677549734f6ad96a8e00a16cb1742e0b3abfa99bdd9",
+  "host_archive_sha256": "671cb119639e489091b87a64e070d4aba1f22860ddfdbecc85ff143c0c295e28",
+  "module_archive": "https://files.seeedstudio.com/wiki/XIAO-BLE/Seeed_Studio_XIAO_nRF52840_Plus.zip",
+  "host_archive": "https://files.seeedstudio.com/wiki/XIAO-KiCad-Library/New_XIAO_Series_Footprints.zip",
+  "registration": "No mirror or rotation; module X from castellation 4/11; Y from row extremes 1/14.",
+  "host_origin_in_module_board_mm": [
+    148.49788,
+    105.01
+  ],
+  "limit": "Nominal CAD bounding-rectangle overlap, not a physical joint or tolerance qualification.",
+  "pads": [
+    {
+      "host_pad": "24",
+      "module_ref": "TP5",
+      "module_net": "/SWDIO",
+      "host_minus_module_center_mm": [
+        -0.0032,
+        0.0064
+      ],
+      "bounding_rectangle_overlap_mm": [
+        1.143,
+        1.143
+      ]
+    },
+    {
+      "host_pad": "25",
+      "module_ref": "TP3",
+      "module_net": "/SWDCLK",
+      "host_minus_module_center_mm": [
+        -0.0032,
+        0.0064
+      ],
+      "bounding_rectangle_overlap_mm": [
+        1.143,
+        1.143
+      ]
+    },
+    {
+      "host_pad": "26",
+      "module_ref": "TP2",
+      "module_net": "/RESET",
+      "host_minus_module_center_mm": [
+        -0.0032,
+        0.0064
+      ],
+      "bounding_rectangle_overlap_mm": [
+        1.143,
+        1.143
+      ]
+    },
+    {
+      "host_pad": "27",
+      "module_ref": "TP1",
+      "module_net": "GND_POWER",
+      "host_minus_module_center_mm": [
+        -0.0032,
+        0.0064
+      ],
+      "bounding_rectangle_overlap_mm": [
+        1.143,
+        1.143
+      ]
+    },
+    {
+      "host_pad": "28",
+      "module_ref": "BAT0",
+      "module_net": "/VBAT",
+      "host_minus_module_center_mm": [
+        -0.4848,
+        0.0083
+      ],
+      "bounding_rectangle_overlap_mm": [
+        1.7812,
+        1.016
+      ]
+    },
+    {
+      "host_pad": "29",
+      "module_ref": "GND0",
+      "module_net": "GND_POWER",
+      "host_minus_module_center_mm": [
+        -0.4848,
+        0.0083
+      ],
+      "bounding_rectangle_overlap_mm": [
+        1.7812,
+        1.016
+      ]
+    }
+  ]
+}

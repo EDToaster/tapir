@@ -1,0 +1,74 @@
+{
+  "board": "left/tapir-left.kicad_pcb",
+  "board_sha256": "76c74bb570cfacf54510aba40bff0080d3b8e2b11705e310a0c985328a8244ab",
+  "findings_by_type": {},
+  "ground_zones": [
+    "GND return F.Cu",
+    "GND return B.Cu"
+  ],
+  "kicad": "10.0.8",
+  "native_counts": {
+    "schematic_parity": 0,
+    "unconnected_items": 0,
+    "violations": 0
+  },
+  "native_drc": "reports/tapir-left-drc.json",
+  "pads": 232,
+  "passes": true,
+  "project_drc_exclusions": 0,
+  "route_length_mm_by_layer": {
+    "B.Cu": 1112.69,
+    "F.Cu": 754.24
+  },
+  "route_length_mm_by_net": {
+    "CELL_PLUS": 47.59,
+    "COL0": 217.52,
+    "COL1": 191.88,
+    "COL2": 149.2,
+    "COL3": 141.55,
+    "COL4": 123.75,
+    "COL5": 110.07,
+    "GND": 118.97,
+    "K01": 1.95,
+    "K02": 1.95,
+    "K03": 1.95,
+    "K04": 1.95,
+    "K05": 1.95,
+    "K06": 1.95,
+    "K07": 1.95,
+    "K08": 1.95,
+    "K09": 1.95,
+    "K10": 1.95,
+    "K11": 1.95,
+    "K12": 1.95,
+    "K13": 1.95,
+    "K14": 1.95,
+    "K15": 1.95,
+    "K16": 1.95,
+    "K17": 1.95,
+    "K18": 1.95,
+    "K19": 2.02,
+    "K20": 2.09,
+    "K21": 2.11,
+    "K22": 9.21,
+    "K23": 9.19,
+    "K24": 9.33,
+    "ROW0": 119.78,
+    "ROW1": 177.83,
+    "ROW2": 148.75,
+    "ROW3": 149.36,
+    "VBAT_SW": 94.92,
+    "unconnected-(J1-SHIELD-PadMP)": 6.7
+  },
+  "routed_pad_geometry_and_nets_match_placement": true,
+  "through_vias": 27,
+  "trace_segments": 445,
+  "trace_width_mm_count": {
+    "0.2": 408,
+    "0.3": 37
+  },
+  "via_diameter_drill_mm_count": {
+    "0.6/0.3": 18,
+    "0.65/0.3": 9
+  }
+}

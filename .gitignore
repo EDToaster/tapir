@@ -8,3 +8,8 @@ __pycache__/
 *.kicad_pcb-bak
 *-backups/
 fp-info-cache
+workbench/public/prototype/
+.venv*/
+*.pyc
+*.lck
+*.dsnlck

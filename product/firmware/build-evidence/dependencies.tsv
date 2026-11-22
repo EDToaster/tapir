@@ -1,0 +1,11 @@
+project	URL	commit
+zmk	https://github.com/zmkfirmware/zmk	edf5c0814fd3ea202e43aad2d68fd32e882a518c
+zephyr	https://github.com/zmkfirmware/zephyr	dacab4875df72109b96cc8977547a0dc04875bcd
+kb_zmk_ps2_mouse_trackpoint_driver	https://github.com/badjeff/kb_zmk_ps2_mouse_trackpoint_driver	5ff0b24863ab74390adcc447b0575fcd78442514
+nanopb	https://github.com/zmkfirmware/nanopb	8c60555d6277a0360c876bd85d491fc4fb0cd74a
+zmk-studio-messages	https://github.com/zmkfirmware/zmk-studio-messages	6cb4c283e76209d59c45fbcb218800cd19e9339d
+cmsis	https://github.com/zephyrproject-rtos/cmsis	5a00331455dd74e31e80efa383a489faea0590e3
+hal_nordic	https://github.com/zephyrproject-rtos/hal_nordic	884c4d61746bc35fbd379c169fc87ddb56c6461d
+lvgl	https://github.com/zephyrproject-rtos/lvgl	8a6a2d1d29d17d1e4bdc94c243c146a39d635fdd
+segger	https://github.com/zephyrproject-rtos/segger	9d0191285956cef43daf411edc2f1a7788346def
+tinycrypt	https://github.com/zephyrproject-rtos/tinycrypt	3e9a49d2672ec01435ffbf0d788db6d95ef28de0
