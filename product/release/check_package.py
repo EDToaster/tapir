@@ -18,6 +18,8 @@ with ZipFile(base/"tapir-rev-a.zip") as z:
         crc[name]=h
     assert len(crc)==len(z.namelist())-1
     assert all(hashlib.sha256(z.read(prefix+p)).hexdigest()==v for p,v in crc.items())
+    for p,h in crc.items():
+        assert hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==h, f"Workspace changed after the package was built: {p}"
     def inside(rel):return z.read(prefix+rel)
     assert json.loads(inside("product/validation/results.json"))==scene["validation"]
     for p,h in scene["validation"]["inputs_sha256"].items():
