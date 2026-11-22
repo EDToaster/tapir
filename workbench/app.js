@@ -1,6 +1,7 @@
 import './style.css';
 import { INITIAL, PRESETS, SPECS, layout, rect } from './layout.js';
 import { sectionHTML } from './section.js';
+import { comparisonSVG } from './reach.js';
 import { PARTS } from './parts.js';
 import { createFallback } from './fallback.js';
 import { createViewer } from './viewer.js';
@@ -37,6 +38,8 @@ const ranges = {
   splay: ['Column 4–5 splay', 0, 28, 1, '°'],
   gap: ['Extra column gap', 0, 18, 0.5, ' mm'],
   nubY: ['Pointer fore / aft', -15, 8, 0.5, ' mm'],
+  thumbX: ['Thumb offset · across', -4, 8, 0.5, ' mm'],
+  thumbY: ['Thumb offset · toward palm', -4, 4, 0.5, ' mm'],
   separation: ['Half separation', 4, 95, 1, ' mm'],
   batteryT: ['Battery thickness', 2.5, 8, 0.1, ' mm'],
   standoff: ['Board-to-sensor spacing', 0.4, 4, 0.1, ' mm'],
@@ -64,6 +67,7 @@ function range(k) {
   );
 }
 $('#geometry-sliders').innerHTML = ['splay', 'gap', 'nubY'].map(range).join('');
+$('#thumb-offsets').innerHTML = ['thumbX', 'thumbY'].map(range).join('');
 $('#extra-sliders').innerHTML = ['separation', 'batteryT'].map(range).join('');
 $('#mount-gap').innerHTML = range('standoff');
 function group(el, values, field) {
@@ -165,6 +169,15 @@ function sync() {
   queued = false;
   model = layout(st);
   const under = st.mount === 'under';
+  const atThumb = st.placement === 'thumb';
+  $('#nubY').closest('.param').hidden = atThumb;
+  $('#thumb-offsets').hidden = !atThumb;
+  const h = model.halves[1],
+    t = h.keys.find((k) => k.thumb && k.c === 0);
+  $('#site-note').textContent = atThumb
+    ? fmt(Math.hypot(t.x - h.pointer.x, t.y - h.pointer.y)) +
+      ' mm from the innermost thumb-key center. All three thumb keys stay in place.'
+    : 'Comparison layout: the stick sits between finger columns 4 and 5.';
   $('#mount-gap').hidden = !under;
   $('#mount-note').textContent = under
     ? 'Spacing is from the carrier underside to the sensor PCB’s top face. Direct-solder switches only.'
@@ -229,7 +242,7 @@ function changed() {
 Object.keys(ranges).forEach((k) =>
   $('#' + k).addEventListener('input', (e) => {
     st[k] = +e.target.value;
-    if (['splay', 'gap', 'nubY', 'standoff'].includes(k))
+    if (['splay', 'gap', 'nubY', 'thumbX', 'thumbY', 'standoff'].includes(k))
       $('#preset').value = 'custom';
     changed();
   }),
@@ -337,6 +350,20 @@ function fit() {
         'Ø5 mm cap, no finger allowance',
       ) +
       check('keys', 'Keycap to keycap', 'All 42 cap footprints') +
+      check(
+        'pointerBay',
+        'Pointer to top-side electronics',
+        st.mount === 'under'
+          ? 'Carrier opening vs. component footprints'
+          : 'Sensor card vs. component footprints',
+      ) +
+      (st.mount === 'under'
+        ? check(
+            'support',
+            'Sensor reserve to support',
+            '3D: provisional back-cover spacers',
+          )
+        : '') +
       check('bay', 'Electronics bay', 'Boards, pouch and switch housings') +
       '<p><b>Assembly box:</b> ' +
       fmt(r.width) +
@@ -425,7 +452,9 @@ function svgTemplate() {
     row += 106;
   }
   return (
-    '<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="270mm" viewBox="0 0 210 270"><g font-family="sans-serif" fill="#28352d"><text x="10" y="11" font-size="5.5">Tapir / 1:1 reach template</text><text x="10" y="18" font-size="3.2">' +
+    '<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297"><g font-family="sans-serif" fill="#28352d"><text x="10" y="11" font-size="5.5">Tapir / 1:1 reach template</text><text x="10" y="18" font-size="3.2">' +
+    (st.placement === 'thumb' ? 'Thumb cluster' : 'Between columns') +
+    ' · ' +
     st.splay +
     '° splay · ' +
     st.gap +
@@ -435,16 +464,18 @@ function svgTemplate() {
     st.switchType +
     ' · print at 100%, no fit-to-page</text>' +
     sheet.join('') +
-    '<path d="M10 253h50m-50 -2v4m50 -4v4" stroke="#263028" fill="none" stroke-width=".35"/><text x="10" y="261" font-size="3.2">Calibration: this line must measure 50 mm. Cut the halves apart to position them independently.</text></g></svg>'
+    '<path d="M10 277h50m-50 -2v4m50 -4v4" stroke="#263028" fill="none" stroke-width=".35"/><text x="10" y="285" font-size="3.2">Calibration: this line must measure 50 mm. Cut the halves apart to position them independently.</text></g></svg>'
   );
 }
-function download() {
+function download(compare = false) {
   const a = document.createElement('a'),
     ur = URL.createObjectURL(
-      new Blob([svgTemplate()], { type: 'image/svg+xml' }),
+      new Blob([compare ? comparisonSVG(st) : svgTemplate()], {
+        type: 'image/svg+xml',
+      }),
     );
   a.href = ur;
-  a.download = 'tapir-1to1-layout.svg';
+  a.download = compare ? 'tapir-thumb-reach-1to1.svg' : 'tapir-1to1-layout.svg';
   document.body.append(a);
   a.click();
   a.remove();
@@ -472,6 +503,22 @@ document.addEventListener('click', (e) => {
     return;
   }
   switch (b.dataset.action) {
+    case 'compare':
+      download(true);
+      break;
+    case 'sourcing':
+      show(
+        'COMPONENT SELECTION / POINTER',
+        'Sensor & donor options',
+        '<p>The 3D geometry and fit numbers use the Sprintek reference only. A salvaged ThinkPad assembly is a valid alternative, not a drop-in replacement.</p>' +
+          [
+            PARTS.pointer,
+            ...Object.values(PARTS).filter((p) => p.name.includes('T440')),
+          ]
+            .map(partBlock)
+            .join(''),
+      );
+      break;
     case 'reveal':
       openUnderside();
       st.layers.electronics = true;
@@ -501,7 +548,7 @@ document.addEventListener('click', (e) => {
     case 'reset':
       restoreBack = false;
       Object.assign(st, structuredClone(INITIAL));
-      $('#preset').value = 'straight';
+      $('#preset').value = 'thumb';
       $('#layerpop').hidden = true;
       changed();
       view.setView('iso');

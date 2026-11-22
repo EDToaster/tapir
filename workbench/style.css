@@ -629,6 +629,26 @@ footer {
   border-radius: 8px;
   background: #fcfcf7;
 }
+.print-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 14px;
+}
+.print-actions .textbtn,
+.donor-link {
+  font-size: 11px;
+}
+.donor-link {
+  margin: 8px 0 0;
+  padding-left: 0;
+}
+@media (max-width: 720px) {
+  .print-actions {
+    justify-content: flex-start;
+  }
+}
 footer span:last-child {
   font:
     12px 'Manrope Variable',

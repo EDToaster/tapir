@@ -58,12 +58,22 @@ test('nominal clearances are positive, but the fit check distinguishes a clear n
       );
     }
   }
-  const partial = build({ mount: 'top', splay: 0, gap: 8 }).mins;
+  const partial = build({
+    ...PRESETS.straight,
+    mount: 'top',
+    splay: 0,
+    gap: 8,
+  }).mins;
   assert.ok(
     partial.cap > 0 && partial.sensor < 0,
     'a visibly clear nub does not guarantee room below',
   );
-  const crowded = build({ mount: 'top', splay: 0, gap: 0 }).mins;
+  const crowded = build({
+    ...PRESETS.straight,
+    mount: 'top',
+    splay: 0,
+    gap: 0,
+  }).mins;
   assert.ok(
     crowded.cap < 0 && crowded.sensor < 0,
     'removing both splay and gap should collide',
@@ -92,9 +102,10 @@ test('inner separation changes desk span, while a wider column gap actually make
     nominal.mins,
     'moving a whole half must not alter its internal clearances',
   );
-  const wider = build({ gap: INITIAL.gap + 4 });
-  assert.ok(wider.width > nominal.width && wider.mins.cap > nominal.mins.cap);
-  near(wider.height, nominal.height);
+  const inBank = build(PRESETS.straight),
+    wider = build({ ...PRESETS.straight, gap: PRESETS.straight.gap + 4 });
+  assert.ok(wider.width > inBank.width && wider.mins.cap > inBank.mins.cap);
+  near(wider.height, inBank.height);
 });
 
 test('pressing keys cannot shrink a fixed nub or controller; a thicker ULP pouch can become the tallest part', () => {
@@ -160,15 +171,52 @@ test('straight top-mounted card collides; under-mounted card and shaft clear at 
 });
 
 test('shallow under-mount interferes with switch backs even with unchanged cap clearance', () => {
-  const nominal = build(),
-    shallow = build({ standoff: 1 }),
-    closed = build({ splay: 0, gap: 0 });
+  const nominal = build(PRESETS.straight),
+    shallow = build({ ...PRESETS.straight, standoff: 1 }),
+    closed = build({ ...PRESETS.straight, splay: 0, gap: 0 });
   assert.ok(
     shallow.mins.sensor < 0 && nominal.mins.sensor > 0 && closed.mins.cap < 0,
   );
   near(shallow.mins.cap, nominal.mins.cap);
   near(shallow.width, nominal.width);
   assert.ok(shallow.height < nominal.height);
+});
+
+test('thumb design restores normal pitch while preserving every thumb and left mouse control', () => {
+  const thumb = build(),
+    previous = build(PRESETS.straight);
+  for (const side of ['left', 'right']) {
+    const h = half(thumb, side),
+      old = half(previous, side);
+    assert.deepEqual(
+      h.keys.filter((k) => k.thumb),
+      old.keys.filter((k) => k.thumb),
+    );
+    assert.deepEqual(h.mouse, old.mouse);
+    const row = h.keys.filter((k) => k.row === 1);
+    near(Math.abs(row[4].x - row[3].x), thumb.pitch.x);
+  }
+  const h = half(thumb, 'right'),
+    anchor = h.keys.find((k) => k.thumb && k.c === 0);
+  near(h.pointer.x, anchor.x);
+  near(h.pointer.y - anchor.y, 15);
+  assert.ok(thumb.width < previous.width && thumb.depth > previous.depth);
+  assert.ok(
+    thumb.mins.cap > 0 &&
+      thumb.mins.sensor > 0 &&
+      thumb.mins.support > 0 &&
+      thumb.mins.pointerBay > 0,
+  );
+});
+test('thumb adjustments move only the right-side mount and warn if it crowds the keys', () => {
+  const a = build(),
+    b = build({ thumbY: -4, thumbX: 0 }),
+    c = build({ thumbX: 3 });
+  near(half(a, 'right').pointer.y - half(b, 'right').pointer.y, 4);
+  near(half(c, 'right').pointer.x - half(a, 'right').pointer.x, 3);
+  assert.deepEqual(half(b, 'right').keys, half(a, 'right').keys);
+  assert.deepEqual(half(b, 'left'), half(a, 'left'));
+  assert.ok(b.mins.cap < 0 && b.mins.sensor < 0 && b.mins.aperture < 0);
 });
 
 test('prism clearance distinguishes planar overlap, diagonal distance and true 3D interference', () => {

@@ -59,7 +59,7 @@ export const PARTS = {
     name: 'Sprintek SK8707-01-004',
     tag: 'Drawing + allowance',
     desc:
-      'Sensor PCB 13.20 × 18.29 × 0.80 mm; the 2.40 mm square post protrudes 2.40 mm. Its axis is 6.60 mm from either side and 10.84 mm from the notched edge, not at the board center. The holykeebs kit includes an unsized rubber dome; the modeled Ø5 mm cap, extension and 0.6 mm rise over the keys are design allowances. ' +
+      'Selected for the fit model, not physically fitted. By default the sensor sits under the right thumb cluster, beyond Bksp, with the detached driver on top; the between-columns site is an alternative. Sensor PCB 13.20 × 18.29 × 0.80 mm; the 2.40 mm square post protrudes 2.40 mm. Its axis is 6.60 mm from either side and 10.84 mm from the notched edge, not at the board center. The holykeebs kit includes an unsized rubber dome; the modeled Ø5 mm cap, extension and 0.6 mm rise over the keys are design allowances. ' +
       spr +
       ' · ' +
       a(
@@ -71,8 +71,28 @@ export const PARTS = {
         'https://docs.holykeebs.com/guides/trackpoint-module/',
         'attachment reference',
       ) +
-      '. Under-mount is a custom concept: proposed 4 mm square opening, ≤2.4 mm shaft through it, 0.5 mm front and 0.8 mm rear hardware allowances plus 0.4 mm to the cover. Bracket, interconnect and extension are unverified' +
-      '.',
+      '. Tapir’s custom under-mount uses a proposed 4 mm square opening, a ≤2.4 mm shaft through it and 0.5 mm front / 0.8 mm rear hardware allowances, plus 0.4 mm to the cover. Bracket, interconnect and extension are unverified.',
+  },
+  donor: {
+    name: 'ThinkPad T440 donor (Dabao reference)',
+    tag: 'Unmeasured alternative',
+    desc:
+      '<b>Not fitted or included in the clearance report.</b> Dabao’s sensor footprint has a Ø7.2 mm circular carrier opening and two Ø2.1 mm mounting holes on 19.0 mm centers. The irregular courtyard spans 19.3 × 23.0 mm: it is layout space, not the donor’s measured outline. Sensor and driver Z, post height, retention and flex route are unknown. This is not a drop-in replacement for the Sprintek. ' +
+      a(
+        'https://github.com/justinmklam/dabao/blob/main/pcb/library/Library.pretty/TPSensorModule.kicad_mod',
+        'Dabao footprint',
+      ) +
+      ' · ' +
+      a(
+        'https://github.com/justinmklam/dabao/blob/main/docs/build-guide.md',
+        'installed assembly',
+      ) +
+      ' · ' +
+      a(
+        'https://github.com/justinmklam/dabao/blob/main/docs/trackpoint-sourcing.md',
+        'donor sourcing',
+      ) +
+      '. The builder sourced a T440 module through the AliExpress jiyunsheng Store; this is a lead, not a verified SKU or stock listing. Ask for the complete stick, driver and flex, not red caps or a trackpad. Before substituting it, check both-side ruler photos, pinout, voltage and current through BLE sleep/wake, then measure and retention-test the actual sample.',
   },
   driver: {
     name: 'Separate Sprintek controller',
@@ -134,7 +154,7 @@ export const PARTS = {
     name: 'Tapir carrier PCB',
     tag: 'Allowance',
     desc:
-      'Proposed 1.6 mm PCB, 18 × 17 mm pitch; 3×6 + 3 thumb keys per side. Silkscreen and traces are illustrative. The contour is generated for this reach study; it is not a routable or verified KiCad board. ' +
+      'Proposed 1.6 mm PCB, 18 × 17 mm pitch; 3×6 + 3 thumb keys per side. The default keeps straight finger columns with no added gap. Only the right thumb lobe extends for the under-mounted Sprintek; its square opening is not the T440 donor footprint. The contour, silkscreen and traces are illustrative, not a routed or verified KiCad board. ' +
       a(
         'https://github.com/EDToaster/edtoaster-zmk-keymaps/blob/main/config/corne.keymap',
         'Corne key order',

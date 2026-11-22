@@ -18,15 +18,46 @@ export const SPECS = {
   mouse: { w: 4.2, h: 3.2, t: 2.5 },
 };
 export const PRESETS = {
-  straight: { mount: 'under', splay: 0, gap: 6.5, nubY: -6, standoff: 2.8 },
-  gentle: { mount: 'under', splay: 4, gap: 4.5, nubY: -6, standoff: 2.8 },
-  balanced: { mount: 'top', splay: 16, gap: 8, nubY: -6, standoff: 2.8 },
+  thumb: {
+    placement: 'thumb',
+    mount: 'under',
+    splay: 0,
+    gap: 0,
+    nubY: -6,
+    thumbX: 0,
+    thumbY: 0,
+    standoff: 1.4,
+  },
+  straight: {
+    placement: 'columns',
+    mount: 'under',
+    splay: 0,
+    gap: 6.5,
+    nubY: -6,
+    standoff: 2.8,
+  },
+  gentle: {
+    placement: 'columns',
+    mount: 'under',
+    splay: 4,
+    gap: 4.5,
+    nubY: -6,
+    standoff: 2.8,
+  },
+  balanced: {
+    placement: 'columns',
+    mount: 'top',
+    splay: 16,
+    gap: 8,
+    nubY: -6,
+    standoff: 2.8,
+  },
 };
 export const INITIAL = {
   mode: 'assembled',
   view: 'iso',
   switchType: 'choc',
-  ...PRESETS.straight,
+  ...PRESETS.thumb,
   separation: 24,
   batteryT: 3.3,
   pressed: false,
@@ -176,8 +207,13 @@ function undersideEnvelopes(keys, switchType) {
     }),
   );
 }
+function sensorPose(pointer) {
+  const [dx, dy] = rotate([0, SPECS.pointer.axisToBoardCenter], pointer.a);
+  return { x: pointer.x + dx, y: pointer.y + dy, a: pointer.a };
+}
 export function layout(s) {
   const under = s.mount === 'under',
+    thumbSite = s.placement === 'thumb',
     ps = SPECS.pointer,
     baseBottom = -SPECS.pcbT - 3.2;
   const boardTop = under ? -SPECS.pcbT - s.standoff : ps.t;
@@ -237,7 +273,9 @@ export function layout(s) {
     const pointer =
       hand === 'right'
         ? {
-            ...put((54 + xbank) / 2, y, s.splay * 0.5),
+            ...(thumbSite
+              ? put(-20 + (s.thumbX ?? 0), 68 + (s.thumbY ?? 0), 90)
+              : put((54 + xbank) / 2, y, s.splay * 0.5)),
             capTop: cap.top + 0.6,
             stemTop: boardTop + ps.stem,
             boardTop,
@@ -264,6 +302,11 @@ export function layout(s) {
         .flatMap((k) => rect(k, cap.w + 3, cap.h + 3)),
       ...mouse.flatMap((k) => rect(k, 9, 8)),
       ...(driver ? rect(driver, driver.w + 4, driver.h + 4) : []),
+      // Extend only the right thumb lobe; allow 1.5 mm of carrier/cover
+      // around this provisional sensor envelope. This is not a drill pattern.
+      ...(thumbSite && pointer
+        ? rect(sensorPose(pointer), ps.w + 3, ps.h + 3)
+        : []),
     ]);
     const outline = polyclip.union([bank], [palm])[0][0].slice(0, -1),
       inner =
@@ -286,8 +329,7 @@ export function layout(s) {
   }
   const right = halves[1],
     p = right.pointer;
-  const [dx, dy] = rotate([0, ps.axisToBoardCenter], p.a),
-    sensor = rect({ x: p.x + dx, y: p.y + dy, a: p.a }, ps.w, ps.h);
+  const sensor = rect(sensorPose(p), ps.w, ps.h);
   let mins = { cap: Infinity, sensor: Infinity, keys: Infinity, bay: Infinity },
     nearest = {};
   function hit(n, val, label) {
@@ -304,6 +346,25 @@ export function layout(s) {
     };
     for (const tail of right.underbody)
       hit('sensor', prismGap(envelope, tail), tail.label);
+    // The viewer represents bonded support pucks as round. Use a bounding
+    // square here; no assumed fastener can make this clearance look better.
+    for (const k of right.keys.filter(
+      (k) =>
+        (k.thumb && k.c === 0) ||
+        (!k.thumb &&
+          ((k.row === 0 && (k.c === 0 || k.c === 5)) ||
+            (k.row === 2 && k.c === 4))),
+    )) {
+      hit(
+        'support',
+        prismGap(envelope, {
+          polygon: rect({ ...k, a: 0 }, 4.36, 4.36),
+          top: -SPECS.pcbT,
+          bottom: backBottom + 1,
+        }),
+        k.label + ' / provisional spacer',
+      );
+    }
     hit('cover', envelope.bottom - (backBottom + 1), 'inside of back cover');
     hit('face', -SPECS.pcbT - envelope.top, 'carrier underside');
     hit('shaft', (ps.opening - ps.stem) / 2, 'one side, centered');
@@ -339,6 +400,10 @@ export function layout(s) {
     ];
     for (let i = 0; i < components.length; i++) {
       let [a, w, d, n] = components[i];
+      if (h.pointer) {
+        const moving = under ? rect(p, ps.opening, ps.opening) : sensor;
+        hit('pointerBay', clearance(moving, rect(a, w, d)), n);
+      }
       for (let k of h.keys) {
         hit(
           'bay',

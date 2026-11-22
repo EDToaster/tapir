@@ -17,21 +17,29 @@
           <i data-i="book"></i>Parts &amp; sources
         </button>
       </nav>
-      <span class="version"><b></b>Concept / 02</span>
+      <span class="version"><b></b>Concept / 03</span>
     </header>
     <main>
       <div class="intro">
         <div>
           <div class="eyebrow">
             <span class="accent-line"></span> TAPIR &nbsp;/&nbsp; DESIGN STUDY
-            002
+            003
           </div>
           <h1>Assembly workbench</h1>
-          <p>A low-profile split keyboard, shaped around a pointing stick.</p>
+          <p>
+            A 42-key travel split with a pointing stick beside the right thumb
+            cluster.
+          </p>
         </div>
-        <button class="secondary export" data-action="export">
-          <i data-i="download"></i>Export 1:1 layout
-        </button>
+        <div class="print-actions">
+          <button class="secondary export" data-action="compare">
+            <i data-i="ruler"></i>Compare thumb reach · 1:1
+          </button>
+          <button class="textbtn" data-action="export">
+            Export full layout
+          </button>
+        </div>
       </div>
       <div class="workbench">
         <section class="maincol">
@@ -109,13 +117,16 @@
             <label class="select-label" for="preset">Layout preset</label>
             <div class="selwrap">
               <select id="preset">
-                <option value="straight">Straight columns · underside</option>
-                <option value="gentle">Gentle fan · underside</option>
-                <option value="balanced">Original 16° · top mount</option>
+                <option value="thumb">Thumb cluster · standard pitch</option>
+                <option value="straight">Between columns · straight</option>
+                <option value="gentle">Between columns · gentle fan</option>
+                <option value="balanced">Between columns · original 16°</option>
                 <option value="custom" disabled>Custom layout</option></select
               ><i data-i="chev"></i>
             </div>
             <div id="geometry-sliders"></div>
+            <div id="thumb-offsets"></div>
+            <div id="site-note" class="smallnote"></div>
           </section>
           <section class="parameterblock">
             <div class="block-title">
@@ -129,6 +140,9 @@
             ></div>
             <div id="mount-gap"></div>
             <div id="mount-note" class="smallnote"></div>
+            <button class="textbtn donor-link" data-action="sourcing">
+              Sensor &amp; donor options <i data-i="diagonal"></i>
+            </button>
           </section>
           <section class="parameterblock">
             <div class="block-title">

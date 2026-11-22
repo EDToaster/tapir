@@ -17,6 +17,8 @@ export function sectionHTML(model, state) {
   const carrier = SPECS.pcbT,
     sensor = SPECS.pointer;
   const under = Boolean(p.under);
+  const thumb = state.placement === 'thumb';
+  const location = thumb ? 'Thumb bay' : 'Between keys';
   const boardTop = num(p.boardTop, under ? -carrier : sensor.t);
   const boardBottom = num(p.boardBottom, boardTop - sensor.t);
   const stockTop = num(p.stemTop, boardTop + sensor.stem);
@@ -92,11 +94,17 @@ export function sectionHTML(model, state) {
     label(x, y + 3.5, n, '#fff', 10, 'middle') +
     '</g>';
   let drawing =
-    '<title>Right pointing stick section, ' +
+    '<title>' +
+    location +
+    ': right pointing stick section, ' +
     (under ? 'underside' : 'top') +
     ' mount</title>';
   drawing +=
-    '<desc>Heights measured from the carrier PCB top. Lateral dimensions and nearby keycaps are schematic. See the dimensions following the drawing.</desc>';
+    '<desc>Heights measured from the carrier PCB top. ' +
+    (thumb
+      ? 'One reference key is drawn beside the thumb bay.'
+      : 'A reference key is drawn on either side of the stick.') +
+    ' Lateral dimensions are schematic; this drawing does not establish reach or side clearance.</desc>';
   drawing += label(6, 12, 'Z / mm', '#657067', 9);
   for (let z = Math.ceil(low / 5) * 5; z <= high; z += 5) {
     drawing +=
@@ -151,7 +159,10 @@ export function sectionHTML(model, state) {
       ' Z" fill="#e4dfd0" stroke="#948f80" stroke-width="1"/>'
     );
   };
-  drawing += key(71) + key(267);
+  drawing += key(71);
+  drawing += thumb
+    ? label(313, 15, 'THUMB BAY', '#657067', 9, 'middle')
+    : key(267);
   if (under) {
     drawing +=
       rect(left, axis - 13 - left, 0, -carrier, forest) +
@@ -250,7 +261,9 @@ export function sectionHTML(model, state) {
     '<div style="padding:clamp(12px,2vw,22px);min-width:0"><div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 12px;justify-content:space-between"><h3 style="margin:0;font-size:17px;color:' +
     ink +
     '">Pointing stick section</h3><span style="font:10px ui-monospace,monospace;letter-spacing:.07em;color:#667360">' +
-    (under ? 'UNDERSIDE MOUNT' : 'LEGACY TOP MOUNT') +
+    location.toUpperCase() +
+    ' · ' +
+    (under ? 'UNDERSIDE MOUNT' : 'TOP MOUNT') +
     '</span></div>' +
     '<svg viewBox="0 0 ' +
     W +
@@ -270,11 +283,13 @@ export function sectionHTML(model, state) {
     ) +
     legend('4', 'Cover bottom', 'Z ' + zval(coverBottom) + ' mm', '#696e61') +
     '</div>' +
-    '<p style="font-size:12px;line-height:1.55;margin:12px 0 0;color:#485345">Cap sits ' +
-    mm(tip - keyTop) +
-    ' mm above the ' +
+    '<p style="font-size:12px;line-height:1.55;margin:12px 0 0;color:#485345">The stick cap is ' +
+    (Math.abs(tip - keyTop) < 0.005
+      ? 'level with the '
+      : mm(Math.abs(tip - keyTop)) +
+        (tip > keyTop ? ' mm above the ' : ' mm below the ')) +
     (state.pressed ? 'pressed' : 'resting') +
-    ' key crown. Stock post ends at Z ' +
+    ' reference key crown. Stock post ends at Z ' +
     zval(stockTop) +
     ' mm; the tan extension reaches the rubber cap.' +
     (under
@@ -294,6 +309,10 @@ export function sectionHTML(model, state) {
         mm(rearLimit - coverTop) +
         ' mm to the cover after the rear allowance. These are design allowances, not measured component heights; support and retention remain open.</p>'
       : '') +
-    '<p style="font-size:11px;line-height:1.45;margin:4px 0 0;color:#70766a">Z = 0 at the carrier top. Heights are to scale; widths and neighboring keycaps are schematic. The assembled stack is shown regardless of viewer layers.</p></div>'
+    '<p style="font-size:11px;line-height:1.45;margin:4px 0 0;color:#70766a">Z = 0 at the carrier top. Heights are to scale. ' +
+    (thumb
+      ? 'One nearby key is shown for height reference; the opposite side represents the open thumb bay.'
+      : 'Keys on either side are shown for height reference.') +
+    ' Widths and spacing are schematic, not evidence of lateral clearance or comfortable reach. The section always shows the assembled stack.</p></div>'
   );
 }

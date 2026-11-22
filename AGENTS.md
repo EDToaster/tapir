@@ -1,8 +1,9 @@
 # Working on Tapir
 
 Tapir is a portable, flat, wireless split keyboard. Keep the familiar Cygnus/Corne
-3×6 + 3 thumbs per half. The design question is whether splaying columns 4 and 5
-can leave room for a usable right-hand pointing stick without spoiling typing reach.
+3×6 + 3 thumbs per half. Put the right-hand pointing stick beside the thumb
+cluster without replacing any thumb keys; keep normal finger-column pitch and
+zero splay by default. Inter-column configurations are comparison studies.
 Design, simulate, render, and revise in Git without asking about each trace, hole, or
 case iteration. **Stop before ordering PCBs, PCBA, printed parts, or components;
 paid fabrication and purchases require explicit approval.**
@@ -25,7 +26,10 @@ paid fabrication and purchases require explicit approval.**
 ## Parts and firmware constraints
 
 - Use an exact manufacturer part number, revision/variant, and orderable supplier in the
-  BOM. Link the actual drawing (page/view), supplier STEP, or measurement record. Mark
+  BOM. Salvaged modules from AliExpress are valid candidates: when no MPN is
+  available, record the donor, seller, markings, photos and measurements of the
+  actual sample. Do not assume that two parts sold under one laptop name share
+  a bracket, pinout or idle current. Link the drawing, supplier STEP, or measurement record. Mark
   each critical value as **drawing**, **measured** (what and how), or **allowance**.
   Never silently replace missing geometry with a nominal package name. Flag single-source,
   discontinued, unverified, or out-of-stock parts before designing around them.
