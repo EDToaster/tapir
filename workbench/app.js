@@ -2,6 +2,7 @@ import './style.css';
 import { INITIAL, PRESETS, SPECS, layout, rect } from './layout.js';
 import { sectionHTML } from './section.js';
 import { comparisonSVG } from './reach.js';
+import { mountStackStudy } from './stack-panel.js';
 import { PARTS } from './parts.js';
 import { createFallback } from './fallback.js';
 import { createViewer } from './viewer.js';
@@ -587,3 +588,4 @@ document.addEventListener('keydown', (e) => {
 });
 icons();
 sync();
+mountStackStudy(() => st);

@@ -13,6 +13,10 @@ paid fabrication and purchases require explicit approval.**
 - `workbench/layout.js` owns the nominal layout, dimensions, plan clearances, and 3D underside-envelope checks;
   `workbench/parts.js` gives their provenance and limitations. The interactive workbench,
   vector fallback, and printable reach template consume the same layout. Keep them in sync.
+- `workbench/stack.js` owns the optional sensor-over-XIAO study; keep its 3D,
+  fit checks, 1:1 print, and the [build123d assembly](mechanical/stack/) on the
+  same geometry. Regenerate its STEP when the selected model changes, not for
+  unrelated UI changes. Do not count an overlapping RF screen as radio validation.
 - Work in mm. Layout X is across the halves, Y increases toward the thumbs, and height
   is relative to the carrier PCB top. The Three.js renderer uses Y up, so layout Y maps
   to scene Z. Document the datum and transforms when moving to a production CAD coordinate system.

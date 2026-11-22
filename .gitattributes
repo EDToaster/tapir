@@ -1,0 +1,3 @@
+# OpenCascade STEP exports are generated interchange files; review editable
+# geometry and the re-imported assembly instead of 40k opaque entity records.
+*.step -diff

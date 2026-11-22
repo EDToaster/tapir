@@ -1,0 +1,59 @@
+# A thumb-operated sensor over the keyboard controller
+
+The candidate relocates the **right XIAO nRF52840 Plus** underneath the Sprintek sensor, near the middle thumb key. The Sprintek driver stays at (55, 39); it is not the controller under the stick. Keeping the original right carrier outline and extending only around the new stack leaves its maximum **134.82 × 106.35 mm** unchanged, but adds **258.14 mm²** of material. This is a compact local package, not evidence that the finished keyboard is smaller. No sample, plug, enclosure or radio link has been fitted.
+
+## What moves
+
+All positions below are in right-half layout millimetres, before half separation. +X points toward the outer finger columns, +Y toward the palm; Z = 0 is the top of the 1.6 mm keyboard carrier. The original XIAO center is (−21.8, −15.5); the original underside stick axis is (−20, 68), 83.52 mm from that controller. Simply adding a cap above the old USB bay does not preserve the thumb site.
+
+| Nominal Choc v1 + MBK candidate | Coordinates or result |
+| --- | --- |
+| New shaft, unchanged keys | (8, 66), 28 mm across and 2 mm away from the palm relative to the original shaft. Nearest thumb is Lower, **22.27 mm** center-to-center; Bksp is 30.87 mm away. The baseline is 15.00 mm to Bksp. |
+| Sensor and controller | Sensor PCB center (9.695, 66); rotated across the row, notch faces +X. XIAO center (15.695, 64), USB exits palmward. The sensor outline, shaft, controller center and connector center are different datums. XIAO moves 87.90 mm. |
+| Nearest key and connector | **+1.59 mm** between the conservative XIAO assembly and full Lower keycap sweep. **+3.04 mm** from the assumed plug corridor to the bridge. A positive prism gap excludes contact between the modeled shapes, not between unmodeled details. |
+| Antenna | **+1.46 mm** from the provisional projected RF region to the conductive bridge. The result does not establish antenna performance or sanction copper below the antenna. |
+| Usable package | XIAO + sensor board bounds 24.04 × 20.96 mm, 65.8% of the sensor's rectangular envelope overlapping the XIAO. Including feet, bridge and USB shell: **27.14 × 22.47 mm**, excluding external plug, case walls and wiring space. |
+| Vertical envelope | Stick top Z +11.05; lower cover face Z −4.8. Predicted overall 15.85 mm vs 17.20 mm for the old under-mount. This assumes the previous underside sensor pocket is no longer needed and no other feature forces a lower cover. |
+
+A perfectly registered pair of bare board rectangles, rotating their long axes parallel, could overlay within 17.78 × 20.955 mm. A straightforward parallel side-by-side placement without any gap is 30.98 × 20.955 mm. Neither is a build envelope: the XIAO shell overhang, geometric offset, electronics, compliant cable, retention and case eat the apparent saving. In particular, the selected support-inclusive box is wider and deeper than the idealized overlay. These are component comparisons, not the dimensions of the existing keyboard or a proof of globally optimal packing.
+
+## What is sourced, and what is only an allowance
+
+| Item | Basis |
+| --- | --- |
+| XIAO Plus | The [Seeed Plus v1.1 KiCad board](https://files.seeedstudio.com/wiki/XIAO-BLE/Seeed_Studio_XIAO_nRF52840_Plus.zip), linked by [Seeed's hardware resources](https://wiki.seeedstudio.com/XIAO_BLE/), gives a 17.780 × 20.955 mm Edge.Cuts bounding rectangle and 1.60 mm nominal board stack. In top view with the USB facing −Y, USB1 F.Fab spans X = ±4.50, Y = −11.99…−4.64; the shell therefore overhangs the board by about 1.51 mm. The antenna footprint origin is (−1.80, +9.41) from board center. These are CAD coordinates, not measured mating or RF dimensions. |
+| XIAO mounting and access | A 0.15 mm solder seating allowance sets the XIAO PCB to Z +0.15…+1.75. A conservative, flat 5.0 mm module allowance is used instead of an unsupported component-height map; the shell's Z is also provisional. The [Plus module has underside SMD lands](https://www.seeedstudio.com/Seeed-Studio-XIAO-nRF52840-Plus-p-6359.html): design a new land pattern on an intact carrier. No socket, through-PCB controller cutout, aligned holes, free top pads or available reset-tool passage are assumed. |
+| Sensor | The [Sprintek SK8707-01 drawing, p. 6](https://docs.holykeebs.com/datasheets/SK8707-01.pdf#page=6) gives the detached board envelope 13.20 × 18.29 × 0.80 mm, 2.40 mm square post projecting 2.40 mm, and shaft 10.84 mm from the contact edge. The four Ø1.80 holes lie on a 9.50 × 9.50 mm pattern. The plan/isometric overlays mark them; neither surrogate STEP nor bridge is a released drill or screw pattern. The thin PCB is not a plain backing plate to be clamped through its sensing region. |
+| Bridge and load path | Four 1.8 × 2.2 mm dielectric feet sit **outside** the XIAO outline, 0.60 mm nominal lateral clearance. Their top is Z +5.80; the 0.8 mm bridge extends to +6.60. A 0.15 mm bond/solder allowance precedes the sensor card (+6.75…+7.55). The 0.80 mm free air gap is to the 5.0 mm XIAO envelope, not through a module or sensor. Proposed force path: cap → sensor's supported mounting lands → rigid bridge → feet → keyboard carrier / case, **never the USB shell or MCU packages**. The design does not yet prove foot fastening, peel resistance, bridge bending or actual bond thickness. |
+| Exposed cap | Bare post ends at Z +9.95. The Ø5 mm cap is an allowance ending 1.10 mm above the post; it is not a sourced cap dimension or a guaranteed interference fit. Its top is 0.45 mm above the resting Choc reference crown, 3.45 mm above bottom-out. With the 4.2 mm ULP reference crown the same cap is 6.85 mm proud; changing to ULP does not automatically lower this stack. |
+| Port, RF, cover | Plug screen is 12 mm wide × 6 mm high at Z +0.25…+6.25, over at least 18 mm of straight approach or through the last carrier perimeter crossing, whichever requires longer. It starts at the outer F.Fab edge, not a verified seating plane. The wall-free design still needs a real bezel cutout and compatible overmold. A **6 × 6 mm** RF screen centered on the Plus antenna origin is an invented sensitivity test, not a Seeed keep-out. The back-sheet allowance is 1 mm, inside face at Z −3.8; no top cover, hardware or sealing lip is certified. |
+| Detached driver and interconnect | Original workbench driver reserve is 23 × 14.5 × 3 mm, not a measured populated STEP. Only **31.59 mm** of straight-line separation is proven from the sensor pad-edge midpoint to the nearest point of that driver's rectangle. The dashed line is not a routed cable, usable length, or selected connector. Design matched short traces/leads or flex with terminations, ground return, bend radius, insulation, strain relief, noise immunity and assembly slack. A T440 ribbon cannot be assumed compatible. |
+
+The [built SK8707-01-004/RP2040-Zero daughterboard](https://codeberg.org/humanplayer2/trackpoint_on_rp2040zero) establishes that this exact detached head can be mounted over a small MCU using its own carrier; it solders the driver underneath and requests at least 5 mm of protruding pins. The [holykeebs assembly](https://docs.holykeebs.com/guides/trackpoint-module/) shows solder or adhesive at the sensor's mounting features and warns that the sensor/driver boards are delicate. Neither precedent proves XIAO pad registration, mechanical support, antenna clearance or safe pressure on the sensor. Tapir retains the remote driver to avoid adding a third board beneath the bridge.
+
+## Alternatives tested
+
+These are selected nominal layouts, not an exhaustive optimization. Offsets `x/y` move the XIAO center relative to the sensor-board center; head translations move only the shaft from (−20, 68), not the original comparison carrier.
+
+| Arrangement | Nearest thumb / center distance | Right carrier W × D | Result |
+| --- | --- | --- | --- |
+| Palm USB, new default: head (+28, −2), XIAO (+6, −2), gap 0.8 | Lower / 22.27 | 134.82 × 106.35 | Clears the named screens; same bounding rectangle, bigger local palm lobe. Test palm contact with the real plug installed. |
+| Same palm USB, centered on original thumb target and center-aligned boards | Bksp / 15.00 | 134.82 × 110.23 | XIAO versus Bksp switch reserve −5.00 mm; provisional RF check −0.54 mm. The bare sensor itself overlaps Bksp's swept cap projection by 2.77 mm at the proposed low Z. Increasing only the controller offset cannot cure that sensor interference. |
+| Palm USB beyond Bksp: head (0, +8), XIAO (+6, −2), gap 0.8 | Bksp / 23.00 | 134.82 × 116.23 | Clears; key +0.78 mm. Keeps the stick near Bksp, at a cost of 9.88 mm additional depth. |
+| USB toward split: head (0, +5), XIAO (+4, +4), gap 2.0 | Bksp / 20.00 | 134.82 × 120.39 | Clears the modeled bodies: key +1.19, USB +0.75 and RF +0.92 mm. Nominal 3.01 mm mouth setback needs an inlet. Height rises to 17.05 mm. A further 4 mm head shift toward the split at this pose gives 20.40 mm reach with no depth saving. |
+| Other port directions at default head and unchanged offsets | Lower / 22.27 | Varies | Split-facing: key −1.24, plug −4.97 mm. Outer-facing: key −1.24, RF −9.09 mm. Toward finger keys: plug −6.25, RF −2.54 mm. These reject those **poses**, not all possible orientations or alternate carrier designs. |
+
+## Measurement gates before calling it a fit
+
+- **Identify and measure the actual parts.** Confirm Plus non-Sense revision, shell seating face, installed board height and underside pad access; measure both faces of the sensor, cap seating, screw/adhesive depth, connector overmold and push-pull insertion path. Use the measured dimensions plus process tolerances to replace all assumptions, not just the nominal values.
+- **Build a load-bearing coupon first.** Record real XY/Z coordinates and fastener/tool paths on the proposed feet. Demonstrate that the daughterboard can be installed after soldering and reworked without levering the sensor. Apply repeatable lateral/axial loads, full travel of Lower/Tab/Bksp, and cap pulls; observe shaft rub, stick drift, solder damage, flex and interference. For a real coupon, first obtain the required fabrication approval.
+- **Test the assembled radio and wire route.** Follow the correct antenna footprint/copper keep-out in the actual carrier layer stack. Keep surrounding conductors, the battery, fastening metal and cable out of the antenna neighborhood. Compare closed-case split/reconnect range, packet reliability and pointing noise in both hand positions with/without the cable, board stack and USB plug; an XY gap cannot predict RF. Ensure the PS/2 drive/reset/power plan, landing for underside GPIO and flash/recovery access remain viable.
+- **Verify the enclosure and hand.** Print the reach/plug sheet at true scale and measure the bar. Try the hole/bridge shape at true height and the USB approach with the intended cable; test sustained pointing, typing without brushing the stick, click-drag and scroll. Verify cover closure, printing tolerance, carrier insertion/removal and no load on the pouch, USB shell or components. If reach or RF fails, retain the original flat thumb sensor, consider a separated head over an independent polymer shelf, or revise the right carrier instead of declaring the stack viable.
+
+## Reproduce the geometry
+
+The pure `workbench/stack.js` API exposes `STACK_DEFAULTS`, `stackModel(options, layoutState)`, and `stackSVG(model, 'iso'|'plan'|'section')`. The model supplies tagged solids, signed checks, original/candidate contours and coordinates in mm. The section uses the actual shaft X plane (off-cut features omitted) with 2× vertical exaggeration; the large drawings crop the board but the plan inset preserves the whole right half. To print the numeric default from the workbench directory:
+
+```sh
+node --input-type=module -e "import {stackModel} from './stack.js'; const m=stackModel(); console.table(m.metrics); console.table(m.checks)"
+```

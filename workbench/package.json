@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=./",
-    "check": "node --test layout.test.js"
+    "build": "vite build --base=./ && cp ../mechanical/stack/tapir-stacked-thumb.step dist/",
+    "check": "node --test layout.test.js stack.test.js"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",

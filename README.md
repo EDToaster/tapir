@@ -44,6 +44,22 @@ ThinkPad assemblies from AliExpress are legitimate candidates. See
 or cutting a footprint for it. The workbench does not assert donor fit.
 Test retention, electrical pinout, consumption and drift on the actual sample.
 
+## TrackPoint over the controller
+
+Open **Stack study** (or append `#stack` to the local workbench URL). This is an
+alternative right-half design, not a second sensor on the default keyboard. The
+XIAO moves out of its rear bay and sits beneath a separately supported Sprintek
+sensing head. The pointing-stick driver remains a separate component. Rotate
+the study in 3D, check plan/section, change the USB exit and offsets, and print
+the current placement at 1:1. The centered preset illustrates a real nominal
+clash; the middle-thumb preset tests sharing the outside dimensions without
+giving up any keys.
+
+- [Mechanical evaluation and competing placements](docs/stack-mechanics.md)
+- [Source geometry, original RP2040-Zero build and electrical limits](docs/stack-evidence.md)
+- [What changes if the detached driver is stacked too?](docs/stack-alternatives.md)
+- [Editable build123d assembly, verified STEP and regeneration commands](mechanical/stack/)
+
 Use `npm run build` in `workbench/` for the static site (`dist/`).
 The 3D scene, vector fallback and print export share `layout.js`.
 See [AGENTS.md](AGENTS.md) for the PCB, enclosure, firmware and prototype
