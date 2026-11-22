@@ -488,6 +488,13 @@ h2 {
   display: flex;
   align-items: center;
 }
+.range-ends {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font: 9px/1.4 var(--mono);
+  margin-top: 1px;
+}
 .param input[type='range'] {
   appearance: none;
   width: 100%;

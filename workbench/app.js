@@ -64,7 +64,15 @@ function range(k) {
     max +
     '" step="' +
     step +
-    '"></div></div>'
+    '"></div>' +
+    (min < 0
+      ? '<div class="range-ends" aria-hidden="true"><span>−' +
+        Math.abs(min) +
+        ' mm</span><span>+' +
+        max +
+        ' mm</span></div>'
+      : '') +
+    '</div>'
   );
 }
 $('#geometry-sliders').innerHTML = ['splay', 'gap', 'nubY'].map(range).join('');
@@ -176,8 +184,9 @@ function sync() {
   const h = model.halves[1],
     t = h.keys.find((k) => k.thumb && k.c === 0);
   $('#site-note').textContent = atThumb
-    ? fmt(Math.hypot(t.x - h.pointer.x, t.y - h.pointer.y)) +
-      ' mm from the innermost thumb-key center. All three thumb keys stay in place.'
+    ? 'Center-to-center reach: ' +
+      fmt(Math.hypot(t.x - h.pointer.x, t.y - h.pointer.y)) +
+      ' mm from the innermost thumb key. Zero offset is the preset position, not the key center.'
     : 'Comparison layout: the stick sits between finger columns 4 and 5.';
   $('#mount-gap').hidden = !under;
   $('#mount-note').textContent = under
