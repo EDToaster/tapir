@@ -7,7 +7,7 @@ Run the placement and schematic generators first. `build/<hand>/tapir-<hand>.kic
 - **KiCad:** 10.0.8 with its Python `pcbnew` bindings. On Ubuntu 26.04 the system `/usr/bin/python3` imports these; a virtual environment may not.
 - **Initial routing:** Java 25, local [FreeRouting v2.5.0](https://github.com/freerouting/freerouting/releases/tag/v2.5.0) for left and the independently tested [FreeRouting v2.1.0](https://github.com/freerouting/freerouting/releases/tag/v2.1.0) for right. Release JAR SHA-256: `f6f51bb02245e8e717f9359bd260cc9c5c0b1bc0acc8b7cb2cd5b8ffeb5de3c7` (2.5) and `2c07d58f75dac03782664081e7a58b41c25400d871a9fcf166a2ea6fe60d5def` (2.1). No online routing service was used.
 
-From the repository root, replay the accepted copper without a Java installation or internet connection:
+From the `tapir/` folder, replay the accepted copper without a Java installation or internet connection:
 
 ```sh
 /usr/bin/python3 product/electronics/tools/route_finish.py left right

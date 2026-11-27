@@ -8,7 +8,7 @@ On the right, land the five J2 leads on Sprintek's **Method 1 castellations**: 1
 
 ## Regeneration and verification
 
-From the repository root, after the project/footprint and component-manifest generation steps:
+From the `tapir/` folder, after the project/footprint and component-manifest generation steps:
 
 ```sh
 python3 product/electronics/tools/schematic.py

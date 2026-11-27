@@ -4,7 +4,7 @@ Use `geometry.json` for **both** electrically distinct carrier outlines, centers
 
 ## Regenerate and validate
 
-From the repository root, using Node 20+:
+From the `tapir/` folder, using Node 20+:
 
 ```sh
 (cd workbench && npm ci)

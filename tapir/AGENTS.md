@@ -22,7 +22,7 @@ paid fabrication and purchases require explicit approval.**
   is relative to the carrier PCB top. The Three.js renderer uses Y up, so layout Y maps
   to scene Z. Document the datum and transforms when moving to a production CAD coordinate system.
 - Distinguish the `workbench/study.html` comparison scene from the native product viewer at `workbench/index.html`. The latter reads copper from the actual boards, enclosure meshes from build123d, and the release ledger from validation. Keep the no-WebGL fallback visibly labeled. A positive plan gap is not proof of 3D fit; do not call a placeholder a vendor model.
-- From the repo root: `cd workbench && npm ci && npm run check && npm run build`.
+- From the `tapir/` folder: `cd workbench && npm ci && npm run check && npm run build`.
   Use `npm run dev` there for the interactive model. When changing geometry, inspect both
   halves, top/front/exploded views, key-down state, a known overlap, and the 1:1 print scale.
 

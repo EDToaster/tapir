@@ -42,7 +42,7 @@ export function mountStackStudy(getState) {
   }).observe(stackCanvas);
   if (import.meta.env.DEV) {
     $('#stack-step').href =
-      'https://github.com/EDToaster/tapir/raw/refs/heads/main/mechanical/stack/tapir-stacked-thumb.step';
+      'https://github.com/EDToaster/tapir/raw/refs/heads/main/tapir/mechanical/stack/tapir-stacked-thumb.step';
   }
   $('#stack-ranges').innerHTML = Object.entries(controls)
     .map(

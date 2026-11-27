@@ -16,7 +16,7 @@ Coordinates below are in mm relative to the component-side carrier face, equival
 
 ## Regeneration and model identity
 
-From the repository root, with the Python environment from `mechanical/stack/requirements.lock` activated:
+From the `tapir/` folder, with the Python environment from `mechanical/stack/requirements.lock` activated:
 
 ```sh
 M=product/electronics/models

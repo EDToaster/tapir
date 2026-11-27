@@ -1,4 +1,4 @@
-// Node >=20; from the root: (cd workbench && npm ci); node product/design/generate-geometry.mjs
+// Node >=20; from tapir/: (cd workbench && npm ci); node product/design/generate-geometry.mjs
 // --check compares the checked-in contract. No timestamp, network or randomness.
 import fs from 'node:fs';
 import {fileURLToPath} from 'node:url';

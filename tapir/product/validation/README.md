@@ -4,7 +4,7 @@ Start with [the last measured digital run](REPORT.md) and [the first-article tra
 
 ## Reproduce
 
-From the repository root, install KiCad CLI 10 (the recorded run uses 10.0.8) and Python 3.10 or newer. The main runner uses only the Python standard library. It rereads the delivered native schematic, board, emitted case meshes, compiled DTS/Kconfig and flash images. KiCad exports fresh netlists and runs fresh ERC and DRC in temporary directories; no generator or router is imported or trusted as the circuit oracle.
+From the `tapir/` folder, install KiCad CLI 10 (the recorded run uses 10.0.8) and Python 3.10 or newer. The main runner uses only the Python standard library. It rereads the delivered native schematic, board, emitted case meshes, compiled DTS/Kconfig and flash images. KiCad exports fresh netlists and runs fresh ERC and DRC in temporary directories; no generator or router is imported or trusted as the circuit oracle.
 
 ```sh
 python product/validation/verify.py --report-only

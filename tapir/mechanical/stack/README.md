@@ -6,7 +6,7 @@
 
 The footprint, position, and top/bottom height of **every** emitted solid come directly from `stackModel()` in `workbench/stack.js` at export time. `workbench-geometry.mjs` is a thin JSON bridge to that function; `assembly.py` is the editable build123d implementation of the resulting planar solids. Change a dimension in the workbench model first, then regenerate the STEP. No independently positioned MCAD stack is checked in.
 
-From the repository root, with Node 20 and `uv` installed:
+From the `tapir/` folder, with Node 20 and `uv` installed:
 
 ```sh
 (cd workbench && npm ci)

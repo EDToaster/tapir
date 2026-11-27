@@ -6,7 +6,7 @@ This directory generates editable, assembled-coordinate case CAD for both **diff
 
 The spatial authority is [the common geometry](../design/geometry.json), not a second list of manual chassis placements. Product geometry uses mm, +X right, +Y toward the palm, carrier top Z=0. CAD uses (X,−Y,Z) and each half retains its own origin. Real populated KiCad STEP is imported per half, in XY from the KiCad user-origin export; translate it **−1.595 mm in Z** so top-side component seating is at 0. The bare exported dielectric is not the whole copper/mask stack. Check the PCB export again if the stackup changes. Assembly STEP keeps reservations in a separate named group; hide it and the extra schematic context when inspecting physical surfaces.
 
-From the repository root, regenerate the common geometry and both populated ECAD STEP files first; then:
+From the `tapir/` folder, regenerate the common geometry and both populated ECAD STEP files first; then:
 
 ```sh
 uv venv --python 3.12.15 .venv-mechanical

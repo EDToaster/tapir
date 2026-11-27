@@ -24,7 +24,7 @@ In the workbench, use **Assembly path** with the relevant half selected. “Lowe
 
 ## Reproduce the core digital checks
 
-Run from the repository root. The CAD Python environment is separate from the system Python that ships with KiCad 10. Keep sources, native libraries and project directories together; copying only a board file breaks references. Regenerate the detailed CAD and firmware evidence before running the integrated verifier on a clean checkout.
+Run from the `tapir/` folder. The CAD Python environment is separate from the system Python that ships with KiCad 10. Keep sources, native libraries and project directories together; copying only a board file breaks references. Regenerate the detailed CAD and firmware evidence before running the integrated verifier on a clean checkout.
 
 ```sh
 (cd workbench && npm ci && npm run check)
