@@ -1,0 +1,2 @@
+# OpenCascade STEP exports are generated interchange files.
+*.step -diff
