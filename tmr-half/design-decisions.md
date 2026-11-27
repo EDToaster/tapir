@@ -10,15 +10,15 @@ Last updated 2026-11-27.
 
 | # | Decision | Status | Rationale and alternatives |
 | --- | --- | --- | --- |
-| D1 | 6 columns × 5 rows, bottom-left position left blank | Decided, key count open | Half-size board leaves room for a mouse. The listed keys total 28, but the brief says 29; the sixth row-5 position is unresolved. See the [layout](README.md#layout). |
+| D1 | 6 columns × 5 rows, 28 keys; bottom row is blank, Menu, Mod1, Mod2, Alt, blank | Decided | Half-size board leaves room for a mouse. See the [layout](README.md#layout). |
 | D2 | Wired USB first; Bluetooth is a bonus, not a requirement | Decided | Always-powered analog sensors make long battery life hard (see D9). The board should still keep the battery path possible. |
 | D3 | Controller: nice!nano v2 clone (nRF52840), same pinout as the original | Decided | The owner already has one. Pin budget in D7. |
 | D4 | Switch: Gateron Low Profile Magnetic Jade Pro (Jade is the alternate) | Decided | It has an MX-style cross stem and a low profile. It is the switch Partial-Gauss built around, so D5's placement and field measurement apply directly. It needs low-profile MX-stem caps (for example NuPhy nSA), not standard MX caps. |
 | D5 | Follow Partial-Gauss sensor placement: sensor centered 4.40 mm south of the switch center on the bottom side of a 1.6 mm PCB | Decided | This is the only placement found with a published field measurement for this switch. Geometry in [Sensor placement](#sensor-placement). |
 | D6 | Sensor: MDT TMR2617S-AAC, factory-calibrated stock build TMR2617S-AAC-0.500-500 | Decided | Z-axis linear TMR in SOT-23-3 with the same pinout as the Partial-Gauss Hall sensor. It is calibrated at the factory, so no programming order is needed. Variant choice and stock risk in [Sensor](#sensor). |
-| D7 | Readout: two 16:1 analog multiplexers (74HC4067-class) with shared select lines, one ADC input each | Proposed | The nice!nano only has three free analog inputs, so 28–29 keys need muxes. 32 channels leave 3–4 spare. Pin plan in [Readout](#readout). |
+| D7 | Readout: two 16:1 analog multiplexers (74HC4067-class) with shared select lines, one ADC input each | Proposed | The nice!nano only has three free analog inputs, so 28 keys need muxes. 32 channels leave 4 spare. Pin plan in [Readout](#readout). |
 | D8 | Firmware: ZMK with [zmk-feature-hall-effect](https://github.com/cr3eperall/zmk-feature-hall-effect) (MIT) for bring-up; Rust later if needed | Proposed | Its `he,kscan-multiplexer` driver already supports shared select lines across several muxes sampled in parallel. Actuation point and rapid-trigger sensitivity live in devicetree, so changing them means reflashing. [RMK](https://github.com/rmk-rs/rmk/discussions/525) has no analog matrix yet. |
-| D9 | Sensor power is switched, and scanning pulses it when the firmware supports that | Proposed | 29 × 300 µA max is 8.7 mA always-on (8.4 mA for 28). Budget in [Power](#power). |
+| D9 | Sensor power is switched, and scanning pulses it when the firmware supports that | Proposed | 28 × 300 µA max is 8.4 mA always-on. Budget in [Power](#power). |
 | D10 | Build a 2–4 key test coupon before the full board | Proposed | Confirms the field at the TMR2617S, the 0.5 vs 0.75 variant choice, pulsed-power settling and noise before committing the full set of sensors. |
 
 ## Sensor placement
@@ -77,7 +77,7 @@ Free analog inputs on the nice!nano v2 are P0.02 (AIN0), P0.29 (AIN5) and P0.31 
 | Signal | Pin | Notes |
 | --- | --- | --- |
 | Mux A output | P0.02 / AIN0 | Keys 1–16 |
-| Mux B output | P0.29 / AIN5 | Keys 17–29, 3 spare channels (4 if the board has 28 keys) |
+| Mux B output | P0.29 / AIN5 | Keys 17–28, 4 spare channels |
 | S0–S3 select lines | 4 digital GPIOs, shared by both muxes | The ZMK multiplexer driver samples both muxes at the same address in parallel |
 | Mux enable | 1 GPIO (shared) or tie low | |
 | Sensor power enable | 1 GPIO driving a load switch or P-MOSFET | Partial-Gauss used IRLML2402 MOSFETs for this |
@@ -91,7 +91,7 @@ Sensor-only estimates using the 300 µA maximum. They are **nominal calculations
 
 | Mode | Average sensor current |
 | --- | --- |
-| Always on | 8.7 mA |
+| Always on | 8.4 mA |
 | Pulsed, 1 kHz scan, ~280 µs on per scan | ~2.4 mA |
 | Pulsed, 100 Hz | ~0.24 mA |
 | Pulsed, 20 Hz idle | ~0.05 mA |

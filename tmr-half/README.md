@@ -1,12 +1,12 @@
 # TMR half
 
-A 28–29 key analog keyboard for the left hand that uses TMR (tunneling magnetoresistance) magnetic sensors under low-profile MX-style magnetic switches. It is half-size to leave more desk room for a mouse. Targets are an adjustable actuation point, rapid trigger, 1 kHz USB polling, and the lowest practical sensor power.
+A 28-key analog keyboard for the left hand that uses TMR (tunneling magnetoresistance) magnetic sensors under low-profile MX-style magnetic switches. It is half-size to leave more desk room for a mouse. Targets are an adjustable actuation point, rapid trigger, 1 kHz USB polling, and the lowest practical sensor power.
 
 **Status: planning.** No schematic, board or firmware exists yet. Decisions and their evidence are in [design-decisions.md](design-decisions.md).
 
 ## Layout
 
-6 columns × 5 rows. The bottom-left position is empty.
+6 columns × 5 rows, 28 keys. The bottom-left and bottom-right positions are empty.
 
 | | 1 | 2 | 3 | 4 | 5 | 6 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -14,9 +14,8 @@ A 28–29 key analog keyboard for the left hand that uses TMR (tunneling magneto
 | Row 2 | Tab | Q | W | E | R | T |
 | Row 3 | Shift | A | S | D | F | G |
 | Row 4 | Ctrl | Z | X | C | V | B |
-| Row 5 | (blank) | Menu | Mod1 | Mod2 | Alt | |
+| Row 5 | (blank) | Menu | Mod1 | Mod2 | Alt | (blank) |
 
-As listed, rows 1–4 have 24 keys and row 5 has four (Menu, Mod1, Mod2, Alt), which is 28. The brief says 29, so the sixth position in row 5 is either a missing key or empty. This is open in [D1](design-decisions.md#decision-log).
 
 ## Core parts
 
