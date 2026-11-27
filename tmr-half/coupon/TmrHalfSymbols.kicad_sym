@@ -1,0 +1,328 @@
+(kicad_symbol_lib (version 20251024) (generator "tmr_half_schematic")
+(symbol "nice_nano_v2"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "A" (at 0 -25.908 0) (effects (font (size 1.27 1.27))))
+(property "Value" "nice!nano v2 (clone)" (at 0 -28.448 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:ProMicro_nRF52840_THT" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "nRF52840 Pro Micro-format controller, owner supplied" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "nice_nano_v2_0_1" (rectangle (start -15.24 23.495) (end 15.24 -22.225) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "nice_nano_v2_1_1"
+  (pin bidirectional line (at -17.78 21.59 0) (length 2.54) (name "P0.06" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 17.78 0) (length 2.54) (name "P0.08" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -17.78 13.97 0) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -17.78 10.16 0) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "4" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 6.35 0) (length 2.54) (name "P0.17" (effects (font (size 1.05 1.05)))) (number "5" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 2.54 0) (length 2.54) (name "P0.20" (effects (font (size 1.05 1.05)))) (number "6" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 -1.27 0) (length 2.54) (name "P0.22" (effects (font (size 1.05 1.05)))) (number "7" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 -5.08 0) (length 2.54) (name "P0.24" (effects (font (size 1.05 1.05)))) (number "8" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 -8.89 0) (length 2.54) (name "P1.00" (effects (font (size 1.05 1.05)))) (number "9" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 -12.7 0) (length 2.54) (name "P0.11" (effects (font (size 1.05 1.05)))) (number "10" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 -16.51 0) (length 2.54) (name "P1.04" (effects (font (size 1.05 1.05)))) (number "11" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at -17.78 -20.32 0) (length 2.54) (name "P1.06" (effects (font (size 1.05 1.05)))) (number "12" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 17.78 21.59 180) (length 2.54) (name "B+" (effects (font (size 1.05 1.05)))) (number "24" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 17.78 17.78 180) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "23" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 17.78 13.97 180) (length 2.54) (name "RST" (effects (font (size 1.05 1.05)))) (number "22" (effects (font (size 0.95 0.95)))))
+  (pin power_out line (at 17.78 10.16 180) (length 2.54) (name "VCC" (effects (font (size 1.05 1.05)))) (number "21" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at 17.78 6.35 180) (length 2.54) (name "P0.31/AIN7" (effects (font (size 1.05 1.05)))) (number "20" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at 17.78 2.54 180) (length 2.54) (name "P0.29/AIN5" (effects (font (size 1.05 1.05)))) (number "19" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at 17.78 -1.27 180) (length 2.54) (name "P0.02/AIN0" (effects (font (size 1.05 1.05)))) (number "18" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at 17.78 -5.08 180) (length 2.54) (name "P1.15" (effects (font (size 1.05 1.05)))) (number "17" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at 17.78 -8.89 180) (length 2.54) (name "P1.13" (effects (font (size 1.05 1.05)))) (number "16" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at 17.78 -12.7 180) (length 2.54) (name "P1.11" (effects (font (size 1.05 1.05)))) (number "15" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at 17.78 -16.51 180) (length 2.54) (name "P0.10" (effects (font (size 1.05 1.05)))) (number "14" (effects (font (size 0.95 0.95)))))
+  (pin bidirectional line (at 17.78 -20.32 180) (length 2.54) (name "P0.09" (effects (font (size 1.05 1.05)))) (number "13" (effects (font (size 0.95 0.95)))))))
+(symbol "TMR2617S"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "U" (at 0 -5.588 0) (effects (font (size 1.27 1.27))))
+(property "Value" "TMR2617S-AAC-0.500-500" (at 0 -8.128 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:SOT-23-3_TMR2617S" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "MDT linear TMR sensor, SOT-23-3" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "TMR2617S_0_1" (rectangle (start -8.89 3.175) (end 8.89 -3.175) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "TMR2617S_1_1"
+  (pin power_in line (at -11.43 1.27 0) (length 2.54) (name "VCC" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin power_in line (at -11.43 -1.27 0) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
+  (pin output line (at 11.43 1.27 180) (length 2.54) (name "VOUT" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "C_0603"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "C" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "100nF" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:C_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "100 nF 50 V X7R 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "C_0603_0_1" (polyline (pts (xy -0.3937 -1.397) (xy -0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none)))
+(polyline (pts (xy 0.3937 -1.397) (xy 0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "C_0603_1_1"
+  (pin passive line (at -5.08 0 0) (length 4.6863) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 4.6863) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "C_0603_be9f8f"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "C" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "100pF" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:C_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "100 pF 50 V C0G 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "C_0603_be9f8f_0_1" (polyline (pts (xy -0.3937 -1.397) (xy -0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none)))
+(polyline (pts (xy 0.3937 -1.397) (xy 0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "C_0603_be9f8f_1_1"
+  (pin passive line (at -5.08 0 0) (length 4.6863) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 4.6863) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "C_0603_1788e4"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "C" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "10nF" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:C_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "10 nF 50 V X7R 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "C_0603_1788e4_0_1" (polyline (pts (xy -0.3937 -1.397) (xy -0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none)))
+(polyline (pts (xy 0.3937 -1.397) (xy 0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "C_0603_1788e4_1_1"
+  (pin passive line (at -5.08 0 0) (length 4.6863) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 4.6863) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "CD74HC4067"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "U" (at 0 -33.528 0) (effects (font (size 1.27 1.27))))
+(property "Value" "CD74HC4067SM96" (at 0 -36.068 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:SSOP-24_5.3x8.2mm_P0.65mm" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "TI 16:1 analog multiplexer, SSOP-24" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "CD74HC4067_0_1" (rectangle (start -11.43 31.115) (end 11.43 -29.845) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "CD74HC4067_1_1"
+  (pin passive line (at -13.97 29.21 0) (length 2.54) (name "I0" (effects (font (size 1.05 1.05)))) (number "9" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 25.4 0) (length 2.54) (name "I1" (effects (font (size 1.05 1.05)))) (number "8" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 21.59 0) (length 2.54) (name "I2" (effects (font (size 1.05 1.05)))) (number "7" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 17.78 0) (length 2.54) (name "I3" (effects (font (size 1.05 1.05)))) (number "6" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 13.97 0) (length 2.54) (name "I4" (effects (font (size 1.05 1.05)))) (number "5" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 10.16 0) (length 2.54) (name "I5" (effects (font (size 1.05 1.05)))) (number "4" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 6.35 0) (length 2.54) (name "I6" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 2.54 0) (length 2.54) (name "I7" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 -1.27 0) (length 2.54) (name "I8" (effects (font (size 1.05 1.05)))) (number "23" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 -5.08 0) (length 2.54) (name "I9" (effects (font (size 1.05 1.05)))) (number "22" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 -8.89 0) (length 2.54) (name "I10" (effects (font (size 1.05 1.05)))) (number "21" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 -12.7 0) (length 2.54) (name "I11" (effects (font (size 1.05 1.05)))) (number "20" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 -16.51 0) (length 2.54) (name "I12" (effects (font (size 1.05 1.05)))) (number "19" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 -20.32 0) (length 2.54) (name "I13" (effects (font (size 1.05 1.05)))) (number "18" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 -24.13 0) (length 2.54) (name "I14" (effects (font (size 1.05 1.05)))) (number "17" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -13.97 -27.94 0) (length 2.54) (name "I15" (effects (font (size 1.05 1.05)))) (number "16" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 13.97 29.21 180) (length 2.54) (name "COM" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin power_in line (at 13.97 21.59 180) (length 2.54) (name "VCC" (effects (font (size 1.05 1.05)))) (number "24" (effects (font (size 0.95 0.95)))))
+  (pin power_in line (at 13.97 17.78 180) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "12" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 13.97 10.16 180) (length 2.54) (name "S0" (effects (font (size 1.05 1.05)))) (number "10" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 13.97 6.35 180) (length 2.54) (name "S1" (effects (font (size 1.05 1.05)))) (number "11" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 13.97 2.54 180) (length 2.54) (name "S2" (effects (font (size 1.05 1.05)))) (number "14" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 13.97 -1.27 180) (length 2.54) (name "S3" (effects (font (size 1.05 1.05)))) (number "13" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 13.97 -8.89 180) (length 2.54) (name "E_N" (effects (font (size 1.05 1.05)))) (number "15" (effects (font (size 0.95 0.95)))))))
+(symbol "AO3401A"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "Q" (at 0 -5.588 0) (effects (font (size 1.27 1.27))))
+(property "Value" "AO3401A" (at 0 -8.128 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:SOT-23" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "P-channel MOSFET, SOT-23" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "AO3401A_0_1" (rectangle (start -7.62 3.175) (end 7.62 -3.175) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "AO3401A_1_1"
+  (pin passive line (at -10.16 1.27 0) (length 2.54) (name "G" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 10.16 1.27 180) (length 2.54) (name "S" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 10.16 -1.27 180) (length 2.54) (name "D" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))))
+(symbol "R_0603"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "R" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "100R" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:R_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "100 ohm 1% 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "R_0603_0_1" (rectangle (start -2.54 -0.9525) (end 2.54 0.9525) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "R_0603_1_1"
+  (pin passive line (at -5.08 0 0) (length 2.54) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 2.54) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "R_0603_2adb2c"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "R" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "100k" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:R_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "100 kohm 1% 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "R_0603_2adb2c_0_1" (rectangle (start -2.54 -0.9525) (end 2.54 0.9525) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "R_0603_2adb2c_1_1"
+  (pin passive line (at -5.08 0 0) (length 2.54) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 2.54) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "R_0603_1c9e30"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "R" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "10R" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:R_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "10 ohm 1% 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "R_0603_1c9e30_0_1" (rectangle (start -2.54 -0.9525) (end 2.54 0.9525) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "R_0603_1c9e30_1_1"
+  (pin passive line (at -5.08 0 0) (length 2.54) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 2.54) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "R_0603_5fff1f"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "R" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "10k" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:R_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "10 kohm 1% 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "R_0603_5fff1f_0_1" (rectangle (start -2.54 -0.9525) (end 2.54 0.9525) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "R_0603_5fff1f_1_1"
+  (pin passive line (at -5.08 0 0) (length 2.54) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 2.54) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "R_0603_620bbb"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "R" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "0R" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:R_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "0 ohm 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "R_0603_620bbb_0_1" (rectangle (start -2.54 -0.9525) (end 2.54 0.9525) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "R_0603_620bbb_1_1"
+  (pin passive line (at -5.08 0 0) (length 2.54) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 2.54) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "C_0603_46fa0d"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "C" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "1nF" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:C_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "Optional ADC input capacitor, not fitted" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "C_0603_46fa0d_0_1" (polyline (pts (xy -0.3937 -1.397) (xy -0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none)))
+(polyline (pts (xy 0.3937 -1.397) (xy 0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "C_0603_46fa0d_1_1"
+  (pin passive line (at -5.08 0 0) (length 4.6863) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 4.6863) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "C_0603_e03c8f"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "C" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "1uF" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:C_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "1 uF 50 V X5R 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "C_0603_e03c8f_0_1" (polyline (pts (xy -0.3937 -1.397) (xy -0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none)))
+(polyline (pts (xy 0.3937 -1.397) (xy 0.3937 1.397)) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "C_0603_e03c8f_1_1"
+  (pin passive line (at -5.08 0 0) (length 4.6863) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 4.6863) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "PWR_FLAG"
+ (power global)
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "#FLG" (at 0 -3.81 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Value" "PWR_FLAG" (at 0 -6.35 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "PWR_FLAG_0_1" (polyline (pts (xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "PWR_FLAG_1_1"
+  (pin power_out line (at 0 0 90) (length 0) (name "pwr" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))))
+(symbol "JST_PH_2"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "J" (at 0 -6.858 0) (effects (font (size 1.27 1.27))))
+(property "Value" "S2B-PH-SM4-TB" (at 0 -9.398 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "JST PH 2-pin side-entry battery connector" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "JST_PH_2_0_1" (rectangle (start -6.35 4.445) (end 6.35 -4.445) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "JST_PH_2_1_1"
+  (pin passive line (at 8.89 2.54 180) (length 2.54) (name "BAT+" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 8.89 0 180) (length 2.54) (name "BAT-" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 8.89 -2.54 180) (length 2.54) (name "MP" (effects (font (size 1.05 1.05)))) (number "MP" (effects (font (size 0.95 0.95)))))))
+(symbol "MSK12C02"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "S" (at 0 -6.858 0) (effects (font (size 1.27 1.27))))
+(property "Value" "MSK12C02" (at 0 -9.398 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:SW_SPDT_Shouhan_MSK12C02" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "SHOU HAN SPDT slide switch, side actuated" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "MSK12C02_0_1" (rectangle (start -7.62 4.445) (end 7.62 -4.445) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "MSK12C02_1_1"
+  (pin passive line (at -10.16 2.54 0) (length 2.54) (name "COM" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 10.16 2.54 180) (length 2.54) (name "ON" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 10.16 0 180) (length 2.54) (name "OFF" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 10.16 -2.54 180) (length 2.54) (name "SHELL" (effects (font (size 1.05 1.05)))) (number "SH" (effects (font (size 0.95 0.95)))))))
+(symbol "Pads_1x02"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "J" (at 0 -5.588 0) (effects (font (size 1.27 1.27))))
+(property "Value" "RESET pads" (at 0 -8.128 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:PinHeader_1x02_P2.54mm" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "Short these two pads to reset; double-tap for the bootloader" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "Pads_1x02_0_1" (rectangle (start -5.08 3.175) (end 5.08 -3.175) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "Pads_1x02_1_1"
+  (pin passive line (at 7.62 1.27 180) (length 2.54) (name "RST" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 7.62 -1.27 180) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "Header_1x10"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "J" (at 0 -9.398 0) (effects (font (size 1.27 1.27))))
+(property "Value" "Debug header" (at 0 -11.938 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:PinHeader_1x10_P2.54mm" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "Optional 2.54 mm header or probe points" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "Header_1x10_0_1" (rectangle (start -12.7 6.985) (end 12.7 -6.985) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "Header_1x10_1_1"
+  (pin passive line (at -15.24 5.08 0) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -15.24 2.54 0) (length 2.54) (name "VCC" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -15.24 0 0) (length 2.54) (name "VSW_A" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -15.24 -2.54 0) (length 2.54) (name "VS_A" (effects (font (size 1.05 1.05)))) (number "4" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at -15.24 -5.08 0) (length 2.54) (name "VSW_B" (effects (font (size 1.05 1.05)))) (number "5" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 15.24 5.08 180) (length 2.54) (name "VS_B" (effects (font (size 1.05 1.05)))) (number "6" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 15.24 2.54 180) (length 2.54) (name "MUXA" (effects (font (size 1.05 1.05)))) (number "7" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 15.24 0 180) (length 2.54) (name "MUXB" (effects (font (size 1.05 1.05)))) (number "8" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 15.24 -2.54 180) (length 2.54) (name "S0" (effects (font (size 1.05 1.05)))) (number "9" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 15.24 -5.08 180) (length 2.54) (name "AIN_SPARE" (effects (font (size 1.05 1.05)))) (number "10" (effects (font (size 0.95 0.95))))))))

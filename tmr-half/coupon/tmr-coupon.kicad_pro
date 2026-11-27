@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "filename": "tmr-coupon.kicad_pro",
+    "version": 1
+  },
+  "board": {
+    "design_settings": {
+      "drc_exclusions": [],
+      "defaults": {},
+      "diff_pair_dimensions": [],
+      "track_widths": [
+        0,
+        0.2,
+        0.4
+      ],
+      "via_dimensions": [],
+      "rules": {
+        "min_clearance": 0.2,
+        "min_track_width": 0.15,
+        "min_via_diameter": 0.6,
+        "min_via_annular_width": 0.15,
+        "min_through_hole_diameter": 0.3,
+        "min_copper_edge_clearance": 0.3,
+        "min_hole_clearance": 0.25,
+        "min_hole_to_hole": 0.5,
+        "min_resolved_spokes": 1
+      }
+    }
+  },
+  "net_settings": {
+    "meta": {
+      "version": 3
+    },
+    "classes": [
+      {
+        "name": "Default",
+        "description": "Signals and ground",
+        "clearance": 0.2,
+        "track_width": 0.2,
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "name": "Power",
+        "description": "Supply and battery",
+        "clearance": 0.2,
+        "track_width": 0.4,
+        "via_diameter": 0.7,
+        "via_drill": 0.3
+      }
+    ],
+    "netclass_patterns": [
+      {
+        "netclass": "Power",
+        "pattern": "VCC"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "VS_A"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "VS_B"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "VSW_A"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "VSW_B"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "BAT_P"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "BAT_SW"
+      }
+    ]
+  },
+  "libraries": {
+    "pinned_footprint_libs": [],
+    "pinned_symbol_libs": []
+  },
+  "pcbnew": {
+    "page_layout_descr_file": ""
+  },
+  "sheets": [],
+  "text_variables": {}
+}

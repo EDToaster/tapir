@@ -1,0 +1,1 @@
+(fp_lib_table (version 7) (lib (name "TmrHalf")(type "KiCad")(uri "${KIPRJMOD}/./TmrHalf.pretty")(options "")(descr "TMR half project footprints")))

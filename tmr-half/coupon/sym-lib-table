@@ -1,0 +1,2 @@
+(sym_lib_table (version 7)
+ (lib (name "TmrHalfSymbols") (type "KiCad") (uri "${KIPRJMOD}/TmrHalfSymbols.kicad_sym") (options "") (descr "TMR half coupon symbols")))

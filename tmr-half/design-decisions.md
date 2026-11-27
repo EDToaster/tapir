@@ -19,7 +19,7 @@ Last updated 2026-11-27.
 | D7 | Readout: two TI CD74HC4067SM96 16:1 analog multiplexers (SSOP-24) with shared select lines, one ADC input each | Proposed | The nice!nano only has three free analog inputs, so 28 keys need muxes; 32 channels leave 4 spare. The ADC draws almost no current, so the mux's 70–200 Ω switch resistance only affects settling, which works out well under 1 µs. Sensor recovery is the unknown and D10 measures it. Parallel 8:1 muxes need 4 ADC pins, and an external ADC adds parts and needs a driver. Full reasoning in [analog-readout.md](analog-readout.md); pin plan in [Readout](#readout). |
 | D8 | Firmware in two stages. The test board runs ZMK with [zmk-feature-hall-effect](https://github.com/cr3eperall/zmk-feature-hall-effect) (MIT). Then custom Rust firmware (embassy-nrf, embassy-usb) with a WebUSB web page for changing thresholds. The final build runs the Rust firmware. | Decided | ZMK's `he,kscan-multiplexer` driver already handles shared select lines across several muxes, so it gets the test board scanning without new code. Its thresholds live in devicetree and need a reflash, which is what the Rust stage fixes. embassy-usb has a [WebUSB class](https://docs.rs/embassy-usb/latest/embassy_usb/class/web_usb/index.html). [RMK](https://github.com/rmk-rs/rmk/discussions/525) has no analog matrix yet. See [Firmware](#firmware). |
 | D9 | Put a switch on the sensor power rail. Firmware decides whether to pulse it. | Proposed | 28 sensors draw up to 8.4 mA whenever powered, which only matters on battery. The switch is cheap and keeps D2's battery option open. Pulsing saves little at 1 kHz because the 100 nF bypass capacitors refill on every pulse. Budget in [Power](#power). |
-| D10 | Build a 2–4 key test coupon before the full board | Proposed | Confirms the field at the TMR2617S and the 0.5 vs 0.75 choice. Also measures mux settling, noise and pulsed-power behaviour, with 100 nF, 10 nF and no bypass capacitor, and with and without the optional 0.1 nF output capacitor. |
+| D10 | Build a 2 × 3 key test coupon before the full board. Design is in [coupon/](coupon/README.md); not ordered. | Proposed | Confirms the field at the TMR2617S and the 0.5 vs 0.75 choice. Also measures mux settling, noise and pulsed-power behaviour, with 100 nF and 10 nF bypass capacitors, and with and without the optional 0.1 nF output capacitor. The owner asked for the coupon and delegated its design choices, listed in [Test coupon](#test-coupon). |
 
 ## Sensor placement
 
@@ -68,6 +68,8 @@ Why 0.500-500:
 - It leaves more than 2× headroom over the ~400 G Partial-Gauss reading. That covers a TMR sensing element that may sit at a different depth or offset than the DRV5053's.
 - Its signal per gauss is about the same as typical Hall sensors ([GRIDDLE LX](https://erfi.dev/reference/griddle-lx-hall-effect-keyboard/)). The gain over Hall is the roughly 20× lower current, not resolution.
 
+NuPhy's listing for this switch gives a bottom-out flux of 680 ± 70 Gs without stating the distance it was measured at ([NuPhy](https://nuphy.com/products/gateron-low-profile-magnetic-jade-pro-switches), **drawing**, vendor spec). If the coupon sees anything close to that, the 0.75 build would saturate and 0.500 is the right choice.
+
 Stock flag: LCSC showed C55130211 out of stock on 2026-11-27 (1+ at $0.4989, 200+ at $0.2006). Recheck JLCPCB and LCSC before ordering. Switch to 0.75 if the coupon shows less than about 600 G at bottom-out.
 
 ## Readout
@@ -110,6 +112,25 @@ Plan:
 - Rust firmware: always on while scanning at 1 kHz over USB. Optionally drop to a slow pulsed scan after a period of no key activity, for future battery use.
 - D10 coupon: measure rail rise and readings with 100 nF, 10 nF and no bypass capacitor. Only reduce the capacitor if noise stays acceptable, since the datasheet asks for 0.1 µF.
 
+## Test coupon
+
+The owner asked for a 2 × 2 or 2 × 3 coupon with an optional battery connection and on-off switch, and left the remaining choices to the designer. These are **Proposed** until the owner confirms them. Details, files and the test plan are in [coupon/README.md](coupon/README.md).
+
+| Choice | Value | Why |
+| --- | --- | --- |
+| Size | 2 × 3 keys at 19.05 mm, 92 × 50 mm, 2 layers, 1.6 mm | Three keys per row gives each test key two neighbours for crosstalk, and one row per bypass value |
+| Mux | Two CD74HC4067SM96, shared select lines, one ADC pin each | Same part and wiring as D7, so settling results carry over |
+| Sensor rails | Two, each with an AO3401A P-MOSFET, 10 Ω shunt and a 10 k/10 k monitor divider on mux address 4 | Measures D9 directly. Gates are pulled low, so rails are on unless firmware turns them off. |
+| Bypass | 100 nF on rail A (K1–K3), 10 nF on rail B (K4–K6) | Datasheet value against a faster-rising rail |
+| Output capacitor | 100 pF on K2 and K5 only | Compare against bare neighbours |
+| Battery | JST S2B-PH-SM4-TB and MSK12C02 slide switch into the controller's B+ pin | Uses the module's own charger. No reverse-polarity protection. |
+| Assembly | All 38 SMT parts on the bottom; controller and switches fitted by hand | One-sided assembly |
+| Routing | FreeRouting 2.5.0, accepted after KiCad DRC | Not hand-tuned for analog crosstalk; acceptable for a measurement board |
+
+Pins on the coupon: S0–S3 on P0.17, P0.20, P0.22, P0.24; mux enable on P1.00; rail switches on P0.11 and P1.04; ADC on P0.02 and P0.29; P0.31 spare. Pin positions come from the [nice!nano v2 pinout](https://nicekeyboards.com/docs/nice-nano/pinout-schematic/) (**drawing**); the clone has not been checked against it.
+
+Verification so far is design-level only: KiCad ERC and DRC with schematic parity report no violations, and the Gerber and drill files were read back and compared with the board. Nothing is **measured**.
+
 ## Polling and rapid trigger
 
 - USB on the nRF52840 is full-speed only, so the report rate tops out at 1 kHz ([Nordic USBD](https://docs.nordicsemi.com/r/bundle/ps_nrf52840/page/usbd.html)). BLE connection intervals are 7.5 ms or longer.
@@ -133,9 +154,10 @@ Stage 2, final build: custom Rust firmware on embassy-nrf and embassy-usb.
 - Package fit: confirm the TMR2617S-AAC SOT-23-3 outline against the Partial-Gauss land pattern. The datasheet shows a "Sensor Area" but the extracted text gave no dimensions.
 - Field at the TMR2617S: measure it on the coupon at rest and at bottom-out. This decides 0.5 vs 0.75.
 - Mux settling: hold one key bottomed and read the next channel on the same mux while sweeping the settle delay from 20 µs down to 1 µs (the [GRIDDLE LX](https://erfi.dev/reference/griddle-lx-hall-effect-keyboard/) method). Repeat with the 0.1 nF output capacitor fitted.
-- Clone power rail: identify the clone and check what P0.13 does on it. On the genuine nice!nano it switches VCC with high meaning off. SuperMini-style clones use an LDO enable where low means off ([nrfmicro wiki](https://github.com/joric/nrfmicro/wiki/Alternatives/)). Also measure whether the VCC pin and the nRF VDD are the same rail, because the ADC reference and the sensor output both scale with their supply.
+- Clone power rail: identify the clone and check what P0.13 does on it. On the genuine nice!nano v2 and on SuperMini-style clones, driving P0.13 low turns the VCC output off ([nice!nano pinout](https://nicekeyboards.com/docs/nice-nano/pinout-schematic/), [nrfmicro wiki](https://github.com/joric/nrfmicro/wiki/Alternatives/)). Also measure whether the VCC pin and the nRF VDD are the same rail, because the ADC reference and the sensor output both scale with their supply.
 - Pulsed-power settling with 100 nF, 10 nF and no bypass capacitor: rail rise plus the 100 µs tPO, versus scan rate.
-- Sensor power switch part: load switch IC or P-MOSFET, chosen after the coupon shows the inrush and rise time.
-- Mux footprint: SSOP-24 (CD74HC4067SM96) is the plan; TSSOP-24 and SOIC-24 second sources need different footprints.
+- Sensor power switch part: the coupon uses an AO3401A P-MOSFET. Keep it or move to a load switch IC after the coupon shows the inrush and rise time.
+- Mux footprint: SSOP-24 (CD74HC4067SM96) is the plan and is on the coupon; TSSOP-24 and SOIC-24 second sources need different footprints.
+- Coupon ordering: sensor stock, placement rotations and battery plug polarity need checking at order and bring-up time ([coupon/README.md](coupon/README.md)).
 - Retention: the switch has no electrical pins. Choose a plate or case approach (Partial-Gauss uses a 3D-printed plate).
 - Keycaps and case: low-profile MX-stem caps; enclosure TBD.

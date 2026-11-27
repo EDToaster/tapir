@@ -2,7 +2,7 @@
 
 A 28-key analog keyboard for the left hand that uses TMR (tunneling magnetoresistance) magnetic sensors under low-profile MX-style magnetic switches. It is half-size to leave more desk room for a mouse. Targets are an adjustable actuation point, rapid trigger, 1 kHz USB polling, and the lowest practical sensor power.
 
-**Status: planning.** No schematic, board or firmware exists yet. Decisions and their evidence are in [design-decisions.md](design-decisions.md).
+**Status: test coupon designed, not ordered.** A 2 × 3 key [test coupon](coupon/README.md) has a schematic, a routed board and fabrication files. The full 28-key board and the firmware do not exist yet. Decisions and their evidence are in [design-decisions.md](design-decisions.md).
 
 ## Layout
 
