@@ -22,7 +22,7 @@ A 28-key analog keyboard for the left hand that uses TMR (tunneling magnetoresis
 - Switch: Gateron Low Profile Magnetic Jade Pro
 - Sensor: MDT TMR2617S-AAC-0.500-500, placed as in [Partial-Gauss](https://github.com/cr3eperall/partialgauss)
 - Controller: nice!nano v2 clone (nRF52840)
-- Readout: two 16:1 analog multiplexers
-- Firmware: ZMK with [zmk-feature-hall-effect](https://github.com/cr3eperall/zmk-feature-hall-effect) first
+- Readout: two CD74HC4067 16:1 analog multiplexers (proposed; see [analog-readout.md](analog-readout.md))
+- Firmware: ZMK with [zmk-feature-hall-effect](https://github.com/cr3eperall/zmk-feature-hall-effect) on the test board, then custom Rust firmware with a WebUSB settings page for the final build
 
 Project rules are in [AGENTS.md](AGENTS.md).
