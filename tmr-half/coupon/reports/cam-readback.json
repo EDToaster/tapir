@@ -3,11 +3,16 @@
   "layers": {
     "F_Cu.gtl": {
       "function": "Copper,L1,Top",
-      "objects": 236
+      "objects": 288
     },
     "B_Cu.gbl": {
       "function": "Copper,L2,Bot",
-      "objects": 745
+      "objects": 870,
+      "fiducials": [
+        "FID1",
+        "FID2",
+        "FID3"
+      ]
     },
     "F_Mask.gts": {
       "function": "Soldermask,Top",
@@ -15,15 +20,20 @@
     },
     "B_Mask.gbs": {
       "function": "Soldermask,Bot",
-      "objects": 207
+      "objects": 219,
+      "fiducials": [
+        "FID1",
+        "FID2",
+        "FID3"
+      ]
     },
     "F_Silkscreen.gto": {
       "function": "Legend,Top",
-      "objects": 2302
+      "objects": 1796
     },
     "B_Silkscreen.gbo": {
       "function": "Legend,Bot",
-      "objects": 1447
+      "objects": 1492
     },
     "F_Paste.gtp": {
       "function": "Paste,Top",
@@ -31,7 +41,7 @@
     },
     "B_Paste.gbp": {
       "function": "Paste,Bot",
-      "objects": 147
+      "objects": 156
     },
     "Edge_Cuts.gm1": {
       "function": "Profile,NP",
@@ -40,7 +50,7 @@
   },
   "drills": {
     "PTH": {
-      "hits": 79,
+      "hits": 168,
       "max_error_mm": 0.0005
     },
     "NPTH": {
@@ -50,11 +60,12 @@
   },
   "copper_lands": {
     "F_Cu": 36,
-    "B_Cu": 183
+    "B_Cu": 195
   },
   "outline_mm_including_line_width": [
     92.05,
     50.05
   ],
+  "outline_single_closed_loop": true,
   "pass": true
 }

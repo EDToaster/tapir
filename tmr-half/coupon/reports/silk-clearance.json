@@ -1,15 +1,15 @@
 {
  "layers": {
   "F.Silkscreen": {
-   "areas": 26,
-   "ink_mm2": 354.8,
-   "nearest_pad_hole_or_mark_mm": 0.298,
+   "areas": 20,
+   "ink_mm2": 247.5,
+   "nearest_pad_hole_or_mark_mm": 0.299,
    "nearest_board_edge_mm": 0.625
   },
   "B.Silkscreen": {
-   "areas": 22,
-   "ink_mm2": 383.8,
-   "nearest_pad_hole_or_mark_mm": 0.298,
+   "areas": 24,
+   "ink_mm2": 392.2,
+   "nearest_pad_hole_or_mark_mm": 0.299,
    "nearest_board_edge_mm": 0.625
   }
  },

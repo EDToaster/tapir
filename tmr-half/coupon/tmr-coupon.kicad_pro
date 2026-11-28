@@ -21,9 +21,9 @@
         "min_via_annular_width": 0.15,
         "min_through_hole_diameter": 0.3,
         "min_copper_edge_clearance": 0.3,
-        "min_hole_clearance": 0.25,
+        "min_hole_clearance": 0.3,
         "min_hole_to_hole": 0.5,
-        "min_resolved_spokes": 1
+        "min_resolved_spokes": 2
       }
     }
   },
@@ -46,6 +46,30 @@
         "clearance": 0.2,
         "track_width": 0.4,
         "via_diameter": 0.7,
+        "via_drill": 0.3
+      },
+      {
+        "name": "Battery",
+        "description": "Battery and charge path",
+        "clearance": 0.2,
+        "track_width": 0.4,
+        "via_diameter": 0.7,
+        "via_drill": 0.3
+      },
+      {
+        "name": "Analog",
+        "description": "Sensor to ADC paths",
+        "clearance": 0.2,
+        "track_width": 0.2,
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "name": "Control",
+        "description": "Digital controls",
+        "clearance": 0.2,
+        "track_width": 0.2,
+        "via_diameter": 0.6,
         "via_drill": 0.3
       }
     ],
@@ -71,12 +95,84 @@
         "pattern": "VSW_B"
       },
       {
-        "netclass": "Power",
+        "netclass": "Battery",
         "pattern": "BAT_P"
       },
       {
-        "netclass": "Power",
+        "netclass": "Battery",
+        "pattern": "BAT_F"
+      },
+      {
+        "netclass": "Battery",
         "pattern": "BAT_SW"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "OUT1"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "OUT2"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "OUT3"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "OUT4"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "OUT5"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "OUT6"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "MUXA"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "MUXB"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "AIN_A"
+      },
+      {
+        "netclass": "Analog",
+        "pattern": "AIN_B"
+      },
+      {
+        "netclass": "Control",
+        "pattern": "S0"
+      },
+      {
+        "netclass": "Control",
+        "pattern": "S1"
+      },
+      {
+        "netclass": "Control",
+        "pattern": "S2"
+      },
+      {
+        "netclass": "Control",
+        "pattern": "S3"
+      },
+      {
+        "netclass": "Control",
+        "pattern": "MUX_EN_N"
+      },
+      {
+        "netclass": "Control",
+        "pattern": "PWR_A_N"
+      },
+      {
+        "netclass": "Control",
+        "pattern": "PWR_B_N"
       }
     ]
   },

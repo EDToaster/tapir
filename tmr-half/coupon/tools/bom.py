@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MAKER = {"TMR2617S": "MultiDimension (MDT)", "CD74HC": "Texas Instruments", "AO3401A": "Alpha & Omega",
          "CC0603": "YAGEO", "0603B": "Fenghua (FH)", "CL10": "Samsung Electro-Mechanics", "0603WAF": "UNI-ROYAL",
-         "S2B-PH": "JST", "MSK12C02": "SHOU HAN"}
+         "S2B-PH": "JST", "PCM12SMTR": "C&K", "KT-0603R": "Hubei KENTO"}
 HAND = [
     # refs, qty, value, part number, maker, listing, note
     ("A1", 1, "nRF52840 Pro Micro-format controller", "nice!nano v2 or pin-compatible clone", "owner supplied", "",
@@ -18,7 +18,7 @@ HAND = [
     ("", 6, "Keycap", "Low-profile MX-stem keycap, 1u", "any", "", "Optional for the measurements."),
     ("BT1", 1, "1-cell LiPo with JST-PH plug", "Adafruit 1578 (3.7 V 500 mAh)", "Adafruit",
      "https://www.adafruit.com/product/1578", "Optional. Check plug polarity against the board silk with a meter first."),
-    ("H1-H4", 4, "M2 standoff, 8 mm or taller, with screws", "", "any", "", "Feet, so the bottom-side parts clear the desk."),
+    ("H1-H4", 4, "M2 standoff, 8 mm or taller, with screws", "", "any", "", "Use brass or nylon near the magnets."),
     ("J3", 1, "1x10 pin header, 2.54 mm", "", "any", "", "Optional, for a logic analyser or scope."),
 ]
 

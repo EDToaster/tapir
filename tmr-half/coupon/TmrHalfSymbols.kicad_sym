@@ -13,8 +13,8 @@
  (symbol "nice_nano_v2_1_1"
   (pin bidirectional line (at -17.78 21.59 0) (length 2.54) (name "P0.06" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
   (pin bidirectional line (at -17.78 17.78 0) (length 2.54) (name "P0.08" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at -17.78 13.97 0) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at -17.78 10.16 0) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "4" (effects (font (size 0.95 0.95)))))
+  (pin power_in line (at -17.78 13.97 0) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
+  (pin power_in line (at -17.78 10.16 0) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "4" (effects (font (size 0.95 0.95)))))
   (pin bidirectional line (at -17.78 6.35 0) (length 2.54) (name "P0.17" (effects (font (size 1.05 1.05)))) (number "5" (effects (font (size 0.95 0.95)))))
   (pin bidirectional line (at -17.78 2.54 0) (length 2.54) (name "P0.20" (effects (font (size 1.05 1.05)))) (number "6" (effects (font (size 0.95 0.95)))))
   (pin bidirectional line (at -17.78 -1.27 0) (length 2.54) (name "P0.22" (effects (font (size 1.05 1.05)))) (number "7" (effects (font (size 0.95 0.95)))))
@@ -23,9 +23,9 @@
   (pin bidirectional line (at -17.78 -12.7 0) (length 2.54) (name "P0.11" (effects (font (size 1.05 1.05)))) (number "10" (effects (font (size 0.95 0.95)))))
   (pin bidirectional line (at -17.78 -16.51 0) (length 2.54) (name "P1.04" (effects (font (size 1.05 1.05)))) (number "11" (effects (font (size 0.95 0.95)))))
   (pin bidirectional line (at -17.78 -20.32 0) (length 2.54) (name "P1.06" (effects (font (size 1.05 1.05)))) (number "12" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 17.78 21.59 180) (length 2.54) (name "B+" (effects (font (size 1.05 1.05)))) (number "24" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 17.78 17.78 180) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "23" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 17.78 13.97 180) (length 2.54) (name "RST" (effects (font (size 1.05 1.05)))) (number "22" (effects (font (size 0.95 0.95)))))
+  (pin power_in line (at 17.78 21.59 180) (length 2.54) (name "B+" (effects (font (size 1.05 1.05)))) (number "24" (effects (font (size 0.95 0.95)))))
+  (pin power_in line (at 17.78 17.78 180) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "23" (effects (font (size 0.95 0.95)))))
+  (pin input line (at 17.78 13.97 180) (length 2.54) (name "RST" (effects (font (size 1.05 1.05)))) (number "22" (effects (font (size 0.95 0.95)))))
   (pin power_out line (at 17.78 10.16 180) (length 2.54) (name "VCC" (effects (font (size 1.05 1.05)))) (number "21" (effects (font (size 0.95 0.95)))))
   (pin bidirectional line (at 17.78 6.35 180) (length 2.54) (name "P0.31/AIN7" (effects (font (size 1.05 1.05)))) (number "20" (effects (font (size 0.95 0.95)))))
   (pin bidirectional line (at 17.78 2.54 180) (length 2.54) (name "P0.29/AIN5" (effects (font (size 1.05 1.05)))) (number "19" (effects (font (size 0.95 0.95)))))
@@ -126,11 +126,11 @@
   (pin passive line (at 13.97 29.21 180) (length 2.54) (name "COM" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
   (pin power_in line (at 13.97 21.59 180) (length 2.54) (name "VCC" (effects (font (size 1.05 1.05)))) (number "24" (effects (font (size 0.95 0.95)))))
   (pin power_in line (at 13.97 17.78 180) (length 2.54) (name "GND" (effects (font (size 1.05 1.05)))) (number "12" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 13.97 10.16 180) (length 2.54) (name "S0" (effects (font (size 1.05 1.05)))) (number "10" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 13.97 6.35 180) (length 2.54) (name "S1" (effects (font (size 1.05 1.05)))) (number "11" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 13.97 2.54 180) (length 2.54) (name "S2" (effects (font (size 1.05 1.05)))) (number "14" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 13.97 -1.27 180) (length 2.54) (name "S3" (effects (font (size 1.05 1.05)))) (number "13" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 13.97 -8.89 180) (length 2.54) (name "E_N" (effects (font (size 1.05 1.05)))) (number "15" (effects (font (size 0.95 0.95)))))))
+  (pin input line (at 13.97 10.16 180) (length 2.54) (name "S0" (effects (font (size 1.05 1.05)))) (number "10" (effects (font (size 0.95 0.95)))))
+  (pin input line (at 13.97 6.35 180) (length 2.54) (name "S1" (effects (font (size 1.05 1.05)))) (number "11" (effects (font (size 0.95 0.95)))))
+  (pin input line (at 13.97 2.54 180) (length 2.54) (name "S2" (effects (font (size 1.05 1.05)))) (number "14" (effects (font (size 0.95 0.95)))))
+  (pin input line (at 13.97 -1.27 180) (length 2.54) (name "S3" (effects (font (size 1.05 1.05)))) (number "13" (effects (font (size 0.95 0.95)))))
+  (pin input line (at 13.97 -8.89 180) (length 2.54) (name "E_N" (effects (font (size 1.05 1.05)))) (number "15" (effects (font (size 0.95 0.95)))))))
 (symbol "AO3401A"
 
  (pin_names (offset 0.75))
@@ -143,7 +143,7 @@
 (property "Description" "P-channel MOSFET, SOT-23" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
  (symbol "AO3401A_0_1" (rectangle (start -7.62 3.175) (end 7.62 -3.175) (stroke (width 0.254) (type default)) (fill (type background))))
  (symbol "AO3401A_1_1"
-  (pin passive line (at -10.16 1.27 0) (length 2.54) (name "G" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin input line (at -10.16 1.27 0) (length 2.54) (name "G" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
   (pin passive line (at 10.16 1.27 180) (length 2.54) (name "S" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
   (pin passive line (at 10.16 -1.27 180) (length 2.54) (name "D" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))))
 (symbol "R_0603"
@@ -274,22 +274,37 @@
   (pin passive line (at 8.89 2.54 180) (length 2.54) (name "BAT+" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
   (pin passive line (at 8.89 0 180) (length 2.54) (name "BAT-" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
   (pin passive line (at 8.89 -2.54 180) (length 2.54) (name "MP" (effects (font (size 1.05 1.05)))) (number "MP" (effects (font (size 0.95 0.95)))))))
-(symbol "MSK12C02"
+(symbol "AO3401A_977fa1"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "Q" (at 0 -5.588 0) (effects (font (size 1.27 1.27))))
+(property "Value" "AO3401A" (at 0 -8.128 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:SOT-23" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "P-channel MOSFET, SOT-23" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "AO3401A_977fa1_0_1" (rectangle (start -7.62 3.175) (end 7.62 -3.175) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "AO3401A_977fa1_1_1"
+  (pin passive line (at -10.16 1.27 0) (length 2.54) (name "D" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 10.16 1.27 180) (length 2.54) (name "S" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
+  (pin input line (at 10.16 -1.27 180) (length 2.54) (name "G" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))))
+(symbol "PCM12SMTR"
 
  (pin_names (offset 0.75))
 
  (exclude_from_sim no) (in_bom yes) (on_board yes)
 (property "Reference" "S" (at 0 -6.858 0) (effects (font (size 1.27 1.27))))
-(property "Value" "MSK12C02" (at 0 -9.398 0) (effects (font (size 1.27 1.27))))
-(property "Footprint" "TmrHalf:SW_SPDT_Shouhan_MSK12C02" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Value" "PCM12SMTR" (at 0 -9.398 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:SW_SPDT_CK_PCM12SMTR" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
-(property "Description" "SHOU HAN SPDT slide switch, side actuated" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
- (symbol "MSK12C02_0_1" (rectangle (start -7.62 4.445) (end 7.62 -4.445) (stroke (width 0.254) (type default)) (fill (type background))))
- (symbol "MSK12C02_1_1"
+(property "Description" "C&K SPDT slide switch, side actuated, 0.3 A 6 V DC" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "PCM12SMTR_0_1" (rectangle (start -7.62 4.445) (end 7.62 -4.445) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "PCM12SMTR_1_1"
   (pin passive line (at -10.16 2.54 0) (length 2.54) (name "COM" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
   (pin passive line (at 10.16 2.54 180) (length 2.54) (name "ON" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
   (pin passive line (at 10.16 0 180) (length 2.54) (name "OFF" (effects (font (size 1.05 1.05)))) (number "3" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 10.16 -2.54 180) (length 2.54) (name "SHELL" (effects (font (size 1.05 1.05)))) (number "SH" (effects (font (size 0.95 0.95)))))))
+  (pin passive line (at 10.16 -2.54 180) (length 2.54) (name "SHELL" (effects (font (size 1.05 1.05)))) (number "MP" (effects (font (size 0.95 0.95)))))))
 (symbol "Pads_1x02"
 
  (pin_names (offset 0.75))
@@ -322,7 +337,35 @@
   (pin passive line (at -15.24 -2.54 0) (length 2.54) (name "VS_A" (effects (font (size 1.05 1.05)))) (number "4" (effects (font (size 0.95 0.95)))))
   (pin passive line (at -15.24 -5.08 0) (length 2.54) (name "VSW_B" (effects (font (size 1.05 1.05)))) (number "5" (effects (font (size 0.95 0.95)))))
   (pin passive line (at 15.24 5.08 180) (length 2.54) (name "VS_B" (effects (font (size 1.05 1.05)))) (number "6" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 15.24 2.54 180) (length 2.54) (name "MUXA" (effects (font (size 1.05 1.05)))) (number "7" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 15.24 0 180) (length 2.54) (name "MUXB" (effects (font (size 1.05 1.05)))) (number "8" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 15.24 -2.54 180) (length 2.54) (name "S0" (effects (font (size 1.05 1.05)))) (number "9" (effects (font (size 0.95 0.95)))))
-  (pin passive line (at 15.24 -5.08 180) (length 2.54) (name "AIN_SPARE" (effects (font (size 1.05 1.05)))) (number "10" (effects (font (size 0.95 0.95))))))))
+  (pin passive line (at 15.24 2.54 180) (length 2.54) (name "S0" (effects (font (size 1.05 1.05)))) (number "7" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 15.24 0 180) (length 2.54) (name "AIN_SPARE" (effects (font (size 1.05 1.05)))) (number "8" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 15.24 -2.54 180) (length 2.54) (name "MUXB" (effects (font (size 1.05 1.05)))) (number "9" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 15.24 -5.08 180) (length 2.54) (name "MUXA" (effects (font (size 1.05 1.05)))) (number "10" (effects (font (size 0.95 0.95)))))))
+(symbol "R_0603_805bd8"
+
+ (pin_names (offset 0.75) (hide yes))
+ (pin_numbers (hide yes))
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "R" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "1k" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:R_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "1 kohm 1% 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "R_0603_805bd8_0_1" (rectangle (start -2.54 -0.9525) (end 2.54 0.9525) (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "R_0603_805bd8_1_1"
+  (pin passive line (at -5.08 0 0) (length 2.54) (name "1" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 5.08 0 180) (length 2.54) (name "2" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))))
+(symbol "Reverse_Battery_LED"
+
+ (pin_names (offset 0.75))
+
+ (exclude_from_sim no) (in_bom yes) (on_board yes)
+(property "Reference" "D" (at 0 -4.318 0) (effects (font (size 1.27 1.27))))
+(property "Value" "KT-0603R" (at 0 -6.858 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TmrHalf:LED_KENTO_KT-0603R" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Description" "KENTO red reverse-battery LED, 0603" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "Reverse_Battery_LED_0_1" (rectangle (start -6.35 1.905) (end 6.35 -1.905) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "Reverse_Battery_LED_1_1"
+  (pin passive line (at -8.89 0 0) (length 2.54) (name "K" (effects (font (size 1.05 1.05)))) (number "2" (effects (font (size 0.95 0.95)))))
+  (pin passive line (at 8.89 0 180) (length 2.54) (name "A" (effects (font (size 1.05 1.05)))) (number "1" (effects (font (size 0.95 0.95))))))))

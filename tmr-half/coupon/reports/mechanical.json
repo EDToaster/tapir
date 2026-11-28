@@ -1,0 +1,54 @@
+{
+  "closest_mount_centres_mm": [
+    15.207,
+    "K1",
+    "H1"
+  ],
+  "closest_shell_land_centres_mm": [
+    18.742,
+    "K6",
+    "S1"
+  ],
+  "courtyards": {
+    "B.Courtyard": 55,
+    "F.Courtyard": 13
+  },
+  "minimum_battery_track_widths_mm": {
+    "BAT_F": 0.4,
+    "BAT_P": 0.4,
+    "BAT_SW": 0.4
+  },
+  "missing_courtyards": [],
+  "mux_bypass_pad_centres_mm": {
+    "U7": {
+      "gnd_pad_centres_mm": 12.578,
+      "vcc_pad_centres_mm": 1.75
+    },
+    "U8": {
+      "gnd_pad_centres_mm": 12.578,
+      "vcc_pad_centres_mm": 1.75
+    }
+  },
+  "pass": true,
+  "same_side_courtyard_overlaps_mm2": [],
+  "sensor_land_to_centrehole_mm": {
+    "U1.1": 0.3058,
+    "U1.2": 0.3058,
+    "U1.3": 2.3,
+    "U2.1": 0.3058,
+    "U2.2": 0.3058,
+    "U2.3": 2.3,
+    "U3.1": 0.3058,
+    "U3.2": 0.3058,
+    "U3.3": 2.3,
+    "U4.1": 0.3058,
+    "U4.2": 0.3058,
+    "U4.3": 2.3,
+    "U5.1": 0.3058,
+    "U5.2": 0.3058,
+    "U5.3": 2.3,
+    "U6.1": 0.3058,
+    "U6.2": 0.3058,
+    "U6.3": 2.3
+  }
+}

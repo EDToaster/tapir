@@ -3,14 +3,16 @@ Refs,Qty,Value,Part number,Manufacturer,Footprint,LCSC,JLC class,Fit,Notes,Listi
 "C4,C5,C6",3,10nF,0603B103K500NT,Fenghua (FH),C_0603_1608Metric,C57112,Basic,JLCPCB assembly,10 nF 50 V X7R 0603,https://www.lcsc.com/product-detail/C57112.html
 C9,1,1uF,CL10A105KB8NNNC,Samsung Electro-Mechanics,C_0603_1608Metric,C15849,Basic,JLCPCB assembly,1 uF 50 V X5R 0603,https://www.lcsc.com/product-detail/C15849.html
 "C12,C15,C17,C18",4,100pF,CL10C101JB8NNNC,Samsung Electro-Mechanics,C_0603_1608Metric,C14858,Basic,JLCPCB assembly,100 pF 50 V C0G 0603,https://www.lcsc.com/product-detail/C14858.html
+D1,1,KT-0603R,KT-0603R,Hubei KENTO,LED_KENTO_KT-0603R,C2286,Basic,JLCPCB assembly,"KENTO red reverse-battery LED, 0603",https://www.lcsc.com/product-detail/C2286.html
 J1,1,S2B-PH-SM4-TB,S2B-PH-SM4-TB(LF)(SN),JST,JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal,C295747,Extended,JLCPCB assembly,JST PH 2-pin side-entry battery connector,https://www.lcsc.com/product-detail/C295747.html
-"Q1,Q2",2,AO3401A,AO3401A,Alpha & Omega,SOT-23,C15127,Basic,JLCPCB assembly,"P-channel MOSFET, SOT-23",https://www.lcsc.com/product-detail/C15127.html
+"Q1,Q2,Q3",3,AO3401A,AO3401A,Alpha & Omega,SOT-23,C15127,Basic,JLCPCB assembly,"P-channel MOSFET, SOT-23",https://www.lcsc.com/product-detail/C15127.html
 "R1,R2",2,100R,0603WAF1000T5E,UNI-ROYAL,R_0603_1608Metric,C22775,Basic,JLCPCB assembly,100 ohm 1% 0603,https://www.lcsc.com/product-detail/C22775.html
-"R3,R4",2,100k,0603WAF1003T5E,UNI-ROYAL,R_0603_1608Metric,C25803,Basic,JLCPCB assembly,100 kohm 1% 0603,https://www.lcsc.com/product-detail/C25803.html
+"R3,R4,R14",3,100k,0603WAF1003T5E,UNI-ROYAL,R_0603_1608Metric,C25803,Basic,JLCPCB assembly,100 kohm 1% 0603,https://www.lcsc.com/product-detail/C25803.html
 "R5,R6",2,10R,0603WAF100JT5E,UNI-ROYAL,R_0603_1608Metric,C22859,Basic,JLCPCB assembly,10 ohm 1% 0603,https://www.lcsc.com/product-detail/C22859.html
 "R7,R8,R9,R10,R13",5,10k,0603WAF1002T5E,UNI-ROYAL,R_0603_1608Metric,C25804,Basic,JLCPCB assembly,10 kohm 1% 0603,https://www.lcsc.com/product-detail/C25804.html
 "R11,R12",2,0R,0603WAF0000T5E,UNI-ROYAL,R_0603_1608Metric,C21189,Basic,JLCPCB assembly,0 ohm 0603,https://www.lcsc.com/product-detail/C21189.html
-S1,1,MSK12C02,MSK12C02,SHOU HAN,SW_SPDT_Shouhan_MSK12C02,C431540,Extended,JLCPCB assembly,"SHOU HAN SPDT slide switch, side actuated",https://www.lcsc.com/product-detail/C431540.html
+R15,1,1k,0603WAF1001T5E,UNI-ROYAL,R_0603_1608Metric,C21190,Basic,JLCPCB assembly,1 kohm 1% 0603,https://www.lcsc.com/product-detail/C21190.html
+S1,1,PCM12SMTR,PCM12SMTR,C&K,SW_SPDT_CK_PCM12SMTR,C221841,Extended,JLCPCB assembly,"C&K SPDT slide switch, side actuated, 0.3 A 6 V DC",https://www.lcsc.com/product-detail/C221841.html
 "U1,U2,U3,U4,U5,U6",6,TMR2617S-AAC-0.500-500,TMR2617S-AAC-0.500-500,MultiDimension (MDT),SOT-23-3_TMR2617S,C55130211,Extended,JLCPCB assembly,"MDT linear TMR sensor, SOT-23-3",https://www.lcsc.com/product-detail/C55130211.html
 "U7,U8",2,CD74HC4067SM96,CD74HC4067SM96,Texas Instruments,SSOP-24_5.3x8.2mm_P0.65mm,C98457,Extended,JLCPCB assembly,"TI 16:1 analog multiplexer, SSOP-24",https://www.lcsc.com/product-detail/C98457.html
 "C11,C13,C14,C16",4,100pF,,,C_0603_1608Metric,,,Not fitted (DNP),100 pF 50 V C0G 0603,
@@ -19,5 +21,5 @@ A1,1,nRF52840 Pro Micro-format controller,nice!nano v2 or pin-compatible clone,o
 SW1-SW6,6,Low-profile magnetic switch,Gateron Low Profile Magnetic Jade Pro (KS-33D),Gateron,,,,Hand-fitted,Sold in packs of 70 or 90. Press-fit into the board holes; nothing is soldered.,https://nuphy.com/products/gateron-low-profile-magnetic-jade-pro-switches
 ,6,Keycap,"Low-profile MX-stem keycap, 1u",any,,,,Hand-fitted,Optional for the measurements.,
 BT1,1,1-cell LiPo with JST-PH plug,Adafruit 1578 (3.7 V 500 mAh),Adafruit,,,,Hand-fitted,Optional. Check plug polarity against the board silk with a meter first.,https://www.adafruit.com/product/1578
-H1-H4,4,"M2 standoff, 8 mm or taller, with screws",,any,,,,Hand-fitted,"Feet, so the bottom-side parts clear the desk.",
+H1-H4,4,"M2 standoff, 8 mm or taller, with screws",,any,,,,Hand-fitted,Use brass or nylon near the magnets.,
 J3,1,"1x10 pin header, 2.54 mm",,any,,,,Hand-fitted,"Optional, for a logic analyser or scope.",

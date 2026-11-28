@@ -221,7 +221,7 @@ def draw(sh):
     sh.divider(11, 79, 320, 79)
     H(12, 84, "03    ANALOG MULTIPLEXERS")
     T(12, 89, "S0-S3 pick one of 16 inputs and connect it to COM. Both chips share the select lines, so one")
-    T(12, 92, "address reads a rail A key and a rail B key together. I4 reads the rail itself. Unused inputs are grounded.")
+    T(12, 92, "address reads a rail A key and a rail B key together. Keys are on I1, I3, I5; I7 reads the rail. Other inputs are grounded.")
     for ref, x in (("U7", 50), ("U8", 142)):
         left = [9, 8, 7, 6, 5, 4, 3, 2, 23, 22, 21, 20, 19, 18, 17, 16]          # I0..I15
         right = [1, None, 24, 12, None, 10, 11, 14, 13, None, 15] + [None] * 5   # COM, VCC, GND, S0..S3, E
@@ -239,25 +239,30 @@ def draw(sh):
         for ref, x, yy in ((f"R{i}", 264, y - 3), (f"R{i + 2}", 264, y + 3), (f"R{i + 4}", 264, y + 9),
                            (f"R{i + 6}", 302, y - 3), (f"R{i + 8}", 302, y + 3), (f"C{i + 16}", 302, y + 9)):
             sh.place(p[ref], passive(p[ref]), x, yy)
-    T(208, 147, "MON_x = half the rail voltage, read on mux input I4 to watch the rail settle after power-up.")
+    T(208, 147, "MON_x = half the rail voltage, read on mux input I7 to watch the rail settle after power-up.")
 
     sh.divider(11, 152, 320, 152)
     H(12, 157, "05    ADC INPUTS AND SUPPORT")
     T(12, 162, "R11/R12 are 0 ohm links and C19/C20 are empty pads, so an RC filter can be tried without a new board.")
     for ref, x, y in (("R11", 30, 171), ("C19", 68, 171), ("R13", 108, 171), ("R12", 30, 178), ("C20", 68, 178), ("C9", 108, 178)):
         sh.place(p[ref], passive(p[ref]), x, y)
-    for net, x in (("GND", 140), ("VS_A", 158), ("VS_B", 176)):
+    for net, x in (("GND", 140), ("VS_A", 158), ("VS_B", 176), ("BAT_SW", 194)):
         sh.flag(net, x, 176)
     T(138, 170, "ERC supply markers (no part)")
 
-    sh.divider(11, 186, 190, 186)
+    sh.divider(11, 186, 320, 186)
     H(12, 191, "06    BATTERY, RESET, DEBUG")
-    T(12, 196, "Optional 1-cell LiPo. S1 disconnects the cell from the module. Check pack polarity with a meter before plugging in.")
-    sh.place(p["J1"], box(p["J1"], [], [1, 2, "MP"], hw=5, name="JST_PH_2"), 24, 209)
-    sh.place(p["S1"], box(p["S1"], [2, None, None], [1, 3, "SH"], hw=6, name="MSK12C02"), 66, 209)
-    sh.place(p["J2"], box(p["J2"], [], [1, 2], hw=4, name="Pads_1x02"), 100, 209)
-    sh.place(p["J3"], box(p["J3"], [1, 2, 3, 4, 5], [6, 7, 8, 9, 10], hw=10, name="Header_1x10"), 152, 209)
-    T(88, 219, "J2: short to reset"); T(134, 219, "J3: probe points / optional header")
+    T(12, 196, "Optional 1-cell LiPo. Q3 blocks reverse battery power without USB. D1 lights on a reversed cell with S1 open.")
+    T(12, 199, "Still check pack polarity with a meter before plugging in: Q3 does not protect a reversed cell while USB is charging.")
+    sh.place(p["J1"], box(p["J1"], [], [1, 2, "MP"], hw=5, name="JST_PH_2"), 24, 211)
+    sh.place(p["Q3"], box(p["Q3"], [3, None], [2, 1], hw=6, name="AO3401A"), 62, 211)
+    sh.place(p["R14"], passive(p["R14"]), 96, 211)
+    sh.place(p["S1"], box(p["S1"], [2, None, None], [1, 3, "MP"], hw=6, name="PCM12SMTR"), 134, 211)
+    sh.place(p["J2"], box(p["J2"], [], [1, 2], hw=4, name="Pads_1x02"), 172, 211)
+    sh.place(p["J3"], box(p["J3"], [1, 2, 3, 4, 5], [6, 7, 8, 9, 10], hw=10, name="Header_1x10"), 224, 211)
+    sh.place(p["R15"], passive(p["R15"]), 266, 211)
+    sh.place(p["D1"], box(p["D1"], [2], [1], hw=5, name="Reverse_Battery_LED"), 302, 211)
+    T(160, 221, "J2: short to reset"); T(206, 221, "J3: probe points / optional header")
 
 
 def main():

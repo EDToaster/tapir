@@ -28,7 +28,7 @@ MIN_FEATURE = 0.30                          # thinnest ink kept (JLCPCB silkscre
 MIN_AREA, MIN_LENGTH = 4.0, 4.5             # smallest island kept: mm^2, and mm along its longer side
 MIN_GAP = 1.0                               # channels between keepouts narrower than this stay empty
 ARC_ERROR = 0.005                           # chord error when curves become polygons
-OPEN_SEAT = ("ProMicro", "SW_Gateron")      # footprints whose courtyard stays open to the pattern
+OPEN_SEAT = ("ProMicro",)                  # switch courtyards keep both decorative and functional ink off the front seats
 ARC = re.compile(r'd="M\s*([-\d.]+),([-\d.]+) A\s*([-\d.]+),[-\d.]+ 0 0 ([01]) ([-\d.]+),([-\d.]+)"[^>]*?'
                  r'stroke-width="([-\d.]+)"')
 

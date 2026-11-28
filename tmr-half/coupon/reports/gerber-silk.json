@@ -1,0 +1,27 @@
+{
+  "layers": {
+    "B": {
+      "ink_to_edge_mm": 0.425,
+      "minimum_plot_stroke_mm": 0.15,
+      "minimum_text_height_mm": 1.0,
+      "switch_seat_ink_mm2": {},
+      "via_holes_under_ink": 18
+    },
+    "F": {
+      "ink_to_edge_mm": 0.345,
+      "minimum_plot_stroke_mm": 0.15,
+      "minimum_text_height_mm": 1.0,
+      "switch_seat_ink_mm2": {
+        "SW1": 0.0,
+        "SW2": 0.0,
+        "SW3": 0.0,
+        "SW4": 0.0,
+        "SW5": 0.0,
+        "SW6": 0.0
+      },
+      "via_holes_under_ink": 10
+    }
+  },
+  "passed": true,
+  "problems": []
+}

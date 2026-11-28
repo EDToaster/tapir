@@ -1,0 +1,10 @@
+(version 1)
+(rule "Battery track width"
+  (condition "A.NetClass == 'Battery'")
+  (constraint track_width (min 0.40mm)))
+(rule "Analog separation from control and battery"
+  (condition "A.NetClass == 'Analog' && (B.NetClass == 'Control' || B.NetClass == 'Battery') && A.Type == 'Track' && B.Type == 'Track'")
+  (constraint clearance (min 0.50mm)))
+(rule "Controller through-hole ground can connect solid"
+  (condition "A.memberOfFootprint('A1') && A.Pad_Number == '3'")
+  (constraint zone_connection solid))

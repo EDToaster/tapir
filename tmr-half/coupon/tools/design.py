@@ -36,8 +36,19 @@ CONTROLLER = {
     24: ("B+", "BAT_SW"),
 }
 
-# Debug header J3, pin 1 first.
-DEBUG = ["GND", "VCC", "VSW_A", "VS_A", "VSW_B", "VS_B", "MUXA", "MUXB", "S0", "AIN_SPARE"]
+# Debug header J3, pin 1 first. S0 and the two mux outputs are kept apart by the spare ADC pad.
+DEBUG = ["GND", "VCC", "VSW_A", "VS_A", "VSW_B", "VS_B", "S0", "AIN_SPARE", "MUXB", "MUXA"]
+
+# Mux channel use. Keys sit on odd channels and the rail monitor on channel 7, so every analog pin of the
+# SSOP-24 (pins 8, 6, 4, 2 and COM on pin 1) has a grounded channel pin beside it, and grounded pin 9 (I0)
+# separates them from S0 on pin 10. Every even channel and channels 8-15 read ground.
+KEY_CHANNELS = (1, 3, 5)
+MON_CHANNEL = 7
+
+# Net groups used by the board rules and by tools/check_analog.py.
+ANALOG = tuple(f"OUT{n}" for n in range(1, 7)) + ("MUXA", "MUXB", "AIN_A", "AIN_B")
+BATTERY = ("BAT_P", "BAT_F", "BAT_SW")
+CONTROL = ("S0", "S1", "S2", "S3", "MUX_EN_N", "PWR_A_N", "PWR_B_N") + BATTERY
 
 R0603, C0603 = "R_0603_1608Metric", "C_0603_1608Metric"
 PARTS = {
@@ -52,10 +63,12 @@ PARTS = {
     "0R": ("0603WAF0000T5E", "C21189", "Basic", "0 ohm 0603"),
     "10R": ("0603WAF100JT5E", "C22859", "Basic", "10 ohm 1% 0603"),
     "100R": ("0603WAF1000T5E", "C22775", "Basic", "100 ohm 1% 0603"),
+    "1k": ("0603WAF1001T5E", "C21190", "Basic", "1 kohm 1% 0603"),
     "10k": ("0603WAF1002T5E", "C25804", "Basic", "10 kohm 1% 0603"),
     "100k": ("0603WAF1003T5E", "C25803", "Basic", "100 kohm 1% 0603"),
     "S2B-PH-SM4-TB": ("S2B-PH-SM4-TB(LF)(SN)", "C295747", "Extended", "JST PH 2-pin side-entry battery connector"),
-    "MSK12C02": ("MSK12C02", "C431540", "Extended", "SHOU HAN SPDT slide switch, side actuated"),
+    "PCM12SMTR": ("PCM12SMTR", "C221841", "Extended", "C&K SPDT slide switch, side actuated, 0.3 A 6 V DC"),
+    "KT-0603R": ("KT-0603R", "C2286", "Basic", "KENTO red reverse-battery LED, 0603"),
 }
 
 
@@ -74,10 +87,10 @@ def circuit():
         add(ref, value, fp, {1: ("1", a, "passive"), 2: ("2", b, "passive")}, **kw)
 
     # Controller module. Hand-fitted on the top side; nothing here is assembled by the fab.
-    types = {"VCC": "power_out"}
+    # Pin types are the real electrical roles, so ERC can find an undriven input or two outputs tied together.
+    types = {"VCC": "power_out", "GND": "power_in", "B+": "power_in", "RST": "input"}
     add("A1", "nice!nano v2 (clone)", "ProMicro_nRF52840_THT",
-        {n: (name, net, types.get(name, "passive" if name in ("GND", "B+", "RST") else "bidirectional"))
-         for n, (name, net) in CONTROLLER.items()},
+        {n: (name, net, types.get(name, "bidirectional")) for n, (name, net) in CONTROLLER.items()},
         fit="hand", note="nRF52840 Pro Micro-format controller, owner supplied")
 
     # One sensor cell per key.
@@ -89,22 +102,22 @@ def circuit():
         # Datasheet CL. Fitted on the middle key of each row only.
         two(f"C{10 + n}", "100pF", f"OUT{n}", "GND", dnp=k["col"] != 1)
 
-    # One 16:1 multiplexer per rail. Channels 0-2 are keys, channel 4 reads the
+    # One 16:1 multiplexer per rail. Channels 1, 3 and 5 are keys, channel 7 reads the
     # rail through a divider, every other channel is tied to ground.
     order = {1: "COM", **{p: f"I{9 - p}" for p in range(2, 10)}, 10: "S0", 11: "S1", 12: "GND",
              13: "S3", 14: "S2", 15: "E_N", **{p: f"I{31 - p}" for p in range(16, 24)}, 24: "VCC"}
     for ref, rail, keys in (("U7", "A", (1, 2, 3)), ("U8", "B", (4, 5, 6))):
         nets = {"COM": "MUX" + rail, "GND": "GND", "VCC": "VCC", "E_N": "MUX_EN_N",
                 **{f"S{i}": f"S{i}" for i in range(4)}, **{f"I{i}": "GND" for i in range(16)},
-                **{f"I{i}": f"OUT{key}" for i, key in enumerate(keys)}, "I4": "MON_" + rail}
-        kinds = {"VCC": "power_in", "GND": "power_in"}
+                **{f"I{i}": f"OUT{key}" for i, key in zip(KEY_CHANNELS, keys)}, f"I{MON_CHANNEL}": "MON_" + rail}
+        kinds = {"VCC": "power_in", "GND": "power_in", "E_N": "input", **{f"S{i}": "input" for i in range(4)}}
         add(ref, "CD74HC4067SM96", "SSOP-24_5.3x8.2mm_P0.65mm",
             {p: (name, nets[name], kinds.get(name, "passive")) for p, name in order.items()})
 
     # Sensor rail switches. The gate pull-down keeps each rail ON until firmware drives the pin high.
     for i, rail in enumerate("AB", 1):
         add(f"Q{i}", "AO3401A", "SOT-23",
-            {1: ("G", "GATE_" + rail, "passive"), 2: ("S", "VCC", "passive"), 3: ("D", "VSW_" + rail, "passive")})
+            {1: ("G", "GATE_" + rail, "input"), 2: ("S", "VCC", "passive"), 3: ("D", "VSW_" + rail, "passive")})
         two(f"R{i}", "100R", f"PWR_{rail}_N", "GATE_" + rail)
         two(f"R{i + 2}", "100k", "GATE_" + rail, "GND")
         two(f"R{i + 4}", "10R", "VSW_" + rail, "VS_" + rail)      # current-sense shunt
@@ -117,12 +130,20 @@ def circuit():
     two("R13", "10k", "MUX_EN_N", "GND")
     two("C9", "1uF", "VCC", "GND")
 
-    # Optional battery path: connector -> slide switch -> controller B+.
+    # Optional battery path: connector -> reverse-polarity FET -> slide switch -> controller B+.
+    # On battery alone Q3's body diode lifts the source for a correctly wired cell, turning the channel on.
+    # A reversed cell is blocked only while its source isn't driven high by the USB charger via S1.
     add("J1", "S2B-PH-SM4-TB", "JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal",
         {1: ("BAT+", "BAT_P", "passive"), 2: ("BAT-", "GND", "passive"), "MP": ("MP", "GND", "passive")})
-    add("S1", "MSK12C02", "SW_SPDT_Shouhan_MSK12C02",
-        {1: ("ON", "BAT_SW", "passive"), 2: ("COM", "BAT_P", "passive"), 3: ("OFF", None, "passive"),
-         "SH": ("SHELL", "GND", "passive")})
+    add("Q3", "AO3401A", "SOT-23",
+        {1: ("G", "BAT_G", "input"), 2: ("S", "BAT_F", "passive"), 3: ("D", "BAT_P", "passive")})
+    two("R14", "100k", "BAT_G", "GND")
+    two("R15", "1k", "BAT_P", "BAT_REV")
+    add("D1", "KT-0603R", "LED_KENTO_KT-0603R",
+        {1: ("A", "GND", "passive"), 2: ("K", "BAT_REV", "passive")})
+    add("S1", "PCM12SMTR", "SW_SPDT_CK_PCM12SMTR",
+        {1: ("ON", "BAT_SW", "passive"), 2: ("COM", "BAT_F", "passive"), 3: ("OFF", None, "passive"),
+         "MP": ("SHELL", "GND", "passive")})
     add("J2", "RESET pads", "PinHeader_1x02_P2.54mm",
         {1: ("RST", "RST", "passive"), 2: ("GND", "GND", "passive")}, fit="none",
         note="Short these two pads to reset; double-tap for the bootloader")
@@ -136,7 +157,8 @@ def mechanical():
     """Board-only items with no schematic symbol."""
     return ([dict(ref=f"SW{k['n']}", value="Gateron KS-33D LP magnetic", footprint="SW_Gateron_LP_Magnetic_KS-33D")
              for k in KEYS]
-            + [dict(ref=f"H{i}", value="M2", footprint="MountingHole_M2_NPTH") for i in range(1, 5)])
+            + [dict(ref=f"H{i}", value="M2", footprint="MountingHole_M2_NPTH") for i in range(1, 5)]
+            + [dict(ref=f"FID{i}", value="Fiducial", footprint="Fiducial_1mm_Mask2mm") for i in range(1, 4)])
 
 
 if __name__ == "__main__":

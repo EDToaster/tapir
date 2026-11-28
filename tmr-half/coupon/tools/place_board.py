@@ -18,6 +18,7 @@ KEY_X, KEY_Y = (13.5, 32.55, 51.6), (14.0, 33.05)     # 19.05 mm pitch
 SENSOR_DY, CAP_DX = 4.40, 2.95                        # sensor centre south of the switch centre
 A1 = (74.62, 17.97)                                   # centre of the controller pad field
 HOLES = ((3, 3), (89, 3), (3, 47), (89, 47))
+FIDUCIALS = ((3, 13), (90, 14), (57, 46))
 ANTENNA = ((63.5, 30.45), (86.0, 30.45), (86.0, 35.6), (63.5, 35.6))
 N, S, E, Wd = (0, -1), (0, 1), (1, 0), (-1, 0)
 
@@ -35,22 +36,26 @@ def plan():
         p[f"U{n}"] = (x, y + SENSOR_DY, "3", S)
         p[f"C{n}"] = (x - CAP_DX, y + SENSOR_DY, "1", N)
         p[f"C{10 + n}"] = (x + CAP_DX, y + SENSOR_DY, "1", N)
-    for ref, x, cap, mon in (("U7", 23.025, "C7", "A"), ("U8", 42.075, "C8", "B")):
-        p[ref] = (x, 24.5, "1", (1, -1))
-        p[cap] = (x - 6.3, 21.4, "1", E)
+    for i, (x, y) in enumerate(((33.5, 6.6), (37.5, 25.5)), 1):
+        monitor_x = x + (8.0 if i == 1 else 6.1)
+        p[f"U{6+i}"] = (x, y, "1", (1, 1))
+        p[f"C{6+i}"] = (x + 6.1, y - 3.5, "1", Wd)
+        p[f"R{6+i}"] = (monitor_x, y + 3.8, "1", E)
+        p[f"R{8+i}"] = (monitor_x, y + 5.55, "1", Wd)
+        p[f"C{16+i}"] = (monitor_x, y + 7.3, "1", Wd)
     p.update({
-        "R7": (29.6, 21.775, "1", E), "R9": (29.6, 23.525, "1", Wd), "C17": (29.6, 25.275, "1", Wd),
-        "C18": (48.65, 21.775, "1", Wd), "R10": (48.65, 23.525, "1", Wd), "R8": (48.65, 25.275, "1", E),
         "C9": (78.6, 11.62, "1", E), "C20": (78.6, 14.95, "1", E), "R12": (78.6, 16.7, "1", Wd),
         "R11": (78.6, 19.24, "1", Wd), "C19": (78.6, 20.99, "1", E), "R13": (70.3, 20.4, "1", Wd),
         "R3": (70.3, 22.3, "1", E), "R1": (70.3, 24.05, "1", Wd), "Q1": (74.0, 23.1, "3", E), "R5": (77.6, 23.1, "1", Wd),
         "R4": (70.3, 26.9, "1", E), "R2": (70.3, 28.65, "1", Wd), "Q2": (74.0, 27.7, "3", E), "R6": (77.6, 27.7, "1", Wd),
         "J1": (77.0, 44.6, "1", N), "S1": (67.5, 48.2, "2", N),
+        "Q3": (81.25, 37.8, "3", S), "R14": (76.1, 37.0, "1", E),
+        "D1": (83.65, 44.1, "2", N), "R15": (83.65, 41.8, "1", Wd),
     })
     return p
 
 
-TOP = {"A1": (*A1, "1", (-1, -1)), "J2": (85.5, 40.0, "2", E), "J3": (8.0, 46.5, "2", E)}
+TOP = {"A1": (*A1, "1", (-1, -1)), "J2": (85.5, 40.0, "2", E), "J3": (60.65, 5.0, "2", S)}
 
 
 def xy(x, y):
@@ -128,6 +133,9 @@ def build():
         if back:
             f.Flip(k.VECTOR2I(0, 0), k.FLIP_DIRECTION_TOP_BOTTOM)
         f.SetPosition(xy(x, y)); f.Reference().SetVisible(False); f.Value().SetVisible(False)
+        for item in f.GraphicalItems():
+            if item.GetLayer() in (k.F_SilkS, k.B_SilkS) and item.GetClass() == "PCB_SHAPE":
+                item.SetWidth(max(mm(0.15), item.GetWidth()))
         if pad:
             best = None
             for angle in (0, 90, 180, 270):
@@ -163,10 +171,14 @@ def build():
     missing = set(intent) - set(placed)
     if missing:
         raise ValueError(f"unplaced: {sorted(missing)}")
-    holes = iter(HOLES)
+    holes, fiducials = iter(HOLES), iter(FIDUCIALS)
     for m in mechanical():
-        x, y = key_xy(int(m["ref"][2:])) if m["ref"].startswith("SW") else next(holes)
-        fp(m["ref"], x, y, mech=m["footprint"])
+        ref = m["ref"]
+        if ref.startswith("SW"):
+            x, y = key_xy(int(ref[2:]))
+        else:
+            x, y = next(fiducials if ref.startswith("FID") else holes)
+        fp(ref, x, y, mech=m["footprint"], back=ref.startswith("FID"))
 
     # Geometry that the rest of the project relies on. Fail here instead of at the fab.
     def at(ref, pad):
@@ -174,7 +186,7 @@ def build():
         return round(k.ToMM(q.x) - ORIGIN[0], 4), round(k.ToMM(q.y) - ORIGIN[1], 4)
     for k_ in KEYS:
         n = k_["n"]; x, y = key_xy(n)
-        want = {"1": (x - 0.95, y + 3.35), "2": (x + 0.95, y + 3.35), "3": (x, y + 5.45)}
+        want = {"1": (x - 0.95, y + 3.35), "2": (x + 0.95, y + 3.35), "3": (x, y + 5.625)}
         for pad, (wx, wy) in want.items():
             px, py = at(f"U{n}", pad)
             assert abs(px - wx) < 1e-3 and abs(py - wy) < 1e-3, (n, pad, px, py, wx, wy)
@@ -184,6 +196,10 @@ def build():
     assert all(abs(b_[1] - a_[1] - 2.54) < 1e-3 for col in (left, right) for a_, b_ in zip(col, col[1:]))
 
     keepout(b, "Module antenna end: no tracks, vias or fill", ANTENNA)
+    for i, (x, y) in enumerate(HOLES, 1):
+        r = 2.55 / math.cos(math.pi / 32)
+        keepout(b, f"M2 hardware {i}", [(x + r * math.cos(j * math.tau / 32),
+                                         y + r * math.sin(j * math.tau / 32)) for j in range(32)])
 
     # Top silkscreen.
     F, B = k.F_SilkS, k.B_SilkS
@@ -199,25 +215,26 @@ def build():
     for k_ in KEYS:
         n = k_["n"]; x, y = key_xy(n)
         label(b, f"K{n}", x - 5.5, y - 8.0, F, 0.9)
+        label(b, "LED", x, y - 8.0, F)
         label(b, f"K{n}", x - 5.6, y + SENSOR_DY, B, 1.0)
     names = {"VCC": "3V3", "VSW_A": "SWA", "VS_A": "VSA", "VSW_B": "SWB", "VS_B": "VSB", "MUXA": "MXA",
              "MUXB": "MXB", "AIN_SPARE": "A7"}
     for i, net in enumerate(DEBUG):
-        for layer in (F, B):
-            label(b, names.get(net, net), 8.0 + 2.54 * i, 43.9, layer, 0.75, 90)
+        label(b, names.get(net, net), 63.0, 5.0 + 2.54 * i, B, 0.75)
     label(b, f"TMR HALF COUPON  REV {REV}", 47.5, 44.6, F, 1.0)
     label(b, "github.com/EDToaster/tapir", 47.5, 46.7, F, 1.0)
     # J1 pad 1 (battery +) is at x = 78, pad 2 (battery -) at x = 76; S1 pin 1 (ON throw) is at x = 69.75.
     for layer in (F, B):
-        label(b, "+", 78.0, 38.9, layer, 1.2); label(b, "-", 76.0, 38.9, layer, 1.2)
-        label(b, "ON", 70.9, 44.7, layer, 0.8); label(b, "OFF", 64.1, 44.7, layer, 0.8)
+        label(b, "+", 78.0, 38.85, layer, 1.2); label(b, "-", 76.0, 38.85, layer, 1.2)
+        label(b, "ON", 69.75, 44.7, layer, 0.8); label(b, "OFF", 65.25, 44.7, layer, 0.8)
     label(b, "BATTERY", 70.9, 38.9, F, 1.0)
-    label(b, "CHECK POLARITY", 77.0, 36.7, B, 1.0)
+    label(b, "CHECK POLARITY", 75.0, 35.0, B, 1.0)
+    label(b, "REV", 86.45, 44.1, B, 1.0)
     # Bottom silkscreen is mirrored so it reads correctly from the bottom.
-    label(b, f"TMR HALF COUPON REV {REV}", 44.0, 3.0, B, 1.0)
-    label(b, "RAIL A  K1-K3  100nF bypass", 32.5, 8.5, B, 0.8)
+    label(b, f"TMR HALF COUPON REV {REV}", 19.0, 2.4, B, 1.0)
+    label(b, "RAIL A  K1-K3  100nF bypass", 16.0, 4.9, B, 0.8)
     label(b, "RAIL B  K4-K6  10nF bypass", 32.5, 41.6, B, 0.8)
-    label(b, "MUX A", 23.025, 19.4, B, 0.8); label(b, "MUX B", 42.075, 19.4, B, 0.8)
+    label(b, "MUX A", 25.0, 6.6, B, 0.8); label(b, "MUX B", 29.0, 26.0, B, 0.8)
     label(b, "JLCJLCJLCJLC", 52.0, 47.5, B, 0.8)
     # Decoration goes on last, so it can keep clear of every mark above.
     decoration = silk_pattern.apply(b, ORIGIN, (W, H, RADIUS))

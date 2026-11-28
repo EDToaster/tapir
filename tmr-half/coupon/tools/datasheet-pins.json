@@ -1,0 +1,27 @@
+{
+  "TMR2617S-AAC-0.500-500": {
+    "url": "https://www.dowaytech.com/en/res/202408/21/dd53d68876041b0f.pdf",
+    "page": "3, Pin Configuration",
+    "pins": "1:VCC 2:VOUT 3:GND"
+  },
+  "CD74HC4067SM96": {
+    "url": "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf",
+    "page": "2, pin configuration (COM is TI's common I/O)",
+    "pins": "1:COM 2:I7 3:I6 4:I5 5:I4 6:I3 7:I2 8:I1 9:I0 10:S0 11:S1 12:GND 13:S3 14:S2 15:E_N 16:I15 17:I14 18:I13 19:I12 20:I11 21:I10 22:I9 23:I8 24:VCC"
+  },
+  "AO3401A": {
+    "url": "https://www.aosmd.com/sites/default/files/res/datasheets/AO3401A.pdf",
+    "page": "1, SOT-23 top view",
+    "pins": "1:G 2:S 3:D"
+  },
+  "KT-0603R": {
+    "url": "https://www.lcsc.com/datasheet/lcsc_datasheet_1810231112_Hubei-KENTO-Elec-KT-0603R_C2286.pdf",
+    "page": "2, package and polarity",
+    "pins": "1:A 2:K"
+  },
+  "PCM12SMTR": {
+    "url": "https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5",
+    "page": "I–44, pin 2 is common; project uses position 1 as ON and position 2 as OFF",
+    "pins": "1:ON 2:COM 3:OFF MP:SHELL"
+  }
+}
