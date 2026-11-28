@@ -126,6 +126,7 @@ The owner asked for a 2 × 2 or 2 × 3 coupon with an optional battery connectio
 | Battery | JST S2B-PH-SM4-TB and MSK12C02 slide switch into the controller's B+ pin | Uses the module's own charger. No reverse-polarity protection. |
 | Assembly | All 38 SMT parts on the bottom; controller and switches fitted by hand | One-sided assembly |
 | Routing | FreeRouting 2.5.0, accepted after KiCad DRC | Not hand-tuned for analog crosstalk; acceptable for a measurement board |
+| Decorative silkscreen | Quadtree Truchet (pattern 03 in [silkscreen-patterns](../silkscreen-patterns/)) on both sides at 2× zoom, cut back 0.30 mm from pads, holes, courtyards and other marks | The owner asked for this pattern, zoomed in, on top and bottom. The zoom, the two crop windows and the clearances are the designer's picks. Cosmetic only; copper is unchanged. |
 
 Pins on the coupon: S0–S3 on P0.17, P0.20, P0.22, P0.24; mux enable on P1.00; rail switches on P0.11 and P1.04; ADC on P0.02 and P0.29; P0.31 spare. Pin positions come from the [nice!nano v2 pinout](https://nicekeyboards.com/docs/nice-nano/pinout-schematic/) (**drawing**); the clone has not been checked against it.
 

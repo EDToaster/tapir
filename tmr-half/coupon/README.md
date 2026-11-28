@@ -63,6 +63,7 @@ Debug header J3, left to right on the top side: GND, 3V3, SWA (rail A before the
 | Mounting | Four M2 holes at 3 mm from each corner |
 | Antenna | No copper on either layer under the controller's antenna end |
 | Battery | J1 opens toward the bottom edge. S1's lever sticks out about 1 mm past the edge. |
+| Decoration | Quadtree Truchet pattern on both silkscreen layers, see [Decorative silkscreen](#decorative-silkscreen) |
 
 The 1.6 mm thickness is part of the measurement. The field at the sensor depends on the magnet-to-sensor distance, and the Partial-Gauss reference used 1.6 mm.
 
@@ -76,6 +77,8 @@ Design rules used, against [JLCPCB's published limits](https://jlcpcb.com/capabi
 | Copper to board edge | 0.30 | 0.20 |
 | Copper to unplated hole | 0.25 | 0.20 |
 | Silkscreen text height | 1.0 | 1.0 |
+| Silkscreen line width | 0.15 text strokes; 0.30 thinnest pattern feature | 0.15 |
+| Silkscreen to pad | 0.30 for the pattern | 0.15 |
 
 Tracks were placed by FreeRouting 2.5.0 and then checked by KiCad's DRC. The analog traces are short but were not hand-tuned for crosstalk. That is acceptable for a measurement board, and adjacent-key crosstalk is one of the things to measure.
 
@@ -113,6 +116,37 @@ The TMR2617S-AAC-0.500-500 showed zero stock at JLCPCB and LCSC on 2026-11-27. R
 1. Use JLCPCB's parts pre-order for C55130211 and wait for it to land in your parts library.
 2. Or untick U1–U6 in the JLCPCB BOM step and hand-solder six SOT-23-3 parts later. The pads are large enough for an iron.
 3. Either way, [Calero](https://tmr-sensors.com/products/tmr2617) sells the TMR2617 programmed to order, which is the fallback source for loose parts.
+
+### Decorative silkscreen
+
+Both sides carry a crop of the [quadtree Truchet pattern](../../silkscreen-patterns/) (pattern 03), enlarged so the lines print thicker. It is cosmetic and connects to nothing.
+
+| Item | Value |
+| --- | --- |
+| Source | `silkscreen-patterns/svg/03_quadtree_truchet.svg`, 400 × 250 mm |
+| Zoom | 2×, so the board shows a 46 × 25 mm window of the source |
+| Window, top side | Top-left corner at (90, 95) mm in the source |
+| Window, bottom side | Top-left corner at (300, 150) mm in the source |
+| Stroke widths | 0.78, 1.56 and 2.80 mm (source strokes 0.39, 0.78 and 1.40 mm, **drawing**) |
+| Ink | 355 mm² in 26 areas on top, 384 mm² in 22 areas on the bottom |
+
+Every functional mark takes priority over the pattern. [tools/silk_pattern.py](tools/silk_pattern.py) turns the strokes into filled areas and cuts away anything closer than these distances:
+
+| Kept clear of | Distance (**allowance**) |
+| --- | --- |
+| Pads, holes, part courtyards and silkscreen lines | 0.30 mm |
+| Text labels | 0.45 mm around the label's box |
+| Board edge | 0.60 mm |
+| M2 mounting holes | The 5.1 mm screw-head courtyard plus 0.30 mm, on both sides |
+
+Gaps between keepouts narrower than 1.0 mm stay empty. Leftover pieces thinner than 0.30 mm, smaller than 4 mm² or shorter than 4.5 mm are dropped, so no stray specks reach the fab. KiCad's DRC checks silkscreen against pads, other silkscreen and the board edge, and reports no violations. [tools/check_silk.py](tools/check_silk.py) then measures the routed board on its own: the nearest ink is 0.298 mm from any pad, hole or mark (the 0.30 mm target less polygon rounding) and 0.625 mm from the board edge ([reports/silk-clearance.json](reports/silk-clearance.json)).
+
+Two things to know:
+
+- The pattern runs under the switch housings and the controller, where the LED and MAG marks already sit. Cured silkscreen ink is usually 15–25 µm thick ([LT Circuit](https://www.ltpcba.com/knowledge-base/pcb-manufacturing-knowledge/silkscreen-design-rules-avoid-common-pcb-silkscreen-mistakes/), **allowance**), which is small beside the switch and magnet tolerances. To clear the seats anyway, set `OPEN_SEAT = ()` in `silk_pattern.py` and rebuild.
+- Vias are tented, so the pattern prints over them. Seven via holes sit under ink (five on top, two on the bottom).
+
+To change the look, edit `ZOOM` or `CROP` in `silk_pattern.py` and run `tools/build.sh`. Copper is untouched, so no reroute is needed.
 
 ## Ordering at JLCPCB
 
@@ -230,11 +264,12 @@ FREEROUTING_JAR=/path/to/freerouting-2.5.0.jar tools/build.sh reroute       # re
 | --- | --- | --- |
 | Footprints, project, schematic | `footprints.py`, `project.py`, `schematic.py` | KiCad ERC, 0 violations |
 | Netlist check | `check_schematic.py` | Schematic netlist equals the manifest: 170 pins, 31 nets |
-| Placement and routing | `place_board.py`, `route_board.py`, `freerouting.sh` | KiCad DRC with schematic parity, 0 violations, 0 unconnected |
+| Placement, decoration and routing | `silk_pattern.py`, `place_board.py`, `route_board.py`, `freerouting.sh` | KiCad DRC with schematic parity, 0 violations, 0 unconnected |
 | Fabrication files | `export_fab.py`, `bom.py` | 14 BOM lines, 38 placements |
+| Decoration clearance | `check_silk.py` | Pattern at least 0.29 mm from pads, holes and marks, 0.59 mm from the edge |
 | Readback | `check_cam.py` | Gerbers and drill files parsed with gerbonara and compared with the board: pads, holes, outline |
 
-Pinned tools: KiCad 10.0.8 (`kicad/kicad:10.0.8` container), FreeRouting 2.5.0 (checksum in `freerouting.sh`), gerbonara 1.6.3. Reports are in [reports/](reports). `routing/tmr-coupon.ses` is the accepted routing. Changing a placement means running `reroute`.
+Pinned tools: KiCad 10.0.8 (`kicad/kicad:10.0.8` container), FreeRouting 2.5.0 (checksum in `freerouting.sh`), gerbonara 1.6.3. Reports are in [reports/](reports). `routing/tmr-coupon.ses` is the accepted routing. Changing a placement means running `reroute`. The build reads the silkscreen artwork from `silkscreen-patterns/` at the repo root, so run it from a full checkout.
 
 Six footprints are drawn for this project in `footprints.py`: the sensor, the switch, the controller, the mounting hole and the two pin headers. The sensor position follows [Partial-Gauss](https://github.com/cr3eperall/partialgauss) (credit: cr3eperall); no files were copied. The other six (0603 parts, SOT-23, SSOP-24, the JST connector and the slide switch) are unmodified copies from the KiCad 10.0.8 standard library.
 

@@ -19,6 +19,7 @@ $k kicad-cli sch erc --severity-all --exit-code-violations --format report -o re
 $k kicad-cli sch export netlist --format kicadxml -o build/netlist.xml tmr-coupon.kicad_sch
 python3 tools/check_schematic.py build/netlist.xml
 
+python3 tools/silk_pattern.py
 $k python3 tools/place_board.py
 if [ "${1:-}" = reroute ]; then
   $k python3 tools/route_board.py dsn
@@ -30,6 +31,7 @@ $k python3 tools/route_board.py ses
 $k kicad-cli pcb drc --schematic-parity --all-track-errors --severity-all --exit-code-violations \
   --format json -o reports/drc.json tmr-coupon.kicad_pcb
 
+$k python3 tools/check_silk.py
 $k python3 tools/export_fab.py
 "${CAM_PYTHON:-python3}" tools/check_cam.py
 

@@ -19,11 +19,11 @@
     },
     "F_Silkscreen.gto": {
       "function": "Legend,Top",
-      "objects": 2276
+      "objects": 2302
     },
     "B_Silkscreen.gbo": {
       "function": "Legend,Bot",
-      "objects": 1425
+      "objects": 1447
     },
     "F_Paste.gtp": {
       "function": "Paste,Top",

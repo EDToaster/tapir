@@ -10,6 +10,7 @@ import math
 import pcbnew as k
 from design import ROOT, STEM, LIB, REV, KEYS, CONTROLLER, DEBUG, circuit, mechanical, uid
 from project import create
+import silk_pattern
 
 ORIGIN = (100.0, 100.0)
 W, H, RADIUS = 92.0, 50.0, 2.0
@@ -218,11 +219,14 @@ def build():
     label(b, "RAIL B  K4-K6  10nF bypass", 32.5, 41.6, B, 0.8)
     label(b, "MUX A", 23.025, 19.4, B, 0.8); label(b, "MUX B", 42.075, 19.4, B, 0.8)
     label(b, "JLCJLCJLCJLC", 52.0, 47.5, B, 0.8)
+    # Decoration goes on last, so it can keep clear of every mark above.
+    decoration = silk_pattern.apply(b, ORIGIN, (W, H, RADIUS))
     b.BuildConnectivity()
     path = out / (STEM + ".kicad_pcb")
     if not k.SaveBoard(str(path), b, True):
         raise OSError(path)
     print(path.name, "footprints", len(list(b.GetFootprints())), "nets", len(nets))
+    print("  decorative silkscreen", decoration)
     for ref in ("J1", "S1", "U7", "Q1"):
         print(" ", ref, {p.GetNumber(): at(ref, p.GetNumber()) for p in placed[ref].Pads() if p.GetNumber() in ("1", "2", "3", "24")})
 
