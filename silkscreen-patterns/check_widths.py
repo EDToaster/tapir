@@ -4,7 +4,7 @@ from PIL import Image
 from scipy.ndimage import binary_opening
 PX = 20  # px per mm (0.05 mm)
 yy, xx = np.mgrid[-2:3, -2:3]; disk = (xx**2 + yy**2) <= 4  # ~0.2 mm diameter
-for f in sorted(glob.glob(sys.argv[1] + "/*.svg")):
+for f in sorted(sum([glob.glob(a) for a in sys.argv[1:]], [])):
     s = open(f).read().replace('<g clip-path', '<rect width="400" height="250" fill="#fff"/><g clip-path', 1)
     png = cairosvg.svg2png(bytestring=s.encode(), output_width=400 * PX)
     a = np.array(Image.open(io.BytesIO(png)).convert("L"))[100:-100, 100:-100] < 128
