@@ -1,5 +1,10 @@
 {
-  "intent": "Rev A coupon signal flow and debug pinout specified by README.md, D13 and D16. Written as independent design assertions from circuit roles and manufacturer pin tables; not an export of design.py. Null means deliberately unconnected.",
+  "intent": "Rev A coupon signal flow and passive values specified by README.md, D13 and D16. Hand-maintained design assertions from circuit roles and manufacturer pin tables, not an export of design.py. Null means deliberately unconnected.",
+  "passive_sources": {
+    "R1-R13, C1-C20": "README.md: How the circuit works, Parts, and T5-T6; rev A schematic drawing for reference and pin assignments, including the unpopulated filter positions.",
+    "R14-R15": "Rev A schematic drawing and README.md: Optional battery. R14 holds Q3 gate at ground; R15 limits the raw-pack warning LED current.",
+    "J2": "README.md: Assembly and rev A schematic drawing, reset contacts."
+  },
   "pin_sources": {
     "A1": "https://nicekeyboards.com/docs/nice-nano/pinout-schematic/ (v2 top-view map, confirm actual clone)",
     "U1-U6": "https://www.dowaytech.com/en/res/202408/21/dd53d68876041b0f.pdf (MDT pin assignment and package)",
@@ -10,7 +15,7 @@
     "S1": "https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5 (p. 2, positions and common)"
   },
   "nets": {
-    "A1": {"3":"GND","4":"GND","5":"S0","6":"S1","7":"S2","8":"S3","9":"MUX_EN_N","10":"PWR_A_N","11":"PWR_B_N","18":"AIN_A","19":"AIN_B","20":"AIN_SPARE","21":"VCC","22":"RST","23":"GND","24":"BAT_SW"},
+    "A1": {"1":null,"2":null,"3":"GND","4":"GND","5":"S0","6":"S1","7":"S2","8":"S3","9":"MUX_EN_N","10":"PWR_A_N","11":"PWR_B_N","12":null,"13":null,"14":null,"15":null,"16":null,"17":null,"18":"AIN_A","19":"AIN_B","20":"AIN_SPARE","21":"VCC","22":"RST","23":"GND","24":"BAT_SW"},
     "U1": {"1":"VS_A","2":"OUT1","3":"GND"},
     "U2": {"1":"VS_A","2":"OUT2","3":"GND"},
     "U3": {"1":"VS_A","2":"OUT3","3":"GND"},
@@ -25,8 +30,50 @@
     "J1": {"1":"BAT_P","2":"GND","MP":"GND"},
     "D1": {"1":"GND","2":"BAT_REV"},
     "S1": {"1":"BAT_SW","2":"BAT_F","3":null,"MP":"GND"},
+    "J2": {"1":"RST","2":"GND"},
+    "J3": {"1":"GND","2":"VCC","3":"VSW_A","4":"VS_A","5":"VSW_B","6":"VS_B","7":"S0","8":"AIN_SPARE","9":"MUXB","10":"MUXA"},
+    "R1": {"1":"PWR_A_N","2":"GATE_A"},
+    "R2": {"1":"PWR_B_N","2":"GATE_B"},
+    "R3": {"1":"GATE_A","2":"GND"},
+    "R4": {"1":"GATE_B","2":"GND"},
+    "R5": {"1":"VSW_A","2":"VS_A"},
+    "R6": {"1":"VSW_B","2":"VS_B"},
+    "R7": {"1":"VS_A","2":"MON_A"},
+    "R8": {"1":"VS_B","2":"MON_B"},
+    "R9": {"1":"MON_A","2":"GND"},
+    "R10": {"1":"MON_B","2":"GND"},
+    "R11": {"1":"MUXA","2":"AIN_A"},
+    "R12": {"1":"MUXB","2":"AIN_B"},
+    "R13": {"1":"MUX_EN_N","2":"GND"},
     "R14": {"1":"BAT_G","2":"GND"},
     "R15": {"1":"BAT_P","2":"BAT_REV"},
-    "J3": {"1":"GND","2":"VCC","3":"VSW_A","4":"VS_A","5":"VSW_B","6":"VS_B","7":"S0","8":"AIN_SPARE","9":"MUXB","10":"MUXA"}
+    "C1": {"1":"VS_A","2":"GND"},
+    "C2": {"1":"VS_A","2":"GND"},
+    "C3": {"1":"VS_A","2":"GND"},
+    "C4": {"1":"VS_B","2":"GND"},
+    "C5": {"1":"VS_B","2":"GND"},
+    "C6": {"1":"VS_B","2":"GND"},
+    "C7": {"1":"VCC","2":"GND"},
+    "C8": {"1":"VCC","2":"GND"},
+    "C9": {"1":"VCC","2":"GND"},
+    "C11": {"1":"OUT1","2":"GND"},
+    "C12": {"1":"OUT2","2":"GND"},
+    "C13": {"1":"OUT3","2":"GND"},
+    "C14": {"1":"OUT4","2":"GND"},
+    "C15": {"1":"OUT5","2":"GND"},
+    "C16": {"1":"OUT6","2":"GND"},
+    "C17": {"1":"MON_A","2":"GND"},
+    "C18": {"1":"MON_B","2":"GND"},
+    "C19": {"1":"AIN_A","2":"GND"},
+    "C20": {"1":"AIN_B","2":"GND"}
+  },
+  "values": {
+    "R1":"100R", "R2":"100R", "R3":"100k", "R4":"100k", "R5":"10R", "R6":"10R",
+    "R7":"10k", "R8":"10k", "R9":"10k", "R10":"10k", "R11":"0R", "R12":"0R",
+    "R13":"10k", "R14":"100k", "R15":"1k",
+    "C1":"100nF", "C2":"100nF", "C3":"100nF", "C4":"10nF", "C5":"10nF", "C6":"10nF",
+    "C7":"100nF", "C8":"100nF", "C9":"1uF",
+    "C11":"100pF", "C12":"100pF", "C13":"100pF", "C14":"100pF", "C15":"100pF", "C16":"100pF",
+    "C17":"100pF", "C18":"100pF", "C19":"1nF", "C20":"1nF"
   }
 }

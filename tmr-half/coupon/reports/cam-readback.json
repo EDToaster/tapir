@@ -81,6 +81,7 @@
     "FID2": 4.0,
     "FID3": 4.0
   },
+  "min_fiducial_centre_to_routed_edge_mm": 3.85,
   "outline_mm_including_line_width": [
     92.05,
     50.05

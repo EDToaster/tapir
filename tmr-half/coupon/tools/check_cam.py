@@ -2,7 +2,7 @@
 """Read the plotted Gerber and drill files back with gerbonara 1.6.3 and compare them with the KiCad board.
 
 Checks that every numbered pad is flashed at its position with its net, that every drill hit matches a
-pad or via, and that the outline is closed and matches the board bounds.
+pad or via, that the outline is closed and matches the board bounds, and that the fiducials are inboard.
 """
 import json
 import sys
@@ -15,6 +15,8 @@ from cam_geometry import copper_shape, outline_polygon
 
 ROOT = Path(__file__).resolve().parents[1]
 STEM = "tmr-coupon"
+# Coupon centre-distance allowance: 3.35 mm edge guidance + 0.50 mm pad radius.
+MIN_FIDUCIAL_CENTRE_TO_EDGE_MM = 3.85
 plots = ROOT / "fab" / "gerbers"
 native = json.loads((ROOT / "build" / "native.json").read_text())
 out = {"parser": "gerbonara " + version("gerbonara"), "layers": {}, "drills": {}, "copper_lands": {}}
@@ -87,12 +89,20 @@ for suffix, ident in layers.items():
             if len(flashes) != 1 or getattr(flashes[0].aperture, "diameter", None) != expected:
                 sys.exit(f"{ref}: expected one {expected} mm fiducial flash on {key}")
             fid.append(ref)
-            fid_edge[ref] = round(outline.boundary.distance(Point(x, y)), 4)
+            if key == "B_Cu":
+                centre = Point(flashes[0].x, flashes[0].y)
+                # Compare before rounding; the epsilon handles floating-point noise only.
+                distance = outline.boundary.distance(centre) if outline.covers(centre) else 0.0
+                if distance + 1e-9 < MIN_FIDUCIAL_CENTRE_TO_EDGE_MM:
+                    sys.exit(f"{ref}: fiducial centre {distance:.4f} mm inboard; "
+                             f"minimum {MIN_FIDUCIAL_CENTRE_TO_EDGE_MM:.2f} mm")
+                fid_edge[ref] = round(distance, 4)
         if len(fid) != 3:
             sys.exit(f"{key}: expected three assembly fiducials")
         out["layers"][suffix]["fiducials"] = sorted(fid)
         if key == "B_Cu":
             out["fiducial_centres_to_routed_edge_mm"] = dict(sorted(fid_edge.items()))
+            out["min_fiducial_centre_to_routed_edge_mm"] = MIN_FIDUCIAL_CENTRE_TO_EDGE_MM
 for kind in ("PTH", "NPTH"):
     f = ExcellonFile.open(plots / f"{STEM}-{kind}.drl", plated=kind == "PTH"); pending = list(native[kind]); worst = 0
     for o in f.objects:

@@ -6,12 +6,13 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from design import circuit
 
-want, declared = {}, set()
+want, declared, manifest_values = {}, set(), {}
 pin_errors = []
 checked = 0
 reference = json.loads(Path(__file__).with_name("datasheet-pins.json").read_text())
 seen = set()
 for c in circuit()["components"]:
+    manifest_values[c["ref"]] = c["value"]
     if c["mpn"] in reference:
         seen.add(c["mpn"])
         expected = dict(entry.split(":") for entry in reference[c["mpn"]]["pins"].split())
@@ -24,13 +25,16 @@ for c in circuit()["components"]:
         if pin["net"]:
             want[(c["ref"], pad)] = pin["net"]
 got = {}
-for net in ET.parse(sys.argv[1]).getroot().iter("net"):
+root = ET.parse(sys.argv[1]).getroot()
+schematic_values = {c.get("ref"): c.findtext("value") for c in root.findall("./components/comp")}
+for net in root.iter("net"):
     name = net.get("name").lstrip("/")
     for node in net.iter("node"):
         if not name.startswith("unconnected-"):
             got[(node.get("ref"), node.get("pin"))] = name
 bad = sorted(k for k in set(want) | set(got) if want.get(k) != got.get(k))
-critical = json.loads(Path(__file__).with_name("critical-connections.json").read_text())["nets"]
+intent = json.loads(Path(__file__).with_name("critical-connections.json").read_text())
+critical = intent["nets"]
 critical_errors = []
 for ref, pins in critical.items():
     for pin, expected in pins.items():
@@ -39,6 +43,12 @@ for ref, pins in critical.items():
             critical_errors.append(k)
             print(f"CRITICAL CONNECTION {ref}.{pin}: expected {expected!r}, "
                   f"manifest {want.get(k)!r}, schematic {got.get(k)!r}")
+value_errors = []
+for ref, expected in intent["values"].items():
+    manifest, schematic = manifest_values.get(ref), schematic_values.get(ref)
+    if manifest != expected or schematic != expected:
+        value_errors.append(ref)
+        print(f"CRITICAL VALUE {ref}: expected {expected!r}, manifest {manifest!r}, schematic {schematic!r}")
 for k in bad:
     print("MISMATCH", k, "manifest", want.get(k), "schematic", got.get(k))
 for part, expected, actual in pin_errors:
@@ -49,4 +59,5 @@ print(f"schematic netlist: {len(got)} connected pins, {len(set(got.values()))} n
       f"datasheet: {checked} manifest pins checked, {len(pin_errors)} parts mismatch")
 print(f"critical connections: {sum(map(len, critical.values()))} independent pin assertions, "
       f"{len(critical_errors)} mismatches")
-sys.exit(1 if bad or pin_errors or unused or critical_errors else 0)
+print(f"critical values: {len(intent['values'])} independent passive assertions, {len(value_errors)} mismatches")
+sys.exit(1 if bad or pin_errors or unused or critical_errors or value_errors else 0)
