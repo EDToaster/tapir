@@ -8,7 +8,7 @@
   },
   "B.Silkscreen": {
    "areas": 24,
-   "ink_mm2": 392.2,
+   "ink_mm2": 388.9,
    "nearest_pad_hole_or_mark_mm": 0.299,
    "nearest_board_edge_mm": 0.625
   }

@@ -18,7 +18,7 @@ KEY_X, KEY_Y = (13.5, 32.55, 51.6), (14.0, 33.05)     # 19.05 mm pitch
 SENSOR_DY, CAP_DX = 4.40, 2.95                        # sensor centre south of the switch centre
 A1 = (74.62, 17.97)                                   # centre of the controller pad field
 HOLES = ((3, 3), (89, 3), (3, 47), (89, 47))
-FIDUCIALS = ((3, 13), (90, 14), (57, 46))
+FIDUCIALS = ((4, 15), (88, 14), (57, 46))
 ANTENNA = ((63.5, 30.45), (86.0, 30.45), (86.0, 35.6), (63.5, 35.6))
 N, S, E, Wd = (0, -1), (0, 1), (1, 0), (-1, 0)
 
@@ -229,7 +229,7 @@ def build():
         label(b, "ON", 69.75, 44.7, layer, 0.8); label(b, "OFF", 65.25, 44.7, layer, 0.8)
     label(b, "BATTERY", 70.9, 38.9, F, 1.0)
     label(b, "CHECK POLARITY", 75.0, 35.0, B, 1.0)
-    label(b, "REV", 86.45, 44.1, B, 1.0)
+    label(b, "POLARITY", 88.0, 43.8, B, 1.0)
     # Bottom silkscreen is mirrored so it reads correctly from the bottom.
     label(b, f"TMR HALF COUPON REV {REV}", 19.0, 2.4, B, 1.0)
     label(b, "RAIL A  K1-K3  100nF bypass", 16.0, 4.9, B, 0.8)

@@ -1,20 +1,233 @@
 {
+  "diagnostic_analog_pairs": {
+    "AIN_SPARE/AIN_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.878,
+      "min_via_to_track_or_via_gap_mm": 9.7831,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/AIN_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.8928,
+      "min_via_to_track_or_via_gap_mm": 9.6928,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 25.3171,
+      "min_via_to_track_or_via_gap_mm": 25.1171,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 23.1928,
+      "min_via_to_track_or_via_gap_mm": 22.9928,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/MUXA": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.2715,
+      "min_via_to_track_or_via_gap_mm": 2.0715,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/MUXB": {
+      "aggressor_vias_within_gap": 1,
+      "min_same_layer_track_gap_mm": 0.4274,
+      "min_via_to_track_or_via_gap_mm": 0.2274,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.648,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/OUT1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 31.1862,
+      "min_via_to_track_or_via_gap_mm": 30.9862,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/OUT2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 25.3654,
+      "min_via_to_track_or_via_gap_mm": 26.3957,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/OUT3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 10.904,
+      "min_via_to_track_or_via_gap_mm": 10.704,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/OUT4": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 24.4284,
+      "min_via_to_track_or_via_gap_mm": 24.2284,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/OUT5": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 27.8536,
+      "min_via_to_track_or_via_gap_mm": 27.6536,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/OUT6": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 17.888,
+      "min_via_to_track_or_via_gap_mm": 17.688,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/MUXB": {
+      "aggressor_vias_within_gap": 1,
+      "min_same_layer_track_gap_mm": 0.5071,
+      "min_via_to_track_or_via_gap_mm": 0.3071,
+      "opposite_parallel_mm": 0.744,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    }
+  },
   "gate": {
     "errors": [],
+    "exclusions": {
+      "AIN_SPARE": "unused analog node measured as victim; drive low when unused",
+      "BAT_G": "Q3 gate pulled to GND, not externally driven",
+      "GND": "return reference; not a driven aggressor",
+      "analog_to_analog": "MUXA/MUXB and spare neighbours reported separately",
+      "pads": "fixed footprint pin geometry checked separately by DRC",
+      "unconnected": "not driven"
+    },
+    "existing_coupling_exceptions": {
+      "AIN_SPARE/VSW_A": [
+        1.15,
+        3.0,
+        1,
+        0
+      ],
+      "AIN_SPARE/VSW_B": [
+        0.25,
+        3.0,
+        1,
+        0
+      ],
+      "MUXA/MON_A": [
+        0.4,
+        1.6,
+        1,
+        0
+      ],
+      "MUXA/VS_A": [
+        0.3,
+        4.6,
+        1,
+        0
+      ],
+      "MUXA/VS_B": [
+        0.3,
+        3.0,
+        1,
+        0
+      ],
+      "MUXB/RST": [
+        3.0,
+        12.25,
+        0,
+        0
+      ],
+      "OUT3/VCC": [
+        3.0,
+        5.4,
+        0,
+        0
+      ],
+      "OUT6/VS_B": [
+        1.25,
+        1.9,
+        0,
+        1
+      ]
+    },
     "max_ground_regions": {
       "B.Cu": 8,
       "F.Cu": 2
     },
     "min_stitches_per_region": 2,
+    "own_sensor_supply_escape_radius_mm": 1.5,
     "passed": true,
-    "reference_exception_floors_pct": {
-      "AIN_A": 58,
-      "AIN_B": 59,
-      "MUXA": 47,
-      "MUXB": 65,
-      "OUT1": 67,
-      "OUT2": 60,
-      "OUT4": 78
+    "proximity_aggressor_groups": {
+      "battery_connection_and_test": [
+        "BAT_P",
+        "BAT_F",
+        "BAT_SW",
+        "BAT_REV"
+      ],
+      "decoder_and_rail_control": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "MUX_EN_N",
+        "PWR_A_N",
+        "PWR_B_N"
+      ],
+      "reset": [
+        "RST"
+      ],
+      "switched_gate_supply_and_monitor": [
+        "GATE_A",
+        "GATE_B",
+        "VSW_A",
+        "VSW_B",
+        "VS_A",
+        "VS_B",
+        "MON_A",
+        "MON_B",
+        "VCC"
+      ]
+    },
+    "proximity_threshold_mm": 0.5,
+    "reference_regression_floors_pct": {
+      "AIN_A": 55,
+      "AIN_B": 56,
+      "MUXA": 44,
+      "MUXB": 62,
+      "OUT1": 64,
+      "OUT2": 57,
+      "OUT3": 82,
+      "OUT4": 75,
+      "OUT5": 97,
+      "OUT6": 77
     },
     "reference_target_pct": 80.0
   },
@@ -91,7 +304,7 @@
   "ground_regions": {
     "B.Cu": [
       {
-        "area_mm2": 2951.225,
+        "area_mm2": 2924.524,
         "two_sided_vias": 80
       },
       {
@@ -125,7 +338,7 @@
     ],
     "F.Cu": [
       {
-        "area_mm2": 3265.876,
+        "area_mm2": 3240.045,
         "two_sided_vias": 87
       },
       {
@@ -139,404 +352,2443 @@
   "ground_vias": 97,
   "pairs": {
     "AIN_A/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 15.8219,
+      "min_via_to_track_or_via_gap_mm": 17.9386,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 17.5463,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 21.2258,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 26.2655,
+      "min_via_to_track_or_via_gap_mm": 26.1155,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.8151,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.68,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 38.8667,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 37.3315,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.7176,
+      "min_via_to_track_or_via_gap_mm": 40.649,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 10.1621,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.3174,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.8602,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 13.2234,
+      "min_via_to_track_or_via_gap_mm": 15.6606,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.3835,
+      "min_via_to_track_or_via_gap_mm": 14.8772,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 39.0225,
+      "min_via_to_track_or_via_gap_mm": 38.8225,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_A/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.2002,
+      "min_via_to_track_or_via_gap_mm": 21.9205,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.97,
+      "min_via_to_track_or_via_gap_mm": 35.3424,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.0484,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.5249,
+      "min_via_to_track_or_via_gap_mm": 5.3749,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.8637,
+      "min_via_to_track_or_via_gap_mm": 9.3805,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_A/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.4769,
+      "min_via_to_track_or_via_gap_mm": 7.3722,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 19.8625,
+      "min_via_to_track_or_via_gap_mm": 21.9827,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 21.7375,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 24.9993,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 30.3688,
+      "min_via_to_track_or_via_gap_mm": 30.2188,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.5213,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.8328,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 38.4643,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 38.5554,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 10.4157,
+      "min_via_to_track_or_via_gap_mm": 41.5547,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.1703,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 15.3501,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.8602,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.2002,
+      "min_via_to_track_or_via_gap_mm": 15.9048,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.225,
+      "min_via_to_track_or_via_gap_mm": 15.2818,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 39.2578,
+      "min_via_to_track_or_via_gap_mm": 39.0578,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "AIN_B/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 13.2234,
+      "min_via_to_track_or_via_gap_mm": 22.7564,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.9898,
+      "min_via_to_track_or_via_gap_mm": 34.9797,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.6269,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.6173,
+      "min_via_to_track_or_via_gap_mm": 9.4673,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.9326,
+      "min_via_to_track_or_via_gap_mm": 6.59,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_B/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 10.7454,
+      "min_via_to_track_or_via_gap_mm": 11.6397,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 17.0857,
+      "min_via_to_track_or_via_gap_mm": 16.7357,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 22.6288,
+      "min_via_to_track_or_via_gap_mm": 22.939,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 27.124,
+      "min_via_to_track_or_via_gap_mm": 27.483,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.7114,
+      "min_via_to_track_or_via_gap_mm": 18.2214,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.7167,
+      "min_via_to_track_or_via_gap_mm": 4.607,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 7.25,
+      "min_via_to_track_or_via_gap_mm": 7.5473,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 25.3171,
+      "min_via_to_track_or_via_gap_mm": 25.1171,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 23.1928,
+      "min_via_to_track_or_via_gap_mm": 22.9928,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.2064,
+      "min_via_to_track_or_via_gap_mm": 2.3925,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.9575,
+      "min_via_to_track_or_via_gap_mm": 4.3238,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 7.5881,
+      "min_via_to_track_or_via_gap_mm": 7.3881,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 15.2371,
+      "min_via_to_track_or_via_gap_mm": 15.0371,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.4436,
+      "min_via_to_track_or_via_gap_mm": 1.9724,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.2105,
+      "min_via_to_track_or_via_gap_mm": 1.3467,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 2.221,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.6795,
+      "min_via_to_track_or_via_gap_mm": 2.4795,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.1685,
+      "min_via_to_track_or_via_gap_mm": 0.9685,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.7457,
+      "min_via_to_track_or_via_gap_mm": 1.5457,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.3025,
+      "min_via_to_track_or_via_gap_mm": 0.2017,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 1.002,
+      "victim_vias_within_gap": 1
+    },
+    "AIN_SPARE/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.4432,
+      "min_via_to_track_or_via_gap_mm": 0.2432,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.1,
+      "victim_vias_within_gap": 1
+    },
+    "AIN_SPARE/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.444,
+      "min_via_to_track_or_via_gap_mm": 3.244,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "AIN_SPARE/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.7073,
+      "min_via_to_track_or_via_gap_mm": 5.5073,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 36.2206,
+      "min_via_to_track_or_via_gap_mm": 36.0791,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 46.2301,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 51.689,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 43.287,
+      "min_via_to_track_or_via_gap_mm": 43.5882,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 31.3392,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 32.863,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 14.903,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 8.5201,
+      "min_via_to_track_or_via_gap_mm": 12.9744,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 28.9508,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 30.3062,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 41.386,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.0,
+      "min_via_to_track_or_via_gap_mm": 7.8831,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.65,
+      "min_via_to_track_or_via_gap_mm": 6.6641,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.47,
+      "min_via_to_track_or_via_gap_mm": 6.27,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.3459,
+      "min_via_to_track_or_via_gap_mm": 11.0029,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.9781,
+      "min_via_to_track_or_via_gap_mm": 2.8281,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 19.6776,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 36.5909,
+      "min_via_to_track_or_via_gap_mm": 37.9309,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.35,
+      "min_via_to_track_or_via_gap_mm": 11.4892,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_A/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 15.3657,
+      "min_via_to_track_or_via_gap_mm": 22.1774,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 24.5512,
+      "min_via_to_track_or_via_gap_mm": 24.6752,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 35.9958,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 41.9787,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 29.8874,
+      "min_via_to_track_or_via_gap_mm": 30.4871,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 28.632,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 28.1575,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 14.903,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.2825,
+      "min_via_to_track_or_via_gap_mm": 2.0825,
+      "opposite_parallel_mm": 0.112,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 24.1476,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 24.0252,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 42.9015,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.6462,
+      "min_via_to_track_or_via_gap_mm": 4.4462,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.65,
+      "min_via_to_track_or_via_gap_mm": 5.9609,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 8.1404,
+      "min_via_to_track_or_via_gap_mm": 8.0587,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.3459,
+      "min_via_to_track_or_via_gap_mm": 9.3167,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.7301,
+      "min_via_to_track_or_via_gap_mm": 14.3991,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 25.9301,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 31.9023,
+      "min_via_to_track_or_via_gap_mm": 33.9426,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.0774,
+      "min_via_to_track_or_via_gap_mm": 17.5873,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MON_B/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.35,
+      "min_via_to_track_or_via_gap_mm": 3.3993,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.7067,
+      "min_via_to_track_or_via_gap_mm": 12.5567,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 19.5048,
+      "min_via_to_track_or_via_gap_mm": 24.2423,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 23.3339,
+      "min_via_to_track_or_via_gap_mm": 28.3132,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 13.5313,
+      "min_via_to_track_or_via_gap_mm": 13.3313,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.5338,
+      "min_via_to_track_or_via_gap_mm": 7.2515,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.822,
+      "min_via_to_track_or_via_gap_mm": 11.6259,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.4017,
+      "min_via_to_track_or_via_gap_mm": 0.2017,
+      "opposite_parallel_mm": 1.445,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.245,
+      "victim_vias_within_gap": 1
+    },
+    "MUXA/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 14.3344,
+      "min_via_to_track_or_via_gap_mm": 14.7464,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.5915,
+      "min_via_to_track_or_via_gap_mm": 6.4225,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.2283,
+      "min_via_to_track_or_via_gap_mm": 9.5138,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.3341,
+      "min_via_to_track_or_via_gap_mm": 12.9995,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 8.3252,
+      "min_via_to_track_or_via_gap_mm": 9.9748,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.1196,
+      "min_via_to_track_or_via_gap_mm": 1.9196,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.6508,
+      "min_via_to_track_or_via_gap_mm": 2.4508,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.781,
+      "min_via_to_track_or_via_gap_mm": 0.581,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXA/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.7477,
+      "min_via_to_track_or_via_gap_mm": 0.5477,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.415,
+      "min_via_to_track_or_via_gap_mm": 1.265,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.6874,
+      "min_via_to_track_or_via_gap_mm": 3.8192,
+      "opposite_parallel_mm": 0.544,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.8517,
+      "min_via_to_track_or_via_gap_mm": 5.1333,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXA/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.4017,
+      "min_via_to_track_or_via_gap_mm": 0.2017,
+      "opposite_parallel_mm": 4.434,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.15,
+      "victim_vias_within_gap": 1
+    },
+    "MUXA/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.4016,
+      "min_via_to_track_or_via_gap_mm": 0.2016,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.148,
+      "victim_vias_within_gap": 1
     },
     "MUXB/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.7319,
+      "min_via_to_track_or_via_gap_mm": 2.5819,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXB/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 18.396,
+      "min_via_to_track_or_via_gap_mm": 18.196,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 24.2589,
+      "min_via_to_track_or_via_gap_mm": 24.0589,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXB/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.5332,
+      "min_via_to_track_or_via_gap_mm": 9.6831,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 7.3732,
+      "min_via_to_track_or_via_gap_mm": 7.1732,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 9.0589,
+      "min_via_to_track_or_via_gap_mm": 10.4932,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 14.3294,
+      "min_via_to_track_or_via_gap_mm": 14.1294,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.3765,
+      "min_via_to_track_or_via_gap_mm": 0.8146,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.144,
+      "victim_vias_within_gap": 0
     },
     "MUXB/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.7536,
+      "min_via_to_track_or_via_gap_mm": 0.5536,
       "opposite_parallel_mm": 1.084,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXB/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.9339,
+      "min_via_to_track_or_via_gap_mm": 9.8494,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXB/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.9597,
+      "min_via_to_track_or_via_gap_mm": 9.1622,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 8.1838,
+      "min_via_to_track_or_via_gap_mm": 7.9838,
+      "opposite_parallel_mm": 12.054,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXB/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.322,
+      "min_via_to_track_or_via_gap_mm": 2.122,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXB/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.6792,
+      "min_via_to_track_or_via_gap_mm": 1.4792,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXB/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.5554,
+      "min_via_to_track_or_via_gap_mm": 5.1855,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "MUXB/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.3036,
+      "min_via_to_track_or_via_gap_mm": 3.7061,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.963,
+      "min_via_to_track_or_via_gap_mm": 3.763,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.6953,
+      "min_via_to_track_or_via_gap_mm": 4.4953,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.4406,
+      "min_via_to_track_or_via_gap_mm": 5.2906,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.7792,
+      "min_via_to_track_or_via_gap_mm": 2.5792,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "MUXB/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.3062,
+      "min_via_to_track_or_via_gap_mm": 2.1062,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 44.8211,
+      "min_via_to_track_or_via_gap_mm": 44.7139,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 55.077,
+      "min_via_to_track_or_via_gap_mm": 55.6703,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 60.6207,
+      "min_via_to_track_or_via_gap_mm": 61.145,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 49.5174,
+      "min_via_to_track_or_via_gap_mm": 49.3174,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 40.2089,
+      "min_via_to_track_or_via_gap_mm": 40.4451,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 41.8395,
+      "min_via_to_track_or_via_gap_mm": 42.2064,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.5891,
+      "min_via_to_track_or_via_gap_mm": 3.665,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 20.2846,
+      "min_via_to_track_or_via_gap_mm": 21.4137,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.7822,
+      "min_via_to_track_or_via_gap_mm": 4.5822,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 37.9348,
+      "min_via_to_track_or_via_gap_mm": 38.3457,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 39.2667,
+      "min_via_to_track_or_via_gap_mm": 39.7551,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 49.4024,
+      "min_via_to_track_or_via_gap_mm": 49.2045,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.1,
+      "min_via_to_track_or_via_gap_mm": 1.0754,
       "opposite_parallel_mm": 2.889,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.75,
+      "min_via_to_track_or_via_gap_mm": 2.1365,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.1839,
+      "min_via_to_track_or_via_gap_mm": 4.9839,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT1/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.6225,
+      "min_via_to_track_or_via_gap_mm": 5.4225,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.7853,
+      "min_via_to_track_or_via_gap_mm": 6.5853,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 27.7126,
+      "min_via_to_track_or_via_gap_mm": 27.5502,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 28.4649,
+      "min_via_to_track_or_via_gap_mm": 28.2649,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.7879,
+      "min_via_to_track_or_via_gap_mm": 0.6379,
+      "opposite_parallel_mm": 2.114,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT1/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 18.6006,
+      "min_via_to_track_or_via_gap_mm": 23.3003,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 37.8578,
+      "min_via_to_track_or_via_gap_mm": 37.807,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 48.5699,
+      "min_via_to_track_or_via_gap_mm": 49.3611,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 54.4148,
+      "min_via_to_track_or_via_gap_mm": 55.2197,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 44.4654,
+      "min_via_to_track_or_via_gap_mm": 44.8742,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 35.7304,
+      "min_via_to_track_or_via_gap_mm": 36.6678,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 36.6126,
+      "min_via_to_track_or_via_gap_mm": 37.5205,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.4,
+      "min_via_to_track_or_via_gap_mm": 2.9422,
+      "opposite_parallel_mm": 1.394,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.1824,
+      "min_via_to_track_or_via_gap_mm": 12.4735,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.15,
+      "min_via_to_track_or_via_gap_mm": 4.0371,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 32.5332,
+      "min_via_to_track_or_via_gap_mm": 33.4347,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 33.4289,
+      "min_via_to_track_or_via_gap_mm": 34.2999,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 47.3147,
+      "min_via_to_track_or_via_gap_mm": 48.027,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.4,
+      "min_via_to_track_or_via_gap_mm": 2.4039,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.05,
+      "min_via_to_track_or_via_gap_mm": 3.4694,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.8189,
+      "min_via_to_track_or_via_gap_mm": 2.6821,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT2/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.15,
+      "min_via_to_track_or_via_gap_mm": 3.9707,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.5798,
+      "min_via_to_track_or_via_gap_mm": 5.3798,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 25.9574,
+      "min_via_to_track_or_via_gap_mm": 26.4055,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 24.35,
+      "min_via_to_track_or_via_gap_mm": 25.9176,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.6,
+      "min_via_to_track_or_via_gap_mm": 1.941,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT2/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 14.391,
+      "min_via_to_track_or_via_gap_mm": 14.9022,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 24.6209,
+      "min_via_to_track_or_via_gap_mm": 24.4709,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 33.344,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 38.2309,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 32.1507,
+      "min_via_to_track_or_via_gap_mm": 32.3246,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 16.8355,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 18.6918,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.1,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 15.2048,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.9199,
+      "min_via_to_track_or_via_gap_mm": 16.4849,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 15.0452,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 16.9299,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 27.2696,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.7,
+      "min_via_to_track_or_via_gap_mm": 7.7665,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.35,
+      "min_via_to_track_or_via_gap_mm": 5.6201,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 7.329,
+      "min_via_to_track_or_via_gap_mm": 10.7658,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT3/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.77,
+      "min_via_to_track_or_via_gap_mm": 5.5841,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.8821,
+      "min_via_to_track_or_via_gap_mm": 4.4233,
+      "opposite_parallel_mm": 5.239,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 5.57,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 22.3197,
+      "min_via_to_track_or_via_gap_mm": 23.5091,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.4908,
+      "min_via_to_track_or_via_gap_mm": 10.9985,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.048,
+      "victim_vias_within_gap": 0
+    },
+    "OUT3/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.3684,
+      "min_via_to_track_or_via_gap_mm": 19.4935,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 31.7039,
+      "min_via_to_track_or_via_gap_mm": 31.7973,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 43.0905,
+      "min_via_to_track_or_via_gap_mm": 43.3802,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 49.076,
+      "min_via_to_track_or_via_gap_mm": 49.3608,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 37.2287,
+      "min_via_to_track_or_via_gap_mm": 37.7654,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 34.5792,
+      "min_via_to_track_or_via_gap_mm": 34.4147,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 34.4,
+      "min_via_to_track_or_via_gap_mm": 34.2396,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 14.0807,
+      "min_via_to_track_or_via_gap_mm": 13.8807,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.7,
+      "min_via_to_track_or_via_gap_mm": 3.8025,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.773,
+      "min_via_to_track_or_via_gap_mm": 1.573,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 30.2834,
+      "min_via_to_track_or_via_gap_mm": 30.1221,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 30.2776,
+      "min_via_to_track_or_via_gap_mm": 30.1714,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 49.1151,
+      "min_via_to_track_or_via_gap_mm": 48.937,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.811,
+      "min_via_to_track_or_via_gap_mm": 0.611,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.8418,
+      "min_via_to_track_or_via_gap_mm": 0.6418,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.6601,
+      "min_via_to_track_or_via_gap_mm": 4.4601,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT4/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.0831,
+      "min_via_to_track_or_via_gap_mm": 3.8831,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.8918,
+      "min_via_to_track_or_via_gap_mm": 6.6918,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 29.5017,
+      "min_via_to_track_or_via_gap_mm": 29.3106,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 26.8499,
+      "min_via_to_track_or_via_gap_mm": 26.6499,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.9802,
+      "min_via_to_track_or_via_gap_mm": 6.7802,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT4/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.6,
+      "min_via_to_track_or_via_gap_mm": 2.4309,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 30.1248,
+      "min_via_to_track_or_via_gap_mm": 30.228,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 41.5337,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 47.5197,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 35.0911,
+      "min_via_to_track_or_via_gap_mm": 35.8088,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 33.4659,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 33.1018,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 15.176,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.4,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.9005,
+      "min_via_to_track_or_via_gap_mm": 1.7005,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 29.0534,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 28.975,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 48.2734,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.4,
+      "min_via_to_track_or_via_gap_mm": 2.9294,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 2.8666,
+      "min_via_to_track_or_via_gap_mm": 3.7008,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.6,
+      "min_via_to_track_or_via_gap_mm": 8.3696,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT5/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 7.6538,
+      "min_via_to_track_or_via_gap_mm": 7.5811,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 7.4177,
+      "min_via_to_track_or_via_gap_mm": 15.2924,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 29.347,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 36.8353,
+      "min_via_to_track_or_via_gap_mm": 38.8549,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 8.6173,
+      "min_via_to_track_or_via_gap_mm": 15.6587,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT5/VS_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.6,
+      "min_via_to_track_or_via_gap_mm": 5.4932,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/BAT_F": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 12.2276,
+      "min_via_to_track_or_via_gap_mm": 12.3767,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/BAT_P": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 23.6929,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/BAT_REV": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 29.667,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/BAT_SW": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 17.7718,
+      "min_via_to_track_or_via_gap_mm": 18.3,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/GATE_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 20.6356,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/GATE_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 18.2155,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/MON_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 14.9845,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/MON_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 0.7073,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/MUX_EN_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 1.6967,
+      "min_via_to_track_or_via_gap_mm": 1.4967,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/PWR_A_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 15.6536,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/PWR_B_N": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 14.2197,
+      "min_via_to_track_or_via_gap_mm": null,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/RST": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 30.8262,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/S0": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 3.7,
+      "min_via_to_track_or_via_gap_mm": 3.5491,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/S1": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 4.35,
+      "min_via_to_track_or_via_gap_mm": 4.7912,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/S2": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 7.3747,
+      "min_via_to_track_or_via_gap_mm": 8.1169,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
     },
     "OUT6/S3": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 8.4468,
+      "min_via_to_track_or_via_gap_mm": 8.3958,
       "opposite_parallel_mm": 0.0,
-      "same_mm": 0.0
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/VCC": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 6.9665,
+      "min_via_to_track_or_via_gap_mm": 14.8337,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/VSW_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 19.5686,
+      "min_via_to_track_or_via_gap_mm": null,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/VSW_B": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 21.9756,
+      "min_via_to_track_or_via_gap_mm": 24.3058,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/VS_A": {
+      "aggressor_vias_within_gap": 0,
+      "min_same_layer_track_gap_mm": 8.7574,
+      "min_via_to_track_or_via_gap_mm": 16.6007,
+      "opposite_parallel_mm": 0.0,
+      "same_layer_own_supply_escape_mm": 0.0,
+      "same_mm": 0.0,
+      "victim_vias_within_gap": 0
+    },
+    "OUT6/VS_B": {
+      "aggressor_vias_within_gap": 1,
+      "min_same_layer_track_gap_mm": 0.4735,
+      "min_via_to_track_or_via_gap_mm": 0.3624,
+      "opposite_parallel_mm": 1.725,
+      "same_layer_own_supply_escape_mm": 1.048,
+      "same_mm": 1.098,
+      "victim_vias_within_gap": 0
     }
   },
   "reference": {

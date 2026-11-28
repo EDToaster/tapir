@@ -46,11 +46,13 @@ Controller pads as seen from the top with USB at the top edge. Pin names follow 
 | PWR_B_N | P1.04 | D8 | High turns rail B off. Use standard drive and low-frequency switching per the [Nordic pin table](https://docs.nordicsemi.com/r/bundle/ps_nrf52840/page/pin.html) (**drawing**). |
 | AIN_A | P0.02 / AIN0 | | Mux A output (K1–K3) |
 | AIN_B | P0.29 / AIN5 | | Mux B output (K4–K6) |
-| AIN_SPARE | P0.31 / AIN7 | | Only goes to J3 pin 8 |
+| AIN_SPARE | P0.31 / AIN7 | | Only goes to J3 pin 8. Configure as an output driven low when unused. |
 | VCC | 3.3 V pin | | Supplies the muxes and both rail switches |
 | B+ | battery pin | RAW position | From J1 through Q3 and S1. Verify B+ on your actual clone. |
 
 Debug header J3 is vertical, pad 1 nearest the top edge. In pad order: GND, 3V3, SWA (before A shunt), VSA (after A shunt), SWB, VSB, S0, A7, MXB, MXA. The labels are on the bottom.
+
+J3 is an exposed bench header, without added ESD protection or a fuse. Clip ground first and attach insulated probes with power off. Do not bridge 3V3 or either rail to a mux output; never drive J3 pin 8 while P0.31 is driving it low. Rev A has no S0–S3 pulls. While those GPIOs are high-impedance (reset, bootloader, or sleep modes that release them), the mux channel is undefined and floating input levels can increase supply current. Drive the selects to a known level before sampling and park them before sleep if the GPIO state is retained. Full-board pull-downs are Proposed in D19.
 
 ## Layout
 
@@ -74,26 +76,30 @@ Design rules used, against [JLCPCB's published limits](https://jlcpcb.com/capabi
 | Track width | 0.20 signal class, 0.40 power class, 0.15 absolute minimum; five signal segments below class width | 0.10 |
 | Clearance | 0.20 | 0.10 |
 | Via | 0.60 pad, 0.30 hole | 0.25 pad, 0.15 hole |
-| Copper to board edge | 0.30 | 0.20 |
+| Copper to board edge | 0.30 DRC; 0.4000 pour, 0.5273 track, 0.5350 via, 0.4350 pad (generated Gerber to routed centreline) | 0.20 fabrication; >0.30 for Economic assembly traces |
 | Copper to unplated hole | 0.30 | 0.20 |
 | Silkscreen text height | 1.0 | 1.0 |
 | Silkscreen line width | 0.15 text strokes; 0.30 thinnest pattern feature | 0.15 |
 | Silkscreen to pad | 0.30 for the pattern | 0.15 |
 
-FreeRouting generated the routes. The [analog layout report](reports/analog-layout.json) measures zero analog/control parallel length at less than 0.50 mm same-layer gap and a worst opposite-layer parallel span of 2.889 mm (OUT1/S0). Three nets meet the 80% opposite-layer ground coverage goal. The gate holds each remaining net to its achieved coverage rounded down to a whole percent. MUXA coverage ended lower than on the original route; the new route removes long address-line coupling and improves coverage at both ADC inputs.
+Round 2 reused the reviewed route, with no signal copper moved. The [analog layout report](reports/analog-layout.json) measures track and via proximity from 21 aggressors (address/control, reset, battery, rails, gates and MON), including MON and AIN_SPARE as victims. A sensor's own supply near its VCC pad is reported separately within a 1.5 mm escape radius (**allowance**). The existing rail/MON proximities, the 12.054 mm MUXB/RST and 5.239 mm OUT3/VCC opposite-layer parallel spans are retained and reported; do not sample during reset or VCC transitions. T2–T4 still have to measure the actual effect. These geometry checks are not a prediction of coupled noise.
 
-| Net | Original coverage (%) | Rebuilt coverage (%) |
-| --- | ---: | ---: |
-| OUT1 | 74.0 | 67.7 |
-| OUT2 | 52.9 | 60.8 |
-| OUT3 | 45.2 | 85.0 |
-| OUT4 | 42.4 | 78.9 |
-| OUT5 | 31.5 | 100.0 |
-| OUT6 | 48.0 | 80.8 |
-| MUXA | 55.3 | 47.2 |
-| MUXB | 54.5 | 65.9 |
-| AIN_A | 0.0 | 58.9 |
-| AIN_B | 0.0 | 59.1 |
+In the close-track metric (**measured** by the repository gate from KiCad geometry), AIN_SPARE runs 2.221 mm within 0.50 mm of S1, at a minimum edge gap of 0.2105 mm. AIN_SPARE/MUXB have 0.648 mm of close same-layer run and a 0.2274 mm via proximity. MUXA/MUXB have no close same-layer track run, 0.744 mm of opposite-layer parallel overlap and a 0.3071 mm closest via proximity. These track/via numbers exclude component lands; the review's 5.7 mm segment tally near J3 and R11 is an upper bound, not projected parallel length.
+
+Three nets meet the unchanged 80% opposite-layer ground coverage goal. The regression floors give roughly three percentage points of headroom below achieved coverage; they are not design targets.
+
+| Net | Original coverage (%) | Rev A coverage (%) | Regression floor (%) |
+| --- | ---: | ---: | ---: |
+| OUT1 | 74.0 | 67.7 | 64 |
+| OUT2 | 52.9 | 60.8 | 57 |
+| OUT3 | 45.2 | 85.0 | 82 |
+| OUT4 | 42.4 | 78.9 | 75 |
+| OUT5 | 31.5 | 100.0 | 97 |
+| OUT6 | 48.0 | 80.8 | 77 |
+| MUXA | 55.3 | 47.2 | 44 |
+| MUXB | 54.5 | 65.9 | 62 |
+| AIN_A | 0.0 | 58.9 | 55 |
+| AIN_B | 0.0 | 59.1 | 56 |
 
 The generated board has 97 two-sided ground stitching vias, two front/eight back filled regions and at least two ties per region. All 17 critical ground pads touch local pour; their longest distance to a through stitch is 1.05 mm. Of 336.369 mm of retained GND trace, 44.313 mm of centreline lies outside a same-layer pour. The fill minimum is 0.20 mm on both layers; the first substantial split in the erosion screen is at 0.240 mm front and 0.200 mm back. These are CAD measurements and a geometry screen, not measurements of etching or electrical performance. T2 through T4 still need physical measurements.
 
@@ -172,12 +178,25 @@ To change the look, edit `ZOOM` or `CROP` in `silk_pattern.py` and run `tools/bu
 Wait for the owner's approval before buying anything. The proposed comparison is one assembled batch at nominal 1.2 mm and one at 1.6 mm. A cheaper option is one assembled thickness plus bare boards at the other thickness. Populate at least one bare board with the same parts and capacitor options before comparing. Choose at order time.
 
 1. Upload `fab/tmr-coupon-revA-gerbers.zip` for each thickness. Confirm the detected 92 × 50 mm outline and two layers (**drawing**).
-2. Set the chosen thickness. [JLCPCB Economic PCB Assembly capabilities](https://jlcpcb.com/capabilities/pcb-assembly-capabilities) list both thicknesses for a single board of this size. Green solder mask and HASL are available for both. Use the same finish and mask for the comparison. Choose “Order Number (Specify Position)” if using the bottom-side placeholder.
+2. Set the chosen thickness. [JLCPCB Economic PCB Assembly capabilities](https://jlcpcb.com/capabilities/pcb-assembly-capabilities) list both thicknesses for a single board of this size. Choose green solder mask and explicitly select lead-free HASL if available for both thicknesses (Proposed); use the same finish and mask for the comparison. Choose “Order Number (Specify Position)” if using the bottom-side placeholder.
 3. Turn on Economic PCB Assembly and select **Bottom Side** for the assembled batch or batches. Two or five boards per assembled batch fit the published two-layer green/HASL options.
 4. Upload `fab/tmr-coupon-revA-bom-jlc.csv` and `fab/tmr-coupon-revA-cpl-jlc.csv`. Check the fitted lines match the exported BOM: 16 BOM lines.
 5. For a complete assembly, stop unless the sensors are available in the JLCPCB parts library for your order. See [Sensor stock](#sensor-stock).
-6. Inspect the placement preview before paying. Check mux pin 1 at the triangles, sensors and MOSFETs on their correct pads, the warning LED polarity, and the connector opening and switch lever toward the edge. The build checks exported rotations against the assembler's library pad positions offline. The preview is the final confirmation.
-7. If JLCPCB calls for edge rails because of the switch, check that the rails can be removed without striking the actuator. Allow for 1.00 mm nominal lever overhang.
+6. Inspect the placement preview before paying. Check mux pin 1 at the triangles, sensors and MOSFETs on the right pads, the warning LED polarity, and the J1 opening and S1 lever toward the edge. Confirm S1's two pegs centre over the two Ø0.90 mm holes and the sensor bodies centre 4.40 mm south of their switch centres (**drawing**). The offline CPL gate is not a substitute for this preview.
+7. Account for the edge conflict. S1's body is 0.50 mm inside the nominal routed edge, but its lever overhangs by 1.00 mm; J1 mates toward the same edge. The [Economic FAQ](https://jlcpcb.com/help/article/pcb-assembly-faqs-part-2) asks for more than 0.30 mm clearance for traces and components and quotes about 0.20 mm routing tolerance; the [assembly terms](https://jlcpcb.com/help/article/terms-and-conditions-of-jlcpcb-assembly-service) call for at least 2.5 mm for component bodies. A copper-rule pass does not clear the assembly envelope. Plan for one of three outcomes: an engineering query/hold for Economic assembly, Standard assembly with removable rails and actuator clearance, or deselect S1 in the assembly order and hand-fit it after depaneling.
+8. Review the tooling and final production file. The [after-sales FAQ](https://jlcpcb.com/help/article/common-pcba-after-sales-issues-and-faq) says Economic assembly typically adds two or three Ø1.152 mm NPTH tooling holes near the corners. Use blank corner locations where possible; corner copper is ground only, not a licence to cut a stitch, interfere with an M2 hole, or cut live copper elsewhere. Confirm the tooling holes, rails, fitted part list and placement/polarity in the live production file under Order History before release. Do not assume it matches the preview.
+
+### Before you pay
+
+- **Sensor supply:** Verify enough of C55130211 for the order and assembly allowance, or choose the documented hand-solder route. Do not rely on a stock snapshot.
+- **Thickness:** Choose the D12 plan for the 1.2 mm and 1.6 mm comparison, with matching parts, mask and finish.
+- **Edge assembly:** Accept the S1 overhang risk and choose an assembly fallback. Check the new tooling holes and how any rails clear the actuator and J1.
+- **Battery:** Accept that reverse pack + USB + S1 on remains unprotected. Use the first-connection procedure each time and accept the Proposed D18 LED limitation separately.
+- **Test firmware:** Plan the bare-metal T3/T6 timing test; it is not implemented, and the ZMK sketch does not replace it.
+- **Clone checks:** Verify B+, VCC and P0.13 on the actual controller before soldering.
+- **Placement:** Complete step 6, including both S1 pegs and all six sensor centres; confirm the final production file when available.
+- **Ground reference:** Accept 47.2% under MUXA and 65.9% under MUXB as coupon limits, not full-board targets.
+- **Extended fees:** Check the live quote for all four Extended lines (sensors, S1, muxes and J1). No fee amount has been verified.
 
 ## Assembly and bring-up
 
@@ -205,7 +224,9 @@ Use a compatible single-cell LiPo. Leave the module's charge-boost jumper open. 
 2. With USB still unplugged and S1 still OFF, plug in the pack. The reverse-polarity warning LED must stay dark. If it lights, unplug the pack and stop.
 3. Confirm with a meter that J1 pin 1 is positive relative to board GND, using accessible pads or test points. A dark LED alone does not prove correct polarity. If the reading is missing, negative or unclear, unplug the pack and investigate. Switch on only after a positive meter reading.
 
-The D1 indicator (KT-0603R) anode goes to GND and its cathode goes through R15 (1 kΩ) to raw J1 pin 1. That lets it light with a reversed pack even while S1 is off. With a reversed 3.0–4.2 V pack the current is roughly 1–2.5 mA (estimated, not a brightness guarantee). With a correctly connected pack, 4.2 V is below the LED's 5 V absolute reverse rating. The datasheet gives up to 5 µA reverse leakage at 5 V and 25 °C ([KENTO, p. 3](https://www.lcsc.com/datasheet/lcsc_datasheet_1810231112_Hubei-KENTO-Elec-KT-0603R_C2286.pdf)). Unplug a reversed pack immediately. Never deliberately test a reversed pack with USB attached.
+To check that the `POLARITY` LED works, use no battery, unplug USB and set S1 OFF. Use a floating bench supply set to 3.0 V with a 3 mA current limit (**test allowance**). With its output off, connect supply positive to board GND (J1.2) and negative to J1.1. Briefly enable the output and verify that D1 lights; disable it and disconnect both leads before attaching a pack or USB. If it does not light, stop and inspect D1, R15 and the connections. Never intentionally reverse a real pack. A dark LED does not prove correct polarity: use the meter check above.
+
+The D1 indicator (KT-0603R) anode goes to GND and its cathode goes through R15 (1 kΩ) to raw J1 pin 1. That lets it light with a reversed pack even while S1 is off. With a reversed 3.0–4.2 V pack the current is roughly 1–2.5 mA (estimate). A correctly connected fully charged 4.2 V pack reverse-biases D1 continuously, even with S1 OFF: 0.8 V below its 5 V absolute maximum, not a lifetime guarantee. [KENTO, pp. 2–3](https://www.lcsc.com/datasheet/lcsc_datasheet_1810231112_Hubei-KENTO-Elec-KT-0603R_C2286.pdf) specifies up to 5 µA reverse leakage at 5 V and 25 °C (**datasheet test condition**, not a measured 4.2 V drain or a hot limit). No extra diode in rev A. Continuous reverse bias, off-state drain and silent indicator failure are limits proposed for owner acceptance in D18.
 
 | Pack and power state | Expected behavior |
 | --- | --- |
@@ -241,10 +262,11 @@ Before switching a sensor rail or the module's 3.3 V supply off, stop ADC sampli
 
 ## ZMK starting point
 
-A sketch for [zmk-feature-hall-effect](https://github.com/cr3eperall/zmk-feature-hall-effect) written from its `he,kscan-multiplexer` binding at commit 5ecb125. It has not been built or run.
+A sketch for [zmk-feature-hall-effect](https://github.com/cr3eperall/zmk-feature-hall-effect) written from its `he,kscan-multiplexer` binding at commit 5ecb125. A stubbed devicetree syntax check is not a Zephyr binding or firmware build; the sketch has not been run.
 
 ```dts
 /* NRF_SAADC_AIN* comes from <dt-bindings/adc/nrf-adc.h> or nrf-saadc-v3.h, depending on the Zephyr version ZMK pins. */
+/* In firmware initialization, drive unused P0.31 (AIN_SPARE/J3.8) low as a GPIO output; do not bind it as an ADC input. */
 
 &adc {
     status = "okay";
@@ -292,7 +314,7 @@ A sketch for [zmk-feature-hall-effect](https://github.com/cr3eperall/zmk-feature
 };
 ```
 
-D6, D7 and D8 can stay unconfigured: the board's resistors enable the muxes and keep both rails on. Use `calibrate` to log the raw ADC counts. For normal keyboard operation, remove it, add measured calibration values and map only live key addresses to keys. Keep placeholder entries in address order for any gaps in each group's scanned range. Check polarity per mux with T1; the driver takes `switch-pressed-is-higher` at group level. Build and test this sketch before relying on it.
+D6, D7 and D8 can stay unconfigured: the board's resistors enable the muxes and keep both rails on. Configure P0.31 as an output driven low early in firmware if J3.8 is unused; the sketch only records this requirement. Use `calibrate` to log the raw ADC counts. For normal keyboard operation, remove it, add measured calibration values and map only live key addresses to keys. Keep placeholder entries in address order for any gaps in each group's scanned range. Check polarity per mux with T1; the driver takes `switch-pressed-is-higher` at group level. Build and test this sketch before relying on it.
 
 ## Rebuilding
 
@@ -305,12 +327,12 @@ CAM_PYTHON=/path/to/venv/bin/python FREEROUTING_JAR=/path/to/freerouting-2.5.0.j
 
 | Step | Tool | Gate |
 | --- | --- | --- |
-| Schematic | `check_schematic.py`, KiCad ERC | ERC reports 0 violations; 179 connected pins and 34 nets match the manifest, and 81 manufacturer pin entries match the independent datasheet fixture. This cannot verify the actual clone or circuit behaviour. |
+| Schematic | `check_schematic.py`, KiCad ERC | ERC reports 0 violations; 179 connected pins and 34 nets match the manifest, 81 manufacturer pin entries match the independent datasheet fixture, and 114 critical pin-to-net assertions independently check the circuit intent. This cannot verify the actual clone or circuit behaviour. |
 | Board | KiCad DRC, `check_mechanical.py` | 0 violations, 0 unconnected and 0 parity errors. Separately checks courtyard coverage/overlap, centre-hole clearance and battery trace width. These do not check physical switch fit or fabrication tolerances. |
 | Analog and thermal | `check_analog.py`, KiCad DRC | Measures coupling, reference coverage, ground ties and a filled-zone neck-width screen. DRC checks for two resolved thermal spokes, with the single solid A1.3 through-hole exception. The analog report lists copper area within 1 mm of each pad for two-pad SMD parts; D1 measures 1.92 vs 0.13 mm². This is not a reflow model. |
-| Assembly | `export_fab.py`, `check_cpl.py` | 16 JLC BOM lines, 42 placements; all fit the offline assembler-library pad map, with a worst pad-centre error of 0.217 mm (0.35 mm allowance). Still confirm the final placement preview. |
+| Assembly | `export_fab.py`, `check_cpl.py` | 16 JLC BOM lines, 42 placements. Maximum datum and peg errors are each under 0.001 mm (0.025 mm each allowed). Worst raw pad mismatch 0.2125 mm, worst residual 0.0750 mm after subtracting sourced per-pad land-pattern deltas (0.100 mm allowed). Still confirm the placement preview and production file. |
 | Decoration and legend | `check_silk.py`, `check_gerber_silk.py` | Measures decoration clearance and reads all plotted strokes, board edge, switch seats and via ink. Text height is checked against KiCad graphic geometry; Gerber text is plotted as strokes and has no text-height metadata. |
-| CAM read-back | `check_cam.py` | Reads copper/mask/paste, drills, outline and fiducials; checks export consistency against KiCad. Cannot validate the physical board. |
+| CAM read-back | `check_cam.py` | Reads copper/mask/paste, drills and the closed, rounded Edge.Cuts Gerber; measures copper-to-edge by feature type and confirms all three fiducial centres are 4.00 mm inboard. Cannot validate the physical board. |
 
 Pinned tools: KiCad 10.0.8 (`kicad/kicad:10.0.8` container), FreeRouting 2.5.0 (checksum in `freerouting.sh`) and the Python packages in [CAM requirements](tools/cam-requirements.txt). Reports are in [reports/](reports). `routing/tmr-coupon.ses` is the checked-in route. After changing placements, reroute and review the results; a fresh router run need not match that session. The build reads artwork from `silkscreen-patterns/` at the repo root, so use a full checkout.
 

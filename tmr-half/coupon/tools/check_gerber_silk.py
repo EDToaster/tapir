@@ -7,6 +7,7 @@ from gerbonara import GerberFile
 from gerbonara.graphic_objects import Arc, Flash, Line, Region
 from shapely.geometry import LineString, Point, Polygon, box
 from shapely.ops import unary_union
+from cam_geometry import outline_polygon
 
 ROOT = Path(__file__).resolve().parents[1]
 MIN_STROKE, MIN_TEXT, MIN_EDGE = 0.15, 1.0, 0.30
@@ -14,9 +15,7 @@ MIN_STROKE, MIN_TEXT, MIN_EDGE = 0.15, 1.0, 0.30
 
 def check(plots, native):
     result, problems = {}, []
-    # Plot coordinates use the native absolute datum with an inverted Y.
-    # Sample the specified 2 mm corners finely enough to resolve 0.001 mm.
-    outline = box(102, -148, 190, -102).buffer(2, quad_segs=64)
+    outline = outline_polygon(GerberFile.open(plots / "tmr-coupon-Edge_Cuts.gm1"))
     for side, extension in (("F", "gto"), ("B", "gbo")):
         artwork = GerberFile.open(plots / f"tmr-coupon-{side}_Silkscreen.{extension}")
         widths, dark = [], []

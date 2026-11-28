@@ -22,6 +22,7 @@ WORK = ROOT / "build" / "route"
 SESSION = ROOT / "routing" / (STEM + ".ses")
 FINAL = ROOT / (STEM + ".kicad_pcb")
 EDGE_INSET = 0.20
+POUR_EDGE_INSET = 0.40
 OUT2_GUIDE = [
     (133.825, 110.1, k.B_Cu), (133.825, 108.0, k.B_Cu),
     (133.825, 108.0, k.F_Cu), (136.0, 110.175, k.F_Cu),
@@ -270,8 +271,12 @@ def import_ses():
         sys.exit("SES import failed")
     for f in board.GetFootprints():
         pos, angle, layer = placements[f.GetReference()]
+        # Assembly fiducials are unrouted, unnumbered flashes. Restore their
+        # generated positions independently of the frozen signal session.
+        fiducial = f.GetReference() in {"FID1", "FID2", "FID3"} and all(
+            not p.GetNumber() and not p.GetNetCode() for p in f.Pads())
         if (abs((f.GetOrientationDegrees() - angle + 180) % 360 - 180) > 1e-6 or f.GetLayer() != layer
-                or max(abs(a - b) for a, b in zip(pos, f.GetPosition())) > 100):
+                or (not fiducial and max(abs(a - b) for a, b in zip(pos, f.GetPosition())) > 100)):
             sys.exit("Session moved footprint " + f.GetReference())
         f.SetPosition(k.VECTOR2I(*pos))
     if not list(board.GetTracks()):
@@ -310,7 +315,6 @@ def import_ses():
     for x, y in ((67.22, 11.84), (67.84, 11.84), (67.84, 12.47), (67.22, 12.47)):
         loop.Append(xy(x, y))
     # Ground fill is the primary return path, not a thin-track tree.
-    x0, y0 = ORIGIN
     for layer in (k.F_Cu, k.B_Cu):
         z = k.ZONE(board); board.Add(z); z.SetLayer(layer); z.SetNet(board.FindNet("GND"))
         z.SetZoneName("GND fill " + board.GetLayerName(layer)); z.SetUuid(k.KIID(uid("zone/" + z.GetZoneName())))
@@ -322,8 +326,14 @@ def import_ses():
         z.SetThermalReliefGap(k.FromMM(0.25)); z.SetThermalReliefSpokeWidth(k.FromMM(0.20))
         z.SetIslandRemovalMode(k.ISLAND_REMOVAL_MODE_ALWAYS)
         o = z.Outline(); o.NewOutline()
-        for x, y in ((0, 0), (W, 0), (W, H), (0, H)):
-            o.Append(k.VECTOR2I(k.FromMM(x0 + x), k.FromMM(y0 + y)))
+        # Inset the zone boundary itself rather than raising the global DRC
+        # rule and forcing moves of otherwise legal tracks or component pads.
+        r = RADIUS - POUR_EDGE_INSET
+        for cx, cy, a0 in ((W-RADIUS, RADIUS, -90), (W-RADIUS, H-RADIUS, 0),
+                           (RADIUS, H-RADIUS, 90), (RADIUS, RADIUS, 180)):
+            for i in range(17):
+                a = math.radians(a0 + i * 90/16)
+                o.Append(xy(cx + r*math.cos(a), cy + r*math.sin(a)))
     kept = 0
     for attempt in range(8):
         board.BuildConnectivity()

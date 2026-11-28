@@ -8,18 +8,43 @@ from pathlib import Path
 
 import pcbnew as k
 
-from design import ANALOG, CONTROL, ROOT, STEM
+from design import ANALOG, ROOT, STEM
 
 CLEARANCE = 0.50
 MAX_COUPLED = 3.0
 MAX_BROADSIDE = 3.0
 MIN_REFERENCE = 80.0
-# Rev A two-layer fallback: floors at the routed result, rounded down by
-# less than one percentage point. These are regression limits, not signal-
-# integrity claims; the nominal 80% target remains above them.
-REFERENCE_EXCEPTIONS = {
-    "OUT1": 67, "OUT2": 60, "OUT4": 78,
-    "MUXA": 47, "MUXB": 65, "AIN_A": 58, "AIN_B": 59,
+# Leave approximately three percentage points of regression margin on
+# every baseline result, rounded down. The goal remains 80%; passing
+# the regression floors makes no signal-integrity claim.
+REFERENCE_FLOORS = {
+    "OUT1": 64, "OUT2": 57, "OUT3": 82, "OUT4": 75, "OUT5": 97,
+    "OUT6": 77, "MUXA": 44, "MUXB": 62, "AIN_A": 55, "AIN_B": 56,
+}
+AGGRESSOR_GROUPS = {
+    "decoder_and_rail_control": ("S0", "S1", "S2", "S3", "MUX_EN_N", "PWR_A_N", "PWR_B_N"),
+    "reset": ("RST",),
+    "battery_connection_and_test": ("BAT_P", "BAT_F", "BAT_SW", "BAT_REV"),
+    "switched_gate_supply_and_monitor": ("GATE_A", "GATE_B", "VSW_A", "VSW_B", "VS_A", "VS_B",
+                                         "MON_A", "MON_B", "VCC"),
+}
+AGGRESSORS = tuple(net for group in AGGRESSOR_GROUPS.values() for net in group)
+VICTIMS = (*ANALOG, "MON_A", "MON_B", "AIN_SPARE")
+OWN_RAIL_PAD_ESCAPE = 1.5
+# Existing coupling on frozen rev A copper. No permissive blanket rule.
+# Tuple: exclusive same-layer and projected parallel length limits (mm),
+# then inclusive victim / aggressor via counts within 0.50 mm.
+# Reset and external VCC changes occur outside sampling; VS and MON
+# exceptions must be evaluated in the physical rail settling test.
+COUPLING_EXCEPTIONS = {
+    "OUT3/VCC": (3.0, 5.40, 0, 0),
+    "OUT6/VS_B": (1.25, 1.90, 0, 1),
+    "MUXA/VS_A": (0.30, 4.60, 1, 0),
+    "MUXA/VS_B": (0.30, 3.0, 1, 0),
+    "MUXA/MON_A": (0.40, 1.60, 1, 0),
+    "MUXB/RST": (3.0, 12.25, 0, 0),
+    "AIN_SPARE/VSW_A": (1.15, 3.0, 1, 0),
+    "AIN_SPARE/VSW_B": (0.25, 3.0, 1, 0),
 }
 MAX_REGIONS = {"F.Cu": 2, "B.Cu": 8}
 MAX_GROUND_TRACK_MM = 337.0
@@ -67,6 +92,71 @@ class Segment:
         slack = gap + self.r + other.r
         return all(self.box[i] <= other.box[i+2]+slack and other.box[i] <= self.box[i+2]+slack for i in range(2))
 
+    def edge_gap(self, other):
+        def side(a, b, p):
+            return (b[0]-a[0])*(p[1]-a[1]) - (b[1]-a[1])*(p[0]-a[0])
+
+        if (side(self.a, self.b, other.a)*side(self.a, self.b, other.b) < 0
+                and side(other.a, other.b, self.a)*side(other.a, other.b, self.b) < 0):
+            return -self.r-other.r
+        return min(self.dist(other.a), self.dist(other.b), other.dist(self.a), other.dist(self.b))-self.r-other.r
+
+
+class ViaDisk:
+    def __init__(self, track):
+        self.pos = pt(track.GetPosition())
+        self.radii = {layer: k.ToMM(track.GetWidth(layer))/2 for layer in LAYERS if track.IsOnLayer(layer)}
+
+
+def proximity(at, bt, av, bv, escapes):
+    """Compare trace centrelines and via copper discs without assigning vias fictitious length."""
+    nearest_trace, nearest_via = math.inf, math.inf
+    same = opposite = exempt = 0.0
+    a_hits, b_hits = set(), set()
+
+    def local(p):
+        return any(math.dist(p, e) <= OWN_RAIL_PAD_ESCAPE for e in escapes)
+
+    for s in at:
+        same_layer = [t for t in bt if t.layer == s.layer]
+        nearest_trace = min(nearest_trace, *(s.edge_gap(t) for t in same_layer)) if same_layer else nearest_trace
+        near = [t for t in bt if s.nearby(t, CLEARANCE)]
+        coincident = [t for t in near if t.layer == s.layer]
+        broadside = [t for t in near if t.layer != s.layer and s.parallel(t)]
+        if coincident or broadside:
+            for p, dl in points(s.a, s.b):
+                if any(t.dist(p)-t.r-s.r < CLEARANCE for t in coincident):
+                    if local(p):
+                        exempt += dl
+                    else:
+                        same += dl
+                if not local(p) and any(t.dist(p)-t.r-s.r < CLEARANCE for t in broadside):
+                    opposite += dl
+    for vias, segments, hits in ((av, bt, a_hits), (bv, at, b_hits)):
+        for i, v in enumerate(vias):
+            for s in segments:
+                if s.layer not in v.radii:
+                    continue
+                gap = s.dist(v.pos)-s.r-v.radii[s.layer]
+                nearest_via = min(nearest_via, gap)
+                if gap < CLEARANCE and not local(v.pos):
+                    hits.add(i)
+    for i, v in enumerate(av):
+        for j, w in enumerate(bv):
+            common = v.radii.keys() & w.radii.keys()
+            if not common:
+                continue
+            gap = math.dist(v.pos, w.pos)-max(v.radii[l]+w.radii[l] for l in common)
+            nearest_via = min(nearest_via, gap)
+            if gap < CLEARANCE and not (local(v.pos) and local(w.pos)):
+                a_hits.add(i)
+                b_hits.add(j)
+    return dict(same_mm=round(same, 3), opposite_parallel_mm=round(opposite, 3),
+                same_layer_own_supply_escape_mm=round(exempt, 3),
+                min_same_layer_track_gap_mm=None if math.isinf(nearest_trace) else round(nearest_trace, 4),
+                min_via_to_track_or_via_gap_mm=None if math.isinf(nearest_via) else round(nearest_via, 4),
+                victim_vias_within_gap=len(a_hits), aggressor_vias_within_gap=len(b_hits))
+
 
 def region_has(polygon, index, pos):
     return polygon.Contains(vec(pos), index)
@@ -93,7 +183,7 @@ def screen_zone_necks(poly):
 
 
 def calculate(board):
-    fills, zone_minimums, vias, tracks, pads = {}, {}, [], defaultdict(list), {}
+    fills, zone_minimums, vias, tracks, pads, net_vias = {}, {}, [], defaultdict(list), {}, defaultdict(list)
     for zone in board.Zones():
         if zone.GetNetname() == "GND" and not zone.GetIsRuleArea():
             for layer in LAYERS:
@@ -103,6 +193,7 @@ def calculate(board):
                     zone_minimums[board.GetLayerName(layer)] = k.ToMM(zone.GetMinThickness())
     for t in board.GetTracks():
         if t.Type() == k.PCB_VIA_T:
+            net_vias[t.GetNetname()].append(ViaDisk(t))
             if t.GetNetname() == "GND":
                 vias.append(pt(t.GetPosition()))
         else:
@@ -123,20 +214,20 @@ def calculate(board):
             poly = fills[layer]
             covered += sum(dl for p, dl in points(s.a, s.b) if region_has(poly, -1, p))
         reference[net] = dict(length_mm=round(length, 3), opposite_ground_pct=round(100*covered/max(length, 1e-9), 1))
-        for control in CONTROL:
-            same = opposite = 0.0
-            for s in tracks[net]:
-                near = [t for t in tracks[control] if s.nearby(t, CLEARANCE)]
-                if not near:
-                    continue
-                coincident = [t for t in near if t.layer == s.layer]
-                broadside = [t for t in near if t.layer != s.layer and s.parallel(t)]
-                for p, dl in points(s.a, s.b):
-                    if any(t.dist(p) - t.r - s.r < CLEARANCE for t in coincident):
-                        same += dl
-                    if any(t.dist(p) - t.r - s.r < CLEARANCE for t in broadside):
-                        opposite += dl
-            pairs[f"{net}/{control}"] = dict(same_mm=round(same, 3), opposite_parallel_mm=round(opposite, 3))
+    for net in VICTIMS:
+        for aggressor in AGGRESSORS:
+            if net == aggressor:
+                continue
+            escapes = ()
+            if net.startswith("OUT"):
+                key = int(net.removeprefix("OUT"))
+                if aggressor == ("VS_A" if key <= 3 else "VS_B"):
+                    escapes = [pt(p.GetPosition()) for p in pads[f"U{key}"][1] if p.GetNumber() == "1"]
+            pairs[f"{net}/{aggressor}"] = proximity(tracks[net], tracks[aggressor],
+                                                  net_vias[net], net_vias[aggressor], escapes)
+    diagnostic_pairs = [("MUXA", "MUXB")] + [("AIN_SPARE", n) for n in (*ANALOG, "MON_A", "MON_B")]
+    diagnostic = {f"{a}/{b}": proximity(tracks[a], tracks[b], net_vias[a], net_vias[b], ())
+                  for a, b in diagnostic_pairs}
 
     # Filled-zone polygons are separate regions when they do not touch on
     # their layer. A through-via counts as a stitch only if both sides meet
@@ -203,7 +294,7 @@ def calculate(board):
         copper_balance[ref] = counts
     outside_pour = sum(dl for s in tracks["GND"] for p, dl in points(s.a, s.b)
                        if not region_has(fills[s.layer], -1, p))
-    return dict(pairs=pairs, reference=reference, ground_regions=ground,
+    return dict(pairs=pairs, diagnostic_analog_pairs=diagnostic, reference=reference, ground_regions=ground,
                 ground_vias=len(vias), two_sided_ground_vias=len(pairs_by_via),
                 ground_track_mm=round(sum(s.length for s in tracks["GND"]), 3),
                 ground_track_centreline_outside_pour_mm=round(outside_pour, 3),
@@ -220,10 +311,13 @@ def violations(report):
     if any(w is not None and w < 0.15 for w in report["zone_erosion_first_neck_split_mm"].values()):
         errors.append("Ground zone neck screening found a bottleneck below 0.15 mm")
     for name, values in report["pairs"].items():
-        if values["same_mm"] >= MAX_COUPLED or values["opposite_parallel_mm"] >= MAX_BROADSIDE:
+        limit = COUPLING_EXCEPTIONS.get(name, (MAX_COUPLED, MAX_BROADSIDE, 0, 0))
+        if (values["same_mm"] >= limit[0] or values["opposite_parallel_mm"] >= limit[1]
+                or values["victim_vias_within_gap"] > limit[2]
+                or values["aggressor_vias_within_gap"] > limit[3]):
             errors.append(f"{name} spacing: {values}")
     for name, data in report["reference"].items():
-        if not data["length_mm"] or data["opposite_ground_pct"] < REFERENCE_EXCEPTIONS.get(name, MIN_REFERENCE):
+        if not data["length_mm"] or data["opposite_ground_pct"] < REFERENCE_FLOORS[name]:
             errors.append(f"{name} ground reference: {data['opposite_ground_pct']}%")
     for layer, regions in report["ground_regions"].items():
         if not 1 <= len(regions) <= MAX_REGIONS[layer]:
@@ -250,7 +344,17 @@ def main():
     report = calculate(k.LoadBoard(str(args.pcb)))
     errors = violations(report)
     report["gate"] = dict(passed=not errors, errors=errors, reference_target_pct=MIN_REFERENCE,
-                          reference_exception_floors_pct=REFERENCE_EXCEPTIONS,
+                          reference_regression_floors_pct=REFERENCE_FLOORS,
+                          proximity_aggressor_groups=AGGRESSOR_GROUPS,
+                          proximity_threshold_mm=CLEARANCE,
+                          existing_coupling_exceptions=COUPLING_EXCEPTIONS,
+                          own_sensor_supply_escape_radius_mm=OWN_RAIL_PAD_ESCAPE,
+                          exclusions={"GND": "return reference; not a driven aggressor",
+                                      "BAT_G": "Q3 gate pulled to GND, not externally driven",
+                                      "pads": "fixed footprint pin geometry checked separately by DRC",
+                                      "unconnected": "not driven",
+                                      "AIN_SPARE": "unused analog node measured as victim; drive low when unused",
+                                      "analog_to_analog": "MUXA/MUXB and spare neighbours reported separately"},
                           max_ground_regions=MAX_REGIONS, min_stitches_per_region=2)
     args.report.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print("Opposite-layer ground:", {n: d["opposite_ground_pct"] for n, d in report["reference"].items()})

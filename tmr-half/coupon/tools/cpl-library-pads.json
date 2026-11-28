@@ -2,6 +2,26 @@
   "source": "https://easyeda.com/api/products/{LCSC}/components?version=6.4.19.5",
   "fetched_utc": "2026-11-28 (2026-11-27 America/Cambridge_Bay)",
   "coordinates": "mm, relative to library origin, Y positive up; pad number, x, y",
+  "origins_10mil": {
+    "C14663": [4000,3000], "C14858": [4000,3000], "C15127": [395.2755,303.29],
+    "C15849": [4000,3000], "C21189": [4000,3000], "C21190": [4000,3000],
+    "C221841": [4000,2998.4255], "C22775": [4000,3000], "C22859": [4000,3000],
+    "C2286": [4000.8828,3003.1398], "C25803": [4000,3000], "C25804": [4000,3000],
+    "C295747": [4000,3011.122], "C55130211": [4000.0005,3000],
+    "C57112": [4000,3000], "C98457": [4000,3000]
+  },
+  "locating_holes_10mil": {"C221841": [[3994.095,3000],[4005.906,3000]]},
+  "board_datum": {"C221841": "midpoint of locator holes; all other coupon footprints use the library package origin"},
+  "land_pattern_allowances_mm": {
+    "C15127": {
+      "source": "KiCad 10.0.8 Package_TO_SOT_SMD:SOT-23 nominal row x=+/-0.9375 mm in assembler view, compared with EasyEDA C15127 x=+/-1.15 mm. Origins are package-centred; this is a land-spacing allowance, not a translation.",
+      "pads": {"1": [-0.2125,0], "2": [-0.2125,0], "3": [0.2125,0]}
+    },
+    "C55130211": {
+      "source": "MDT TMR2617S package p. 6 https://www.dowaytech.com/en/res/202408/21/dd53d68876041b0f.pdf and coupon toe limits in footprints.py:sensor. Assembler-view row x=1.05 and extended land 3 x=-1.225, versus EasyEDA C55130211 x=1.235 and -1.235.",
+      "pads": {"1": [-0.185,0], "2": [-0.185,0], "3": [0.010,0]}
+    }
+  },
   "parts": {
     "C14663": [["2",0.7,0],["1",-0.7,0]],
     "C14858": [["2",0.7,0],["1",-0.7,0]],

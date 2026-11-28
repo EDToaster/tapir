@@ -1,0 +1,32 @@
+{
+  "intent": "Rev A coupon signal flow and debug pinout specified by README.md, D13 and D16. Written as independent design assertions from circuit roles and manufacturer pin tables; not an export of design.py. Null means deliberately unconnected.",
+  "pin_sources": {
+    "A1": "https://nicekeyboards.com/docs/nice-nano/pinout-schematic/ (v2 top-view map, confirm actual clone)",
+    "U1-U6": "https://www.dowaytech.com/en/res/202408/21/dd53d68876041b0f.pdf (MDT pin assignment and package)",
+    "U7-U8": "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf (TI pin functions)",
+    "Q1-Q3": "https://www.aosmd.com/sites/default/files/res/datasheets/AO3401A.pdf (p. 1, pin order and diode)",
+    "J1": "https://jlcpcb.com/partdetail/JST-S2B_PH_SM4_TB_LF_SN/C295747 (JST connector; board convention positive on pin 1)",
+    "D1": "https://www.lcsc.com/datasheet/lcsc_datasheet_1810231112_Hubei-KENTO-Elec-KT-0603R_C2286.pdf (p. 2, polarity)",
+    "S1": "https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5 (p. 2, positions and common)"
+  },
+  "nets": {
+    "A1": {"3":"GND","4":"GND","5":"S0","6":"S1","7":"S2","8":"S3","9":"MUX_EN_N","10":"PWR_A_N","11":"PWR_B_N","18":"AIN_A","19":"AIN_B","20":"AIN_SPARE","21":"VCC","22":"RST","23":"GND","24":"BAT_SW"},
+    "U1": {"1":"VS_A","2":"OUT1","3":"GND"},
+    "U2": {"1":"VS_A","2":"OUT2","3":"GND"},
+    "U3": {"1":"VS_A","2":"OUT3","3":"GND"},
+    "U4": {"1":"VS_B","2":"OUT4","3":"GND"},
+    "U5": {"1":"VS_B","2":"OUT5","3":"GND"},
+    "U6": {"1":"VS_B","2":"OUT6","3":"GND"},
+    "U7": {"1":"MUXA","2":"MON_A","3":"GND","4":"OUT3","5":"GND","6":"OUT2","7":"GND","8":"OUT1","9":"GND","10":"S0","11":"S1","12":"GND","13":"S3","14":"S2","15":"MUX_EN_N","16":"GND","17":"GND","18":"GND","19":"GND","20":"GND","21":"GND","22":"GND","23":"GND","24":"VCC"},
+    "U8": {"1":"MUXB","2":"MON_B","3":"GND","4":"OUT6","5":"GND","6":"OUT5","7":"GND","8":"OUT4","9":"GND","10":"S0","11":"S1","12":"GND","13":"S3","14":"S2","15":"MUX_EN_N","16":"GND","17":"GND","18":"GND","19":"GND","20":"GND","21":"GND","22":"GND","23":"GND","24":"VCC"},
+    "Q1": {"1":"GATE_A","2":"VCC","3":"VSW_A"},
+    "Q2": {"1":"GATE_B","2":"VCC","3":"VSW_B"},
+    "Q3": {"1":"BAT_G","2":"BAT_F","3":"BAT_P"},
+    "J1": {"1":"BAT_P","2":"GND","MP":"GND"},
+    "D1": {"1":"GND","2":"BAT_REV"},
+    "S1": {"1":"BAT_SW","2":"BAT_F","3":null,"MP":"GND"},
+    "R14": {"1":"BAT_G","2":"GND"},
+    "R15": {"1":"BAT_P","2":"BAT_REV"},
+    "J3": {"1":"GND","2":"VCC","3":"VSW_A","4":"VS_A","5":"VSW_B","6":"VS_B","7":"S0","8":"AIN_SPARE","9":"MUXB","10":"MUXA"}
+  }
+}

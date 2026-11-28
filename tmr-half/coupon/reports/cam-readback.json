@@ -33,7 +33,7 @@
     },
     "B_Silkscreen.gbo": {
       "function": "Legend,Bot",
-      "objects": 1492
+      "objects": 1523
     },
     "F_Paste.gtp": {
       "function": "Paste,Top",
@@ -61,6 +61,25 @@
   "copper_lands": {
     "F_Cu": 36,
     "B_Cu": 195
+  },
+  "copper_to_outline_centreline_mm": {
+    "F_Cu": {
+      "pad": 3.11,
+      "via": 0.535,
+      "track": 2.5483,
+      "pour": 0.4
+    },
+    "B_Cu": {
+      "pad": 0.435,
+      "via": 0.535,
+      "track": 0.5273,
+      "pour": 0.4
+    }
+  },
+  "fiducial_centres_to_routed_edge_mm": {
+    "FID1": 4.0,
+    "FID2": 4.0,
+    "FID3": 4.0
   },
   "outline_mm_including_line_width": [
     92.05,

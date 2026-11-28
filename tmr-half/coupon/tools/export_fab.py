@@ -6,6 +6,7 @@ which check_cam.py uses to compare the plotted files against the KiCad board.
 """
 import csv
 import json
+import math
 import re
 import subprocess
 import sys
@@ -21,6 +22,12 @@ LAYERS = "F.Cu,B.Cu,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge
 # by check_cpl.py. A different package/library part must be checked even if its footprint name matches.
 ROTATION = {"C15127": 180, "C55130211": 180, "C98457": 270,
             "C295747": 0, "C221841": 0, "C2286": 180}
+# Vector from our origin to the assembler datum, in the assembler's unrotated
+# Y-up view. PCM12SMTR uses a peg-line origin here; the EasyEDA datum is
+# (3000 - 2998.4255) * 0.254 mm toward the terminals. All others use the
+# shared package datum, not the bounding box of the lands.
+DATUM_OFFSET = {"C221841": (0.0, (3000 - 2998.4255) * 0.254),
+                "C55130211": (0.0, 0.0)}
 
 
 def run(*args):
@@ -77,18 +84,14 @@ def make_placement(board):
         if ref not in fitted:
             continue
         assert fp.GetLayer() == k.B_Cu, f"{ref}: every assembled part is expected on the bottom"
-        box = None
-        for pad in fp.Pads():
-            if pad.GetAttribute() == k.PAD_ATTRIB_SMD:
-                b = pad.GetBoundingBox()
-                if box is None:
-                    box = b
-                else:
-                    box.Merge(b)
-        c = box.GetCenter()
+        c = fp.GetPosition()
         rot = (180 - fp.GetOrientationDegrees()) % 360                 # bottom side: mirror about the Y axis
-        rot = (rot + ROTATION.get(fitted[ref]["lcsc"], 0)) % 360
-        rows.append([ref, f"{k.ToMM(c.x):.4f}mm", f"{-k.ToMM(c.y):.4f}mm", "Bottom", f"{rot:g}"])
+        lcsc = fitted[ref]["lcsc"]
+        rot = (rot + ROTATION.get(lcsc, 0)) % 360
+        x, y = DATUM_OFFSET.get(lcsc, (0.0, 0.0))
+        cos, sin = math.cos(math.radians(rot)), math.sin(math.radians(rot))
+        dx, dy = cos*x - sin*y, sin*x + cos*y
+        rows.append([ref, f"{k.ToMM(c.x)-dx:.4f}mm", f"{-k.ToMM(c.y)+dy:.4f}mm", "Bottom", f"{rot:g}"])
     assert len(rows) == len(fitted), (len(rows), len(fitted))
     with (FAB / f"{NAME}-cpl-jlc.csv").open("w", newline="") as f:
         w = csv.writer(f, lineterminator="\n"); w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
@@ -99,6 +102,9 @@ def make_placement(board):
 def native(board):
     truth = {"PTH": [], "NPTH": [], "F_Cu": [], "B_Cu": [], "vias": [], "switches": {},
              "silk_text": {"F": [], "B": []}}
+    edge = board.GetBoardEdgesBoundingBox()
+    truth["outline_bounds_mm"] = [k.ToMM(edge.GetX()), -k.ToMM(edge.GetBottom()),
+                                  k.ToMM(edge.GetRight()), -k.ToMM(edge.GetY())]
     layer_ids = {k.F_SilkS: "F", k.B_SilkS: "B"}
 
     def text(item):
