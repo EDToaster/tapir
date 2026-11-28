@@ -8,7 +8,7 @@ This file tells the story. The authoritative records stay where they were:
 - [analog-readout.md](analog-readout.md): the readout reasoning and arithmetic
 - [coupon/README.md](coupon/README.md): the coupon's circuit, layout, ordering steps and test plan
 
-State when this was written (2026-11-27): the coupon is designed and has been through one independent review and one round of fixes (commit `627ae98`). A second review of the fixes was still running. Nothing has been ordered, built or measured, so every electrical and magnetic number here is a **drawing** value or an estimate unless it says otherwise.
+State as of 2026-11-27: the coupon has been through three independent review passes and two rounds of fixes. The third pass (at commit `764da23`) found no file defect and ended "ready with conditions"; every remaining condition is the owner's to settle (see the coupon README's [Before you pay](coupon/README.md#before-you-pay) list). Nothing has been ordered, built or measured, so every electrical and magnetic number here is a **drawing** value or an estimate unless it says otherwise.
 
 ## Decisions at a glance
 
@@ -29,6 +29,9 @@ State when this was written (2026-11-27): the coupon is designed and has been th
 | Battery input | Series P-FET, reversed-polarity LED, 300 mA slide switch (D13, D15) | Proposed | Found in review, see [Battery path](#battery-path) |
 | Rail control pins | P0 pins on the full board (D14) | Proposed | P1.04 is a low-frequency-only pin |
 | Mux channel order | Grounded inputs between live keys on the coupon (D16) | Proposed | Lets the route keep analog and address lines apart |
+| Route | Keep the reviewed two-layer route and show its ground-reference gaps (D17) | Proposed | Seven of ten analog nets stay below the 80 % opposite-layer ground goal; accepted for a coupon |
+| Warning LED | Accept continuous 4.2 V reverse bias on D1, no series diode (D18) | Proposed | 0.8 V inside its 5 V rating; verified by a bench self-test instead |
+| Address pulls | S0–S3 pull-downs on the 28-key board, not the coupon (D19) | Proposed | Lines float in reset and sleep on rev A |
 
 ## Sensor and magnetics
 
@@ -85,7 +88,9 @@ Three problems were found in a circuit that looked too simple to get wrong: conn
 
 - **Switch rating.** The MSK12C02 is rated 50 mA and the module charges at about 100 mA (300 to 500 mA with the boost jumper). It was replaced with the C&K PCM12SMTR, rated 300 mA at 6 V DC. Leave the boost jumper open.
 - **Reversed pack.** JST-PH packs are sold in both polarities. A series AO3401A (drain to the connector, gate to ground through 100 kΩ) now blocks a reversed pack on battery alone, and the off position of the switch isolates the module.
-- **The case the FET does not cover.** With USB connected and the switch on, the module's charger raises B+, which can turn the FET on against a reversed pack. No safe current can be claimed for that. An LED on the raw battery node lights only when the pack is reversed, with the switch off, before anything reaches the module. The first-connection procedure is: switch off, plug in, LED dark, confirm with a meter, switch on.
+- **The case the FET does not cover.** With USB connected and the switch on, the module's charger raises B+, which can turn the FET on against a reversed pack. No safe current can be claimed for that. An LED on the raw battery node lights only when the pack is reversed, with the switch off, before anything reaches the module. The first-connection procedure is: USB unplugged, switch off, plug in, LED dark, confirm with a meter, switch on.
+- **An indicator nobody has seen light.** The second review pointed out that nothing proved the LED worked before the owner relied on it, and that its "REV" label sat beside "REV A". It is now labelled `POLARITY`, and the README has a self-test: no pack, USB unplugged, switch off, a floating bench supply at 3.0 V limited to 3 mA connected backwards across J1. A dark LED still does not prove correct polarity, so the meter check stays.
+- **The LED's own rating.** A correct pack holds D1 at up to 4.2 V reverse bias for the life of the board, 0.8 V below its 5 V maximum. A series diode was considered and left out of the coupon (D18).
 
 Carry over: keep all three on the full board, and consider a protection scheme that also covers the USB-present case if the board will be used on battery often.
 
@@ -101,14 +106,15 @@ How it was fixed:
 - Redundant ground tracks were trimmed and a pad-free sliver of pour was removed. Every remaining pour region has at least two vias.
 - A new gate, `check_analog.py`, measures all of this on the routed board and fails the build on regression.
 
-Result: no analog net runs beside a control net on the same layer inside 0.5 mm, and the worst opposite-layer overlap is 2.9 mm. The 80 % opposite-layer ground target was met on three of ten analog nets. MUXA ended lower than before (47 % against 55 %). That trade was accepted because these are kHz-rate signals and the address-line coupling was the part that would have corrupted the settling test; the gate holds each net at its achieved figure and keeps the 80 % goal visible.
+Result: no analog net runs beside a control net on the same layer inside 0.5 mm, and the worst opposite-layer overlap with an address or enable line is 2.9 mm. Once the gate was widened to rails, reset and vias (see below), two longer parallel runs on opposite layers showed up: MUXB beside RST for about 12 mm and OUT3 beside VCC for about 5 mm. Reset and VCC do not change during sampling, so the reviewer judged them acceptable for a coupon; they are estimates until T2–T4 run. The 80 % opposite-layer ground target was met on three of ten analog nets. MUXA ended lower than before (47 % against 55 %). That trade was accepted because these are kHz-rate signals and the address-line coupling was the part that would have corrupted the settling test; the gate now holds each net about three points below its achieved figure as a regression lock and keeps the 80 % goal visible.
 
 Smaller layout lessons:
 
 - Rules set exactly at the achieved value leave no margin. Copper to unplated holes went from 0.25 to 0.30 mm.
 - A 0.12 mm pour neck was tried to gain coverage and rejected. Fill minimum width stays at 0.20 mm.
 - FreeRouting narrows tracks at small pads; restore class widths after import. Some cost settings make it stall with nets unrouted, so keep the candidate that is DRC-clean and improve from there.
-- Three bottom-side fiducials were added. Silkscreen strokes are at least 0.15 mm wide and 0.3 mm from the edge.
+- Three bottom-side fiducials were added, then moved to 4.00 mm from the edge after the second review cited JLCPCB's 3.85 mm guidance. Silkscreen strokes are at least 0.15 mm wide and 0.3 mm from the edge.
+- Ground pour to board edge sat exactly on the 0.30 mm rule; it is now 0.40 mm, because JLCPCB asks for "more than 0.3 mm" on assembled boards. Signal copper was frozen for this change and compared track by track afterwards.
 
 Carry over:
 
@@ -118,9 +124,13 @@ Carry over:
 
 ## Fabrication and assembly files
 
-**Placement rotations were wrong for nine of twelve polarised parts.** The corrections came from a community table keyed by footprint name. The reviewer downloaded JLCPCB's library footprint for each LCSC part number and fitted its pads onto the board's pads. Both rail FETs, all six sensors and the battery connector were a quarter or half turn off. Rotations are now keyed by LCSC number, and `check_cpl.py` repeats the pad fit on every build (42 placements, worst error 0.22 mm). Reapplying the old table makes the gate fail, which shows it can.
+**Placement rotations were wrong for nine of twelve polarised parts.** The corrections came from a community table keyed by footprint name. The reviewer downloaded JLCPCB's library footprint for each LCSC part number and fitted its pads onto the board's pads. Both rail FETs, all six sensors and the battery connector were a quarter or half turn off. Rotations are now keyed by LCSC number, and `check_cpl.py` repeats the pad fit on every build. Reapplying the old table makes the gate fail.
 
-Carry over: every new part number gets its library pads added to the fixture. JLCPCB's placement preview is still the final check before paying.
+**Then the positions were wrong too.** The first rotation gate allowed 0.35 mm of pad error, set just above the worst value the board had. The second review showed that most of that error was real: the exporter wrote the centre of each footprint's pad bounding box as the part position. Lengthening the sensors' outer pads for hand soldering had moved that centre 0.175 mm off the package, and the slide switch was 0.17 mm off the assembler's origin with about 0.05 mm of clearance on its locating pegs. The third review found that JLCPCB's library origin is the centre of the bounding box of the pad centres for every part used, so the fix was to export the footprint origin plus a per-part offset to that library origin (0.40 mm toward the terminals for the switch, from its peg line). The gate now checks three things separately: package datum and peg-to-hole fit to 0.025 mm (both now under 0.001 mm), and pad fit with per-pad allowances computed from the two land patterns. The sensors' shortened inner pads and the SOT-23 pad length difference are written into the fixture with their sources, so the residual tolerance is 0.10 mm. The third review re-fetched all 16 library footprints, could not break it, and noted one residual: pads moved within a footprint relative to its own origin pass up to about 0.09 mm.
+
+The lesson: a tolerance chosen to make today's board pass will hide today's board's defect. Compare datums and pegs tightly, and explain every pad difference rather than absorbing it.
+
+Carry over: every new part number gets its library pads, origin and any peg positions added to the fixture. JLCPCB's placement preview and the production file are still the final check before paying, since the assembler's datum is derived, not published.
 
 ## Silkscreen pattern
 
@@ -128,16 +138,19 @@ The quadtree Truchet pattern is drawn as strokes. Trimming the strokes along the
 
 ## Checks that could not fail
 
-The first design passed every gate and still had a blocker. The review explained why, and each gate was strengthened:
+The first design passed every gate and still had a blocker. The review explained why, and the gates were rebuilt in two rounds. Each later review then attacked the new gates by injecting faults:
 
 | Gate | Weakness | Now |
 | --- | --- | --- |
 | ERC | Every pin was typed passive, so nothing could conflict | Real pin types and power flags; removing the flags produces four errors |
-| Schematic check | Compared the schematic with the manifest that generated it | Also compares the manifest with a separate datasheet pin table (81 pins, with sources) |
+| Schematic check | Compared the schematic with the manifest that generated it | Round 1 added a datasheet pin table, but it compared pin names only, so a swapped FET source and drain or a reversed LED still passed. Round 2 added a hand-written list of which net each critical pin must reach. The third review found swaps on passives (gate resistors, shunts, values) still silent, and the list was extended to cover them |
 | CAM read-back | Compared Gerbers with data exported from the same board | Independent parser plus absolute checks on the artwork |
 | Silk check | Only looked at the decorative pattern | Reads every plotted stroke, the edge distance and the switch seats |
-| Rotations | "Cannot be proven offline" | Pad-fit gate against the assembler's library |
-| DRC | No rule for ground quality | `check_analog.py` and `check_mechanical.py` (courtyards, hole clearance, battery track width) |
+| Placement | "Cannot be proven offline" | Datum, peg and pad-fit gate against the assembler's library (see above) |
+| Analog coupling | Only address-line tracks were aggressors; floors equalled achieved values | All switching nets, rails, reset and vias are aggressors; floors sit about three points below achieved as a labelled regression lock |
+| Outline | Silk and CAM checks used a hard-coded board rectangle | Read the outline from the Edge.Cuts Gerber |
+| Fiducials | Edge distance recorded but not enforced | Enforced at 3.85 mm or more |
+| DRC | No rule for ground quality | `check_analog.py` and `check_mechanical.py` (courtyards, hole clearance, battery track width). DRC alone still passes with most ground vias deleted |
 
 The general lesson is to ask of every gate what fault it would catch, then inject that fault once and watch it fail.
 
@@ -147,8 +160,11 @@ The build is deterministic: fixed UUIDs, no timestamps in the Gerbers, and flat 
 
 - Review guidance was collected first: [azonenberg's sign-off checklists](https://github.com/azonenberg/pcb-checklist), [jvanderberg's board review skill](https://github.com/jvanderberg/kicad-skills), [roccoagain's schematic and layout review skills](https://github.com/roccoagain/kicad-agent-skills), [kicad-happy](https://github.com/aklofas/kicad-happy), [Jitter's checklist](https://jitter.nl/en/pcb-checklist/) and [Memfault's firmware-side checklist](https://interrupt.memfault.com/blog/schematic-review-checklist).
 - A reviewer who had not designed the board worked read-only in its own clone, re-derived every pin map from the datasheets, measured the routed board with its own scripts and tagged each claim as measured, from a datasheet, or unverified.
-- It found 1 blocker, 6 majors and 16 minors, and no wiring, pin-map or footprint error.
+- Pass 1 found 1 blocker, 6 majors and 16 minors, and no wiring, pin-map or footprint error.
 - A different engineer made the fixes, with each one needing a before and after number or a gate. The same reviewer then re-reviewed.
+- Pass 2 closed the blocker and found one new major (the placement centres above), 11 new minors and six gate weaknesses, ending "not ready, narrowly".
+- For round 2, signal routing was frozen so that the twice-reviewed route could not regress; only pour, fiducials, silkscreen, the placement file, gates and documents changed. The reviewer confirmed afterwards that every track and via was identical.
+- Pass 3 found no file defect: "ready with conditions", with the sensor supply as the only remaining major.
 
 What made it useful: the reviewer was told where the designer felt least sure, was asked to treat passing gates as claims, and had to list what it did not check.
 
@@ -156,9 +172,9 @@ What made it useful: the reviewer was told where the designer felt least sure, w
 
 1. Run the coupon tests first. T1 fixes thickness and sensor variant, T2 noise and averaging, T3 settling delay, T6 the pulsing policy, T7 the normalisation method.
 2. Check the actual clone module: B+ pad, 3.3 V pin voltage and current, P0.13 behaviour, antenna position.
-3. Reuse the generator chain and all gates. Add the new parts to the datasheet pin table and the placement-pad fixture.
+3. Reuse the generator chain and all gates. Add the new parts to the datasheet pin table, the critical-connection list and the placement fixture (pads, library origin, pegs).
 4. Route with the analog net class, pre-seeded stitching and `check_analog.py` from the start. Decide two or four layers early.
-5. Keep the reverse-polarity FET, the indicator LED and a switch rated above the charge current.
+5. Keep the reverse-polarity FET, the indicator LED and a switch rated above the charge current. Add S0–S3 pull-downs (D19) and drive unused analog pins low.
 6. Put rail control on P0 pins, keep a rail monitor and a grounded channel on each mux, and keep the firmware rule for powering down.
 7. Design the plate and case with the board, and keep steel away from the magnets.
 8. Order sensors into the parts library before the boards.
